@@ -8,20 +8,20 @@ import javax.swing.JPanel;
 
 public class Panel extends JPanel implements MouseListener{
 	
-	private Polygon hexagon;
 	
 	public Panel() {
 		addMouseListener(this);
-		hexagon = new Polygon();
-		for (int i = 0; i < 6; i++){
-			hexagon.addPoint((int) (50 + 5 * Math.cos(i * 2 * Math.PI / 6)),
-					  (int) (50 + 5 * Math.sin(i * 2 * Math.PI / 6)));
-		}
-
 	}
+	
+	
 	public void paint(Graphics g) {
 		g.setColor(Color.black);
-		g.drawPolygon(hexagon);
+		Node n = new Node(200, 200);
+		
+		//g.drawLine(200, 200, 
+		//		200 - (200 - (hexagon.xpoints[0] + hexagon.xpoints[1])/2)*2, 
+		//		200 - (200 - (hexagon.ypoints[0] + hexagon.ypoints[1])/2)*2);
+		
 	}
 	
 	

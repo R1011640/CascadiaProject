@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Player {
 	
@@ -11,12 +12,15 @@ public class Player {
 		
 	}
 	public ArrayList<Node> getNodes(){
+		return nodes;
 		
 	}
 	public Node findAnimal(char a) {
+		return null;
 		
 	}
 	public Node findTerrain(char t) {
+		return null;
 		
 	}
 }

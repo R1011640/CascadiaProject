@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Game {
 
@@ -12,13 +13,15 @@ public class Game {
 		
 	}
 	public Node[] getNodes() {
+		return null;
 		
 	}
 	public int [][] scoring(){
+		return null;
 		
 	}
 	public Player currentPlayer() {
-		return currentPlayer;
+		return players[currentPlayer];
 	}
 	public void endTurn() {
 		currentPlayer++;

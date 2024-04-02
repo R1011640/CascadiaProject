@@ -10,7 +10,7 @@ public class Node {
 	public char animal;
 	private Node[] nearbyNodes;
 	
-	public Node(int x, int y, BufferedImage img) {
+	public Node(int x, int y, BufferedImage img, Node[] nearNodes) {
 		//hexagon = new Polygon();
 		//for (int i = 0; i < 6; i++){
 		//	hexagon.addPoint((int) (x + 50 * Math.cos((i * 2 * Math.PI / 6) + Math.PI/2)),

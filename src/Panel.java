@@ -20,16 +20,22 @@ public class Panel extends JPanel implements MouseListener{
 	
 	public void paint(Graphics g) {
 		g.setColor(Color.black);
-		BufferedImage test;
+		BufferedImage test = null;
 		try {
-			test = ImageIO.read(Panel.class.getResource("/assets/available.png"));
+			test = ImageIO.read(Panel.class.getResource("/assets/ffffff-b.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Error");
 		}
-		
-		//g.drawImage(test, 50, 50, 50, 50, null);
-		
+		int center = 75, size = 50;
+		g.drawImage(test, center - size/2, center - size/2, size, size, null);
+		g.drawImage(test, (center - size/2) + size, center - size/2, size, size, null);
+		g.drawImage(test, 75, 89, 50, 50, null);
+
+
+		//g.drawImage(test, (int)(75 + (1*Math.cos((Math.PI * 5)/3))), 
+		//		    (int)(75 + (1*Math.sin((Math.PI * 5)/3))), 50, 50, null);
+
 		/*Node n = new Node(200, 200);
 		g.drawPolygon(n.hexagon);
 		g.drawLine(200, 200, 

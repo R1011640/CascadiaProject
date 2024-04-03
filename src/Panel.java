@@ -27,10 +27,30 @@ public class Panel extends JPanel implements MouseListener{
 			// TODO Auto-generated catch block
 			System.out.println("Error");
 		}
-		int center = 75, size = 50;
-		g.drawImage(test, center - size/2, center - size/2, size, size, null);
-		g.drawImage(test, (center - size/2) + size, center - size/2, size, size, null);
-		g.drawImage(test, 75, 89, 50, 50, null);
+		int center = 200, size = 50;
+		g.drawImage(test, center - size/2, center - size/2, size, size, null);// original
+		
+		g.drawImage(test, (center - size/2) + (int)(size * Math.cos(5*Math.PI/3)),
+							center - size/2 + (int)(size * Math.sin(5*Math.PI/3)), 
+							size, size, null); // 1
+		g.drawImage(test, (center - size/2) + (int)(size * Math.cos(0)),
+							center - size/2 + (int)(size * Math.sin(0)),
+							size, size, null); // 2
+		
+		g.drawImage(test, 225 + (int)(size * Math.cos(Math.PI/3)),
+				175 + (int)(size * Math.sin((Math.PI/3))),
+				size, size, null);
+		
+		g.drawImage(test, 225 + (int)(size * Math.cos(2*Math.PI/3)),
+				175 + (int)(size * Math.sin((2*Math.PI/3))),
+				size, size, null);
+		
+		
+		g.drawImage(test, (center - size/2) + (int)(size * Math.cos(Math.PI/3)),
+							center - size/2 + (int)(size * Math.sin(Math.PI/3)), 
+							size, size, null); // 3
+		
+		// 4 is 2pi/3, 5 is 3pi/3 or pi, and 6 is 4pi/3
 
 
 		//g.drawImage(test, (int)(75 + (1*Math.cos((Math.PI * 5)/3))), 

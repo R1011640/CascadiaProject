@@ -3,14 +3,12 @@ import java.awt.image.BufferedImage;
 
 public class Node {
 	//public Polygon hexagon;
-	private BufferedImage img;
 	private int x, y, rotation;
-	private String availableAnimals;
-	private String edges;
+	private String availableAnimals, edges, imageName;
 	public char animal;
 	private Node[] nearbyNodes;
 	
-	public Node(int x, int y, BufferedImage img, Node[] nearNodes) {
+	public Node(int x, int y, String imageName, Node[] nearbyNodes) {
 		//hexagon = new Polygon();
 		//for (int i = 0; i < 6; i++){
 		//	hexagon.addPoint((int) (x + 50 * Math.cos((i * 2 * Math.PI / 6) + Math.PI/2)),
@@ -19,12 +17,14 @@ public class Node {
 		
 		this.x = x;
 		this.y = y;
-		this.img = img;
+		this.imageName = imageName;
 		rotation = 0;
+		this.nearbyNodes = nearbyNodes;
 	}
 	
-	public boolean isClicked() {
-		return false;
+	public boolean isClicked(int x, int y) {
+		// used for clicking available tiles
+		return (this.x-50 < x && x < this.x+50 && this.y-50 < y && y < this.y+50);
 	}
 	
 	public void rotate(){

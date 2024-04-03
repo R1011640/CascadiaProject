@@ -4,6 +4,9 @@ import java.awt.Polygon;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import javax.swing.JPanel;
 
@@ -17,6 +20,16 @@ public class Panel extends JPanel implements MouseListener{
 	
 	public void paint(Graphics g) {
 		g.setColor(Color.black);
+		BufferedImage test;
+		try {
+			test = ImageIO.read(Panel.class.getResource("/assets/available.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error");
+		}
+		
+		//g.drawImage(test, 50, 50, 50, 50, null);
+		
 		/*Node n = new Node(200, 200);
 		g.drawPolygon(n.hexagon);
 		g.drawLine(200, 200, 

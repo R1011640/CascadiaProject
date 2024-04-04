@@ -9,15 +9,30 @@ public class Game {
 	private ArrayList<Character> animals;
 	private String scoringCards;
 	
-	public Game() {
-		
+	//The constructor that sets up everything for the GameBoard
+	public Game() { 
+		this.currentPlayer = currentPlayer;
+		this.scoringCards = scoringCards;
 	}
-	public Node[] getNodes() {
-		return null;
+	//This method will return a fixed array of all the first four front nodes in the allNodes arrayList.
+	//this will most likely need a while loop
+	public ArrayList<Node> getNodes() {
+		ArrayList<Node> theFirstFour = new ArrayList<Node>();
+		int pos = 0;
+		int limit = 4;
+		boolean isFour = false;
+		while(pos<allNodes.size()) {
+			theFirstFour.add(allNodes.get(pos));
+			pos++;
+		}
+		if(pos == limit) {
+			isFour = true;
+		}
+		return theFirstFour;
 		
 	}
 	public int [][] scoring(){
-		return null;
+		return null; 
 		
 	}
 	public Player currentPlayer() {
@@ -31,3 +46,4 @@ public class Game {
 	}
 
 }
+

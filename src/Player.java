@@ -8,7 +8,7 @@ public class Player {
 	public Player(Node[] startingNodes) {
 		
 	}
-	public void addNode(int n) {
+	public void addNode(Node n) {
 		
 	}
 	public ArrayList<Node> getNodes(){

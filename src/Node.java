@@ -21,7 +21,7 @@ public class Node {
 	public boolean isClicked(int x, int y) {
 		// used for clicking available tiles
 		
-		return (this.x-size < x && x < this.x+size && this.y-size < y && y < this.y+size);
+		return (this.x-(size/2) < x && x < this.x+(size/2) && this.y-(size/2) < y && y < this.y+(size/2));
 	}
 	
 	public void rotate(){

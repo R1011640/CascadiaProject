@@ -45,10 +45,11 @@ public class Panel extends JPanel implements MouseListener{
 					Node a = new Node(n.getX() + (int)Math.floor(50 * Math.cos((i-1)*Math.PI/3)), 
 							          n.getY() + (int)Math.floor(50 * Math.sin((i-1)*Math.PI/3)), 
 									  av, 10);
+
+					// set nearbyNodes in Player class when node placed in addNode() function, also set nearbyNodes for nearby nodes
 					avs.add(a);
 					g.drawImage(a.getImg(), a.getX()-(a.getSize()/2), a.getY()-(a.getSize()/2),
 						    a.getSize(), a.getSize(), null);
-					// assign nearby nodes to a variable here
 				}
 			}
 		}
@@ -71,7 +72,9 @@ public class Panel extends JPanel implements MouseListener{
 	}
 	public void mouseClicked(MouseEvent e) {
 		for(Node a: avs) {
-			if(a.isClicked(e.getX(), e.getY())) System.out.println("clicked");
+			if(a.isClicked(e.getX(), e.getY())) {
+				System.out.println("clicked");
+			}
 		}
 	}
 	

@@ -3,12 +3,13 @@ import java.awt.image.BufferedImage;
 
 public class Node {
 	//public Polygon hexagon;
-	private int x, y, rotation;
-	private String availableAnimals, edges, imageName;
+	private int x, y, rotation, size;
+	private String availableAnimals, edges;
+	private BufferedImage img;
 	public char animal;
 	private Node[] nearbyNodes;
 	
-	public Node(int x, int y, String imageName, Node[] nearbyNodes) {
+	public Node(int x, int y, BufferedImage imageName, int size) {
 		//hexagon = new Polygon();
 		//for (int i = 0; i < 6; i++){
 		//	hexagon.addPoint((int) (x + 50 * Math.cos((i * 2 * Math.PI / 6) + Math.PI/2)),
@@ -17,14 +18,16 @@ public class Node {
 		
 		this.x = x;
 		this.y = y;
-		this.imageName = imageName;
+		this.img = imageName;
 		rotation = 0;
-		this.nearbyNodes = nearbyNodes;
+		nearbyNodes = new Node[6];
+		this.size = size;
 	}
 	
 	public boolean isClicked(int x, int y) {
 		// used for clicking available tiles
-		return (this.x-50 < x && x < this.x+50 && this.y-50 < y && y < this.y+50);
+		
+		return (this.x-size < x && x < this.x+size && this.y-size < y && y < this.y+size);
 	}
 	
 	public void rotate(){
@@ -46,6 +49,9 @@ public class Node {
 	public Node getNearbyNode(int dir) {
 		return nearbyNodes[dir-1]; 
 	}
+	public void setNearbyNode(int dir, Node n) {
+		nearbyNodes[dir-1] = n;
+	}
 	public char getAnimal() {
 		return animal;
 	}
@@ -55,4 +61,11 @@ public class Node {
 	public void setRot(int r) {
 		rotation = r;
 	}
+	public BufferedImage getImg() {
+		return img;
+	}
+	
+	public int getX() {return x;}
+	public int getY() {return y;}
+	public int getSize() {return size;}
 }

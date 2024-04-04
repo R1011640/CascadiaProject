@@ -10,12 +10,6 @@ public class Node {
 	private Node[] nearbyNodes;
 	
 	public Node(int x, int y, BufferedImage imageName, int size) {
-		//hexagon = new Polygon();
-		//for (int i = 0; i < 6; i++){
-		//	hexagon.addPoint((int) (x + 50 * Math.cos((i * 2 * Math.PI / 6) + Math.PI/2)),
-		//			  (int) (y + 50 * Math.sin((i * 2 * Math.PI / 6) + Math.PI/2)));
-		//}
-		
 		this.x = x;
 		this.y = y;
 		this.img = imageName;

@@ -32,10 +32,8 @@ public class Panel extends JPanel implements MouseListener{
 			System.out.println("Error");
 		}
 		
-		
-		
 		Player p = new Player();   // size for all nodes is 50
-		p.addNode(new Node(200, 200, test, 50));
+		p.addNode(new Node(200, 200, "ffffff-b.png", 50));
 		
 		for(Node n: p.getNodes()) {
 			g.drawImage(n.getImg(), n.getX()-(n.getSize()/2), n.getY()-(n.getSize()/2),
@@ -44,7 +42,7 @@ public class Panel extends JPanel implements MouseListener{
 				if(n.getNearbyNode(i) == null) {
 					Node a = new Node(n.getX() + (int)Math.floor(50 * Math.cos((i-1)*Math.PI/3)), 
 							          n.getY() + (int)Math.floor(50 * Math.sin((i-1)*Math.PI/3)), 
-									  av, 10);
+									  "available.png", 10);
 
 					// set nearbyNodes in Player class when node placed in addNode() function, also set nearbyNodes for nearby nodes
 					avs.add(a);

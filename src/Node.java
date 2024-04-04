@@ -1,5 +1,8 @@
 import java.awt.Polygon;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class Node {
 	//public Polygon hexagon;
@@ -9,10 +12,14 @@ public class Node {
 	public char animal;
 	private Node[] nearbyNodes;
 	
-	public Node(int x, int y, BufferedImage imageName, int size) {
+	public Node(int x, int y, String imageName, int size) {
 		this.x = x;
 		this.y = y;
-		this.img = imageName;
+		try {
+			img = ImageIO.read(Panel.class.getResource("/assets/" + imageName));
+		} catch (IOException e) {
+			System.out.println("Error");
+		}
 		rotation = 0;
 		nearbyNodes = new Node[6];
 		this.size = size;

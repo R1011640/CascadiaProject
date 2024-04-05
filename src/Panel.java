@@ -23,14 +23,7 @@ public class Panel extends JPanel implements MouseListener{
 	
 	public void paint(Graphics g) {
 		g.setColor(Color.black);
-		BufferedImage test = null, av = null;
 		
-		try {
-			test = ImageIO.read(Panel.class.getResource("/assets/ffffff-b.png"));
-			av = ImageIO.read(Panel.class.getResource("/assets/available.png"));
-		} catch (IOException e) {
-			System.out.println("Error");
-		}
 		
 		Player p = new Player();   // size for all nodes is 50
 		p.addNode(new Node(200, 200, "ffffff-b.png", 50));
@@ -39,17 +32,20 @@ public class Panel extends JPanel implements MouseListener{
 			g.drawImage(n.getImg(), n.getX()-(n.getSize()/2), n.getY()-(n.getSize()/2),
 					    n.getSize(), n.getSize(), null);
 			for(int i=1; i<7; i++) {
-				if(n.getNearbyNode(i) == null) {
-					Node a = new Node(n.getX() + (int)Math.floor(50 * Math.cos((i-1)*Math.PI/3)), 
-							          n.getY() + (int)Math.floor(50 * Math.sin((i-1)*Math.PI/3)), 
+				Node a = new Node(n.getX() + (int)(Math.round(Math.floor(50 * (Math.cos((i-1)*Math.PI/3))) / 5.0) * 5), 
+							          n.getY() + (int)Math.floor(50 * (Math.sin((i-1)*Math.PI/3))), 
 									  "available.png", 10);
-
+				if(n.getNearbyNode(i) == null) {
 					// set nearbyNodes in Player class when node placed in addNode() function, also set nearbyNodes for nearby nodes
 					avs.add(a);
 					g.drawImage(a.getImg(), a.getX()-(a.getSize()/2), a.getY()-(a.getSize()/2),
 						    a.getSize(), a.getSize(), null);
 				}
 			}
+		}
+		System.out.println(avs.toString());
+		for(Node b: avs) {
+			p.addNode(b);
 		}
 		
 		
@@ -71,7 +67,9 @@ public class Panel extends JPanel implements MouseListener{
 	public void mouseClicked(MouseEvent e) {
 		for(Node a: avs) {
 			if(a.isClicked(e.getX(), e.getY())) {
-				System.out.println("clicked");
+				for(int i=0; i<5; i++) {
+					if(a.getNearbyNodes()[i] != null) System.out.println(a.getNearbyNodes()[i] + " " + (i+1));
+				}
 			}
 		}
 	}

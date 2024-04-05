@@ -65,7 +65,12 @@ public class Node {
 	public BufferedImage getImg() {
 		return img;
 	}
-	
+	public Node[] getNearbyNodes() {
+		return nearbyNodes;
+	}
+	public String toString() {
+		return "("+x + "," + y + ")";
+	}
 	public int getX() {return x;}
 	public int getY() {return y;}
 	public int getSize() {return size;}

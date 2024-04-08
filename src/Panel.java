@@ -14,8 +14,10 @@ import javax.swing.JPanel;
 public class Panel extends JPanel implements MouseListener{
 	
 	ArrayList<Node> avs;
-	
+	Player p;
 	public Panel() {
+		p = new Player();
+		p.addNode(new Node(200, 200, "ffffff-b.png", 50));
 		avs = new ArrayList<Node>();
 		addMouseListener(this);
 	}
@@ -23,31 +25,25 @@ public class Panel extends JPanel implements MouseListener{
 	
 	public void paint(Graphics g) {
 		g.setColor(Color.black);
-		
-		
-		Player p = new Player();   // size for all nodes is 50
-		p.addNode(new Node(200, 200, "ffffff-b.png", 50));
+		int[] xcords = {50, 25, -25, -50, -25, 25};
+		int[] ycords = {0, 43, 43, 0, -43, -43};
 		
 		for(Node n: p.getNodes()) {
 			g.drawImage(n.getImg(), n.getX()-(n.getSize()/2), n.getY()-(n.getSize()/2),
 					    n.getSize(), n.getSize(), null);
 			for(int i=1; i<7; i++) {
-				Node a = new Node(n.getX() + (int)(Math.round(Math.floor(50 * (Math.cos((i-1)*Math.PI/3))) / 5.0) * 5), 
-							          n.getY() + (int)Math.floor(50 * (Math.sin((i-1)*Math.PI/3))), 
-									  "available.png", 10);
-				if(n.getNearbyNode(i) == null) {
+				// badly optimized. fix later if possible
+				Node a = new Node(n.getX() + xcords[i-1], n.getY() + ycords[i-1], "available.png", 15);
+				if(n.getNearbyNode(i) == null && !avs.toString().contains(a.toString())) {
 					// set nearbyNodes in Player class when node placed in addNode() function, also set nearbyNodes for nearby nodes
 					avs.add(a);
-					g.drawImage(a.getImg(), a.getX()-(a.getSize()/2), a.getY()-(a.getSize()/2),
-						    a.getSize(), a.getSize(), null);
+					g.drawImage(a.getImg(), a.getX()-(a.getSize()/2), a.getY()-(a.getSize()/2), a.getSize(), a.getSize(), null);
 				}
 			}
 		}
-		System.out.println(avs.toString());
-		for(Node b: avs) {
-			p.addNode(b);
-		}
-		
+		//for(Node b: avs) {
+		//	p.addNode(b);
+		//}
 		
 		/*
 		g.drawImage(test, (center - size/2) + (int)Math.floor(size * Math.cos(Math.PI/3)),
@@ -64,14 +60,17 @@ public class Panel extends JPanel implements MouseListener{
 		super.addNotify();
 		requestFocus();
 	}
+	
 	public void mouseClicked(MouseEvent e) {
 		for(Node a: avs) {
+			
 			if(a.isClicked(e.getX(), e.getY())) {
-				for(int i=0; i<5; i++) {
-					if(a.getNearbyNodes()[i] != null) System.out.println(a.getNearbyNodes()[i] + " " + (i+1));
-				}
+				p.addNode(new Node(a.getX(), a.getY(), "ffffff-b.png", 50));
 			}
+			
 		}
+		avs.clear();
+		repaint();
 	}
 	
 	

@@ -15,18 +15,18 @@ public class Player {
 				n.setNearbyNode(1, node);
 				node.setNearbyNode(4, n);
 			} else if (node.getX() == n.getX()+25) {
-				if(node.getY() == n.getY()+43) {
+				if(node.getY() == n.getY()+40) {
 					n.setNearbyNode(2, node);
 					node.setNearbyNode(5, n);
-				} else if (node.getY() == n.getY()-43){
+				} else if (node.getY() == n.getY()-40){
 					n.setNearbyNode(6, node);
 					node.setNearbyNode(3, n);
 				}
 			} else if (node.getX() == n.getX()-25) {
-				if(node.getY() == n.getY()+43) {
+				if(node.getY() == n.getY()+40) {
 					n.setNearbyNode(3, node);
 					node.setNearbyNode(6, n);
-				} else if (node.getY() == n.getY()-43){
+				} else if (node.getY() == n.getY()-40){
 					n.setNearbyNode(5, node);
 					node.setNearbyNode(2, n);
 				}

@@ -26,32 +26,24 @@ public class Panel extends JPanel implements MouseListener{
 	public void paint(Graphics g) {
 		g.setColor(Color.black);
 		int[] xcords = {50, 25, -25, -50, -25, 25};
-		int[] ycords = {0, 43, 43, 0, -43, -43};
+		int[] ycords = {0, 40, 40, 0, -40, -40};
+		
+		ArrayList<Node> first4nodes;
+		String first4animals;
 		
 		for(Node n: p.getNodes()) {
-			g.drawImage(n.getImg(), n.getX()-(n.getSize()/2), n.getY()-(n.getSize()/2),
-					    n.getSize(), n.getSize(), null);
+			g.drawImage(n.getImg(), n.getX()-(n.getSize()/2), n.getY()-(n.getSize()/2), n.getSize(), n.getSize(), null);
+			
 			for(int i=1; i<7; i++) {
 				// badly optimized. fix later if possible
 				Node a = new Node(n.getX() + xcords[i-1], n.getY() + ycords[i-1], "available.png", 15);
 				if(n.getNearbyNode(i) == null && !avs.toString().contains(a.toString())) {
-					// set nearbyNodes in Player class when node placed in addNode() function, also set nearbyNodes for nearby nodes
 					avs.add(a);
 					g.drawImage(a.getImg(), a.getX()-(a.getSize()/2), a.getY()-(a.getSize()/2), a.getSize(), a.getSize(), null);
 				}
 			}
+			
 		}
-		//for(Node b: avs) {
-		//	p.addNode(b);
-		//}
-		
-		/*
-		g.drawImage(test, (center - size/2) + (int)Math.floor(size * Math.cos(Math.PI/3)),
-							center - size/2 + (int)Math.floor(size * Math.sin(Math.PI/3)), 
-							size, size, null); // 2*/
-		
-		// 1 is 0, 2 is pi/3, 3 is 2pi/3, 4 is 3pi/3, 5 is 4pi/3 or pi, and 6 is 5pi/3
-		
 		
 	}
 	

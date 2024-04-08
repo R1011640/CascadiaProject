@@ -10,9 +10,13 @@ public class Game {
 	private String scoringCards;
 	
 	//The constructor that sets up everything for the GameBoard
-	public Game() { 
+	public Game(int currentPlayer, String scoringCards) { 
 		this.currentPlayer = currentPlayer;
 		this.scoringCards = scoringCards;
+		
+		// Set up players like so
+		// players.add(new Player());
+		
 	}
 	//This method will return a fixed array of all the first four front nodes in the allNodes arrayList.
 	//this will most likely need a while loop
@@ -86,5 +90,16 @@ public class Game {
 		allNodes.add((new Node(200, 200, "ffffff-f.png", 50)));
 		allNodes.add((new Node(200, 200, "fwwwff-hef.png", 50)));
 	}
-
+	
+	public String get1st4Animals() {
+		return null;
+	}
+	
+	public void overpopulate() {
+		
+	}
+	
+	public void overpopulate(String animals) {
+		
+	}
 }

@@ -28,7 +28,7 @@ public class Panel extends JPanel implements MouseListener{
 		int[] xcords = {50, 25, -25, -50, -25, 25};
 		int[] ycords = {0, 40, 40, 0, -40, -40};
 		
-		ArrayList<Node> first4nodes;
+		ArrayList<String> first4nodes;
 		String first4animals;
 		
 		for(Node n: p.getNodes()) {
@@ -71,3 +71,14 @@ public class Panel extends JPanel implements MouseListener{
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
 }
+
+
+/* ------------------------------------------------------------ NOTES
+ * 
+ * Major stuff happens in mouseClicked()
+ * x and y in the node class specify the CENTER of the node, not the top left.
+ * A negative y value means the node is going UP, not down. Same with positive y values.
+ * 
+ * 
+ * 
+ */

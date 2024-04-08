@@ -38,12 +38,6 @@ public class Player {
 		nodes.add(n);
 	}
 	
-	public boolean available(int x, int y) {
-		for(Node n: nodes) {
-			if(n.getX()==x && n.getY()==y) return false;
-		}
-		return true;
-	}
 	public ArrayList<Node> getNodes(){
 		return nodes;
 		
@@ -63,7 +57,7 @@ public class Player {
 	public Node findTerrain(char t) {
 		//Do the same thing that was done with the animal, only this one is for the animal terrain
 		for(Node land: nodes) {
-			if(land.getEdges().charAt(t) == t) {
+			if(land.getEdges().indexOf(t)!=-1) {
 				return land;
 			}
 		}

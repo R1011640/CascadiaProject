@@ -4,7 +4,7 @@ public class Game {
 
 	private Player [] players;
 	private int currentPlayer = 0;
-	private ArrayList<Node> allNodes;
+	private ArrayList<Node> allNodes; // might need to make this an ArrayList of Strings instead
 	private Node [][] startingNodes;
 	private ArrayList<Character> animals;
 	private String scoringCards;
@@ -32,6 +32,8 @@ public class Game {
 		if(pos == limit) {
 			isFour = true;
 		}
+		
+		// remove the nodes you took from allNodes
 		return theFirstFour;
 		
 	}
@@ -91,12 +93,15 @@ public class Game {
 		allNodes.add((new Node(200, 200, "fwwwff-hef.png", 50)));
 	}
 	
-	public String get1st4Animals() {
+	public void addNode(Node n) {allNodes.add(n);}
+	
+	public String getFirst4Animals() {
+		// get first 4 animals and remove them from the ArrayList as well
 		return null;
 	}
 	
 	public void overpopulate() {
-		
+		// activate this if the first 4 animals are all the same or 3 animals are the same.
 	}
 	
 	public void overpopulate(String animals) {

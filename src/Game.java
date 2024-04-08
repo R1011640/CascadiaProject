@@ -8,6 +8,8 @@ public class Game {
 	private Node [][] startingNodes;
 	private ArrayList<Character> animals;
 	private String scoringCards;
+	private ArrayList<Character> removedAnimals = new ArrayList<Character> (); //The animals removed from the animal arrayList
+	private int pos = (int) Math.random(); //This will be used when trying to repopulate the board
 	
 	//The constructor that sets up everything for the GameBoard
 	public Game(int currentPlayer, String scoringCards) { 
@@ -95,16 +97,54 @@ public class Game {
 	
 	public void addNode(String n) {allNodes.add(n);}
 	
-	public String getFirst4Animals() {
+	//will be used for getting the tokens
+	public ArrayList <Character> getFirst4Animals() {
 		// get first 4 animals and remove them from the ArrayList as well
-		return null;
+		animals = new ArrayList<Character>();
+		ArrayList<Character> firstF = new ArrayList<Character>();
+		int f = 4;
+		int i = 0;
+		while(i < f) {
+			firstF.add(animals.get(i));
+			animals.remove(i);
+			i++;			
+		}
+		return firstF;
 	}
 	
 	public void overpopulate() {
 		// activate this if the first 4 animals are all the same or 3 animals are the same.
+		/*Objective: 
+		 Check if the animals from the pile of tokens are the same and are >=3 
+		  If so, remove the tokens and replace them with new ones
+		  either change the arraylist to type string and use the compare to method
+		  CONDITIONS
+		  2 of the same: Use an animal token to replace the pile
+		  3 of the same: Either its automatically wiped or a player uses a nature token to replace the board
+		  4 of the same: Automatically clear the board and replace with new animals
+		 */
+		int theSame = 0; // if this number is greater or equal to three, then repopulate the list
+		boolean usedNatureToken = true;
+		for(int i = 0; i < 4; i++) {
+		if(animals.get(i).compareTo(animals.get(i+1)) == 0) {
+			theSame++; 
+			}
+		}
+		if(theSame == 2 && usedNatureToken) { // if only two of the animal tokens are the same
+			
+		}
+		else if(theSame == 3) {
+			
+		}
+		else if(theSame == 4) {
+			
+		}
 	}
 	
 	public void overpopulate(String animals) {
-		
+		int similar = 4;
+		for(int i = 0; i < 4; i++) {
+			
+		}
 	}
 }

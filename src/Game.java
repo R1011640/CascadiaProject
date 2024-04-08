@@ -4,7 +4,7 @@ public class Game {
 
 	private Player [] players;
 	private int currentPlayer = 0;
-	private ArrayList<Node> allNodes; // might need to make this an ArrayList of Strings instead
+	private ArrayList<String> allNodes; // might need to make this an ArrayList of Strings instead
 	private Node [][] startingNodes;
 	private ArrayList<Character> animals;
 	private String scoringCards;
@@ -20,8 +20,8 @@ public class Game {
 	}
 	//This method will return a fixed array of all the first four front nodes in the allNodes arrayList.
 	//this will most likely need a while loop
-	public ArrayList<Node> getNodes() {
-		ArrayList<Node> theFirstFour = new ArrayList<Node>();
+	public ArrayList<String> getNodes() {
+		ArrayList<String> theFirstFour = new ArrayList<String>();
 		int pos = 0;
 		int limit = 4;
 		boolean isFour = false;
@@ -53,14 +53,14 @@ public class Game {
 	//This method is of type void due to only adding the different cards into the ArrayList of allNodes
 	public  void addNodes() { 
 		Player play = new Player();
-		allNodes.add((new Node(200, 200, "mmmmmm-b.png", 50)));
-		allNodes.add((new Node(200, 200, "mmmmmm-e.png", 50)));
-		allNodes.add((new Node(200, 200, "mmmmmm-h.png", 50)));
-		allNodes.add((new Node(200, 200, "mmmrrr-bs.png", 50)));
-		allNodes.add((new Node(200, 200, "mmmrrr-hs.png", 50)));
-		allNodes.add((new Node(200, 200, "mmwwwm-fh.png", 50)));
-		allNodes.add((new Node(200, 200, "pfffpp-bes.png", 50)));
-		allNodes.add((new Node(200, 200, "ppmmmp-bf.png", 50)));
+		allNodes.add("mmmmmm-b.png");
+		allNodes.add("mmmmmm-e.png");
+		allNodes.add("mmmmmm-h.png");
+		allNodes.add("mmmrrr-bs.png");
+		allNodes.add("mmmrrr-hs.png");
+		allNodes.add("mmwwwm-fh.png");
+		allNodes.add("pfffpp-bes.png");
+		/*allNodes.add((new Node(200, 200, "ppmmmp-bf.png", 50)));
 		allNodes.add((new Node(200, 200, "pppfff-es.png", 50)));
 		allNodes.add((new Node(200, 200, "pppfff-fs.png", 50)));
 		allNodes.add((new Node(200, 200, "pppmmm-bs.png", 50)));
@@ -90,10 +90,10 @@ public class Game {
 		allNodes.add((new Node(200, 200, "ffffff-b.png", 50)));
 		allNodes.add((new Node(200, 200, "ffffff-e.png", 50)));
 		allNodes.add((new Node(200, 200, "ffffff-f.png", 50)));
-		allNodes.add((new Node(200, 200, "fwwwff-hef.png", 50)));
+		allNodes.add((new Node(200, 200, "fwwwff-hef.png", 50)));*/
 	}
 	
-	public void addNode(Node n) {allNodes.add(n);}
+	public void addNode(String n) {allNodes.add(n);}
 	
 	public String getFirst4Animals() {
 		// get first 4 animals and remove them from the ArrayList as well

@@ -15,6 +15,8 @@ public class Panel extends JPanel implements MouseListener{
 	
 	ArrayList<Node> avs;
 	Player p;
+	int[] xcords = {50, 25, -25, -50, -25, 25};
+	int[] ycords = {0, 40, 40, 0, -40, -40};
 	public Panel() {
 		p = new Player();
 		p.addNode(new Node(200, 200, "ffffff-b.png", 50));
@@ -25,11 +27,28 @@ public class Panel extends JPanel implements MouseListener{
 	
 	public void paint(Graphics g) {
 		g.setColor(Color.black);
-		int[] xcords = {50, 25, -25, -50, -25, 25};
-		int[] ycords = {0, 40, 40, 0, -40, -40};
 		
-		ArrayList<String> first4nodes;
-		String first4animals;
+		ArrayList<String> first4nodes = new ArrayList<String>();
+		first4nodes.add("ffffff-b.png");
+		first4nodes.add("ffffff-b.png");
+		first4nodes.add("ffffff-b.png");
+		first4nodes.add("ffffff-b.png");
+		String first4animals = "fbhe";
+		BufferedImage fox = null, hawk = null, elk = null, bear = null, salmon = null, acorn = null;
+		try {
+			fox = ImageIO.read(Panel.class.getResource("/assets/fox.png"));
+			hawk = ImageIO.read(Panel.class.getResource("/assets/hawk.png"));
+			elk = ImageIO.read(Panel.class.getResource("/assets/elk.png"));
+			bear = ImageIO.read(Panel.class.getResource("/assets/bear.png"));
+			salmon = ImageIO.read(Panel.class.getResource("/assets/fish.png"));
+			acorn = ImageIO.read(Panel.class.getResource("/assets/acorn.png"));
+		} catch (IOException e) {
+			System.out.println("Error");
+		}
+		
+		
+		// draw nodes & animals
+		
 		
 		for(Node n: p.getNodes()) {
 			g.drawImage(n.getImg(), n.getX()-(n.getSize()/2), n.getY()-(n.getSize()/2), n.getSize(), n.getSize(), null);
@@ -41,6 +60,27 @@ public class Panel extends JPanel implements MouseListener{
 					avs.add(a);
 					g.drawImage(a.getImg(), a.getX()-(a.getSize()/2), a.getY()-(a.getSize()/2), a.getSize(), a.getSize(), null);
 				}
+			}
+			
+		}
+		
+		for(int i=0; i<4; i++) {
+			if(first4animals.charAt(i) == 'f') {
+				g.drawImage(fox, 600, 50+(75*i), 50, 50, null);
+			} else if (first4animals.charAt(i) == 's') {
+				g.drawImage(salmon, 600, 50+(75*i), 50, 50, null);
+			} else if (first4animals.charAt(i) == 'e') {
+				g.drawImage(elk, 600, 50+(75*i), 50, 50, null);
+			} else if (first4animals.charAt(i) == 'h') {
+				g.drawImage(hawk, 600, 50+(75*i), 50, 50, null);
+			} else if (first4animals.charAt(i) == 'b') {
+				g.drawImage(bear, 600, 50+(75*i), 50, 50, null);
+			}
+	
+			try {
+				g.drawImage(ImageIO.read(Panel.class.getResource("/assets/" + first4nodes.get(i))), 700, 50+(75*i), 50, 50, null);
+			} catch (IOException e) {
+				System.out.println("Error");
 			}
 			
 		}

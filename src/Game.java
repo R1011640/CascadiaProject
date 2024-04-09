@@ -123,6 +123,8 @@ public class Game {
 		  3 of the same: Either its automatically wiped or a player uses a nature token to replace the board
 		  4 of the same: Automatically clear the board and replace with new animals
 		 */
+		
+		//this checks if there are any of the same animal tokens in the pile
 		int theSame = 0; // if this number is greater or equal to three, then repopulate the list
 		boolean usedNatureToken = true;
 		for(int i = 0; i < 4; i++) {
@@ -130,14 +132,39 @@ public class Game {
 			theSame++; 
 			}
 		}
-		if(theSame == 2 && usedNatureToken) { // if only two of the animal tokens are the same
+		
+		//checks the results from theSame and will perform the necessary actions needed.
+		for(int i = 0; i < animals.size(); i++) {
+			ArrayList <Character> identical = new ArrayList<Character>();
+			if(theSame == 2 && usedNatureToken) { // if only two of the animal tokens are the same
+				//identical.add(null)
+			}
+			else if(theSame == 3 || usedNatureToken) {
+				
+			}
+			else if(theSame == 4) { //Find a way to clear the board and add new animals
+				
+			}
 			
 		}
-		else if(theSame == 3) {
+		
+		
+		/*if(theSame == 2 && usedNatureToken) { // if only two of the animal tokens are the same
 			
 		}
-		else if(theSame == 4) {
+		else if(theSame == 3 || usedNatureToken) {
 			
+		}
+		else if(theSame == 4) { //Find a way to clear the board and add new animals
+			
+		}*/
+		//Karthiks idea to check if the size of animal arrayList is less than or equal to four
+		//if so, take some of the removed animals and move them back to animal.
+		if(animals.size() <= 4) { //the regular bag of animals
+			for(int i = 0; i <= removedAnimals.size(); i++) { //loop through the list of removed animal tokens
+				 int space = (int) Math.random() * 15; //use this to get a random position of an animal token
+				animals.add(removedAnimals.get(space)); 
+			}
 		}
 	}
 	

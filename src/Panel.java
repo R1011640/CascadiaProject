@@ -25,14 +25,18 @@ public class Panel extends JPanel implements MouseListener{
 	public Panel() {
 		game = new Game(0, "c");
 		p = new Player();
-		p.addNode(new Node(200, 200, "ffffff-b.png", 50));
+		Node n = new Node(200, 200, "ffffff-b.png", 50);
+		n.setAnimal('b');
+		p.addNode(n);
 		avs = new ArrayList<Node>();
 		addMouseListener(this);
 	}
 	
 	
 	public void paint(Graphics g) {
-		g.setColor(Color.black);
+		g.setColor(Color.white);
+		g.fillRect(0, 0, 800, 600);
+		g.setColor(Color.cyan);
 		
 		
 		first4nodes.add("ffffff-b.png"); 
@@ -59,15 +63,36 @@ public class Panel extends JPanel implements MouseListener{
 		for(Node n: p.getNodes()) {
 			g.drawImage(n.getImg(), n.getX()-(n.getSize()/2), n.getY()-(n.getSize()/2), n.getSize(), n.getSize(), null);
 			
+			if(n.getAnimal()!='n') {
+				char an = n.getAnimal();
+				switch (an) {
+				case 'f': g.drawImage(fox, n.getX()-15, n.getY()-15, 25, 25, null);
+				break;
+				case 'b': g.drawImage(bear, n.getX()-15, n.getY()-15, 25, 25, null);
+				break;
+				case 's': g.drawImage(salmon, n.getX()-15, n.getY()-10, 25, 25, null);
+				break;
+				case 'e': g.drawImage(elk, n.getX()-15, n.getY()-15, 25, 25, null);
+				break;
+				case 'h': g.drawImage(hawk, n.getX()-15, n.getY()-15, 25, 25, null);
+				break;
+				}
+				
+			}
+			
 			for(int i=1; i<7; i++) {
 				// badly optimized. fix later if possible
 				Node a = new Node(n.getX() + xcords[i-1], n.getY() + ycords[i-1], "available.png", 15);
 				if(n.getNearbyNode(i) == null && !avs.toString().contains(a.toString())) {
 					avs.add(a);
-					g.drawImage(a.getImg(), a.getX()-(a.getSize()/2), a.getY()-(a.getSize()/2), a.getSize(), a.getSize(), null);
+					
 				}
 			}
 			
+		}
+		
+		for(Node q: avs) {
+			g.drawImage(q.getImg(), q.getX()-(q.getSize()/2), q.getY()-(q.getSize()/2), q.getSize(), q.getSize(), null);
 		}
 		
 		for(int i=0; i<4; i++) {
@@ -84,8 +109,12 @@ public class Panel extends JPanel implements MouseListener{
 			}
 	
 			try {
+				if((Integer.parseInt(first4nodes.get(4))-1)==i) {
+					g.fillRect(695, 45+(75*i), 60, 60);
+				}
 				if(!first4nodes.get(i).equals("null")) {
-					g.drawImage(ImageIO.read(Panel.class.getResource("/assets/"+ first4nodes.get(i).substring(0, first4nodes.get(i).indexOf(".png")+4))), 700, 50+(75*i), 50, 50, null);
+					g.drawImage(ImageIO.read(Panel.class.getResource("/assets/"+ first4nodes.get(i).substring(0, first4nodes.get(i).indexOf(".png")+4))),
+							700, 50+(75*i), 50, 50, null);
 				}
 			} catch (IOException e) {
 				System.out.println("Error");
@@ -127,6 +156,7 @@ public class Panel extends JPanel implements MouseListener{
 			if(700 <= e.getX() && e.getX() <= 750 && 50+(75*i) <= e.getY() && e.getY() <= 100+(75*i)) {
 				
 				first4nodes.set(4, (i+1) + "");
+				repaint();
 				return;
 			}
 		}

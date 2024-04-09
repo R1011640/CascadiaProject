@@ -23,6 +23,7 @@ public class Node {
 		rotation = 0;
 		nearbyNodes = new Node[6];
 		this.size = size;
+		animal = 'n';
 	}
 	
 	public boolean isClicked(int x, int y) {

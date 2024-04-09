@@ -4,6 +4,7 @@ import java.awt.Polygon;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -13,11 +14,16 @@ import javax.swing.JPanel;
 
 public class Panel extends JPanel implements MouseListener{
 	
+	Game game;
 	ArrayList<Node> avs;
 	Player p;
 	int[] xcords = {50, 25, -25, -50, -25, 25};
 	int[] ycords = {0, 40, 40, 0, -40, -40};
+	ArrayList<String> first4nodes = new ArrayList<String>();
+	String first4animals = "fbhh0"; // number at end is selected animal, 0 is no animal
+	
 	public Panel() {
+		game = new Game(0, "c");
 		p = new Player();
 		p.addNode(new Node(200, 200, "ffffff-b.png", 50));
 		avs = new ArrayList<Node>();
@@ -28,12 +34,12 @@ public class Panel extends JPanel implements MouseListener{
 	public void paint(Graphics g) {
 		g.setColor(Color.black);
 		
-		ArrayList<String> first4nodes = new ArrayList<String>();
-		first4nodes.add("ffffff-b.png");
-		first4nodes.add("ffffff-b.png");
-		first4nodes.add("ffffff-b.png");
-		first4nodes.add("ffffff-b.png");
-		String first4animals = "fbhh";
+		
+		first4nodes.add("ffffff-b.png"); 
+		first4nodes.add("mmmmmm-h.png");
+		first4nodes.add("rppprr-bs.png");
+		first4nodes.add("wwfffw-es.png");
+		first4nodes.add("0"); // number is selected node, 0 is no node
 		BufferedImage fox = null, hawk = null, elk = null, bear = null, salmon = null, acorn = null;
 		try {
 			fox = ImageIO.read(Panel.class.getResource("/assets/fox.png"));
@@ -78,7 +84,9 @@ public class Panel extends JPanel implements MouseListener{
 			}
 	
 			try {
-				g.drawImage(ImageIO.read(Panel.class.getResource("/assets/" + first4nodes.get(i))), 700, 50+(75*i), 50, 50, null);
+				if(!first4nodes.get(i).equals("null")) {
+					g.drawImage(ImageIO.read(Panel.class.getResource("/assets/"+ first4nodes.get(i).substring(0, first4nodes.get(i).indexOf(".png")+4))), 700, 50+(75*i), 50, 50, null);
+				}
 			} catch (IOException e) {
 				System.out.println("Error");
 			}
@@ -95,20 +103,32 @@ public class Panel extends JPanel implements MouseListener{
 	
 	public void mouseClicked(MouseEvent e) {
 		
-		for(Node ss: p.getNodes()) {
-			if(ss.isClicked(e.getX(), e.getY())) {
-				System.out.println("c");
-			}
-		}
 		for(Node a: avs) {
 			
-			if(a.isClicked(e.getX(), e.getY())) {
-				p.addNode(new Node(a.getX(), a.getY(), "ffffff-b.png", 50));
+			if(a.isClicked(e.getX(), e.getY()) && !first4nodes.get(4).equals("0")) {
+				
+				p.addNode(new Node(a.getX(), a.getY(), 
+						first4nodes.get(Integer.parseInt(first4nodes.get(4))-1), 50));
 				avs.clear();
 				repaint();
 				return;
 			}
 			
+		}
+		
+		for(int i=0; i<4; i++) {
+			if(600 <= e.getX() && e.getX() <= 650 && 50+(75*i) <= e.getY() && e.getY() <= 100+(75*i)) {
+				
+				first4animals = first4animals.substring(0, 4) + (i+1);
+				System.out.println(first4animals);
+				return;
+			}
+			
+			if(700 <= e.getX() && e.getX() <= 750 && 50+(75*i) <= e.getY() && e.getY() <= 100+(75*i)) {
+				
+				first4nodes.set(4, (i+1) + "");
+				return;
+			}
 		}
 		
 	}

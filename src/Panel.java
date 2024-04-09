@@ -33,7 +33,7 @@ public class Panel extends JPanel implements MouseListener{
 		first4nodes.add("ffffff-b.png");
 		first4nodes.add("ffffff-b.png");
 		first4nodes.add("ffffff-b.png");
-		String first4animals = "fbhe";
+		String first4animals = "fbhh";
 		BufferedImage fox = null, hawk = null, elk = null, bear = null, salmon = null, acorn = null;
 		try {
 			fox = ImageIO.read(Panel.class.getResource("/assets/fox.png"));

@@ -94,15 +94,23 @@ public class Panel extends JPanel implements MouseListener{
 	}
 	
 	public void mouseClicked(MouseEvent e) {
+		
+		for(Node ss: p.getNodes()) {
+			if(ss.isClicked(e.getX(), e.getY())) {
+				System.out.println("c");
+			}
+		}
 		for(Node a: avs) {
 			
 			if(a.isClicked(e.getX(), e.getY())) {
 				p.addNode(new Node(a.getX(), a.getY(), "ffffff-b.png", 50));
+				avs.clear();
+				repaint();
+				return;
 			}
 			
 		}
-		avs.clear();
-		repaint();
+		
 	}
 	
 	

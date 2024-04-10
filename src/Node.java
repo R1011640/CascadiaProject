@@ -15,12 +15,13 @@ public class Node {
 	public Node(int x, int y, String imageName, int size) {
 		this.x = x;
 		this.y = y;
+		edges = imageName.substring(0,6);
 		try {
 			img = ImageIO.read(Panel.class.getResource("/assets/" + imageName));
 		} catch (IOException e) {
 			System.out.println("Error");
 		}
-		rotation = 0;
+		rotation = 1;
 		nearbyNodes = new Node[6];
 		this.size = size;
 		animal = 'n';
@@ -35,6 +36,9 @@ public class Node {
 	
 	public void rotate(){
 		rotation++;
+		System.out.println(edges.substring(5,6) + " " + edges.substring(0, 5));
+		edges = edges.substring(5,6) + edges.substring(0, 5) + edges.substring(6);
+		System.out.println(edges);
 		if(rotation>6) {
 			rotation = 1;
 		}

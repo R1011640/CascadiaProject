@@ -8,7 +8,8 @@ import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.Scanner;
+import java.io.File;
 import javax.imageio.ImageIO;
 
 import javax.swing.JPanel;
@@ -37,11 +38,6 @@ public class Panel extends JPanel implements MouseListener{
 	
 	
 	public void paint(Graphics g) {
-		g.setColor(Color.white);
-		g.fillRect(0, 0, 800, 600);
-		g.setColor(Color.cyan);
-		
-		
 		
 		first4nodes.add("ffffff-b.png"); 
 		first4nodes.add("mmmmmm-h.png");

@@ -8,8 +8,6 @@ import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.File;
 import javax.imageio.ImageIO;
 
 import javax.swing.JPanel;
@@ -23,17 +21,17 @@ public class Panel extends JPanel implements MouseListener{
 	int[] ycords = {0, 40, 40, 0, -40, -40};
 	ArrayList<String> first4nodes = new ArrayList<String>();
 	String first4animals = "fbhh0"; // number at end is selected animal, 0 is no animal
-	
+	int natureTokens;
+	boolean spent;
 	public Panel() {
+		
 		game = new Game(0, "c");
 		p = new Player();
 		Node n = new Node(200, 200, "mmrrrm-bs.png", 50);
-		n.rotate();
-		n.rotate();
-		n.setAnimal('b');
 		p.addNode(n);
 		avs = new ArrayList<Node>();
 		addMouseListener(this);
+		
 	}
 	
 	
@@ -62,11 +60,11 @@ public class Panel extends JPanel implements MouseListener{
 		
 		
 		// draw nodes & animals
-		
+		Graphics2D g2 = (Graphics2D) g;
 		
 		for(Node n: p.getNodes()) {
 			
-			Graphics2D g2 = (Graphics2D) g;
+			
 			
 			g2.rotate(Math.toRadians((n.getRot()-1)*60), n.getX(), n.getY());
 			g2.drawImage(n.getImg(), n.getX()-(n.getSize()/2), n.getY()-(n.getSize()/2), n.getSize(), n.getSize(), null);
@@ -107,7 +105,9 @@ public class Panel extends JPanel implements MouseListener{
 		int c = (Integer.parseInt(first4nodes.get(4).substring(0,1))-1);
 		if(c!=-1) {
 			try {
+				g2.rotate(Math.toRadians((Integer.parseInt(first4nodes.get(4).substring(1))-1)*60), 425, 475);
 				g.drawImage(ImageIO.read(Panel.class.getResource("/assets/"+ first4nodes.get(c))), 400, 450, 50, 50, null);
+				g2.rotate(Math.toRadians((Integer.parseInt(first4nodes.get(4).substring(1))-1)*60)*-1, 425, 475);
 			} catch (IOException e) {
 			}
 		}
@@ -154,6 +154,19 @@ public class Panel extends JPanel implements MouseListener{
 	}
 	
 	public void mouseClicked(MouseEvent e) {
+		
+		//System.out.println(e.getX() + "<x y>" + e.getY());
+		
+		if(100 <= e.getX() && e.getX() <= 140 && 470 <= e.getY() && e.getY() <= 525) {
+			first4nodes.set(4, first4nodes.get(4).charAt(0)
+					+ "" + (Integer.parseInt(first4nodes.get(4).substring(1))+1) + "");
+			if(first4nodes.get(4).charAt(1)=='7') {
+				first4nodes.set(4, first4nodes.get(4).charAt(0) + "" + 1 + "");
+			}
+			repaint();
+			return;
+		}
+		
 		if(!first4animals.substring(4).equals("0")) {
 			for(Node n: p.getNodes()) {
 				if(n.isClicked(e.getX(), e.getY())) {
@@ -168,8 +181,11 @@ public class Panel extends JPanel implements MouseListener{
 			
 			if(a.isClicked(e.getX(), e.getY()) && !first4nodes.get(4).substring(0,1).equals("0")) {
 				
-				p.addNode(new Node(a.getX(), a.getY(), 
-						first4nodes.get(Integer.parseInt(first4nodes.get(4).substring(0,1))-1), 50));
+				Node n = new Node(a.getX(), a.getY(), first4nodes.get(Integer.parseInt(first4nodes.get(4).substring(0,1))-1), 50);
+				p.addNode(n);
+				while(n.getRot() != (Integer.parseInt(first4nodes.get(4).substring(1)))){
+					n.rotate();
+				}
 				avs.clear();
 				repaint();
 				return;
@@ -187,7 +203,7 @@ public class Panel extends JPanel implements MouseListener{
 			
 			if(700 <= e.getX() && e.getX() <= 750 && 50+(75*i) <= e.getY() && e.getY() <= 100+(75*i)) {
 				
-				first4nodes.set(4, (i+1) + "" + first4nodes.get(4).charAt(1));
+				first4nodes.set(4, (i+1) + "1");
 				repaint();
 				return;
 			}

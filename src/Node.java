@@ -36,9 +36,9 @@ public class Node {
 	
 	public void rotate(){
 		rotation++;
-		System.out.println(edges.substring(5,6) + " " + edges.substring(0, 5));
+		//System.out.println(edges.substring(5,6) + " " + edges.substring(0, 5));
 		edges = edges.substring(5,6) + edges.substring(0, 5) + edges.substring(6);
-		System.out.println(edges);
+		//System.out.println(edges);
 		if(rotation>6) {
 			rotation = 1;
 		}

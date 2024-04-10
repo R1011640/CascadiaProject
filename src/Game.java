@@ -1,8 +1,7 @@
-import java.util.ArrayList;
 
-public class Game {
 
 	private Player [] players;
+	private int currNatureToken;
 	private int currentPlayer = 0;
 	private ArrayList<String> allNodes; // might need to make this an ArrayList of Strings instead
 	private Node [][] startingNodes;
@@ -112,6 +111,13 @@ public class Game {
 		return firstF;
 	}
 	
+	public int playerNToken() {
+		return getNatureToken();
+	}
+	public int getNatureToken() {
+		return currNatureToken;
+	}
+	
 	public void overpopulate() {
 		// activate this if the first 4 animals are all the same or 3 animals are the same.
 		/*Objective: 
@@ -138,12 +144,21 @@ public class Game {
 			ArrayList <Character> identical = new ArrayList<Character>();
 			if(theSame == 2 && usedNatureToken) { // if only two of the animal tokens are the same
 				//identical.add(null)
+				identical.add(animals.get(i));
+				identical.add(animals.get(i+1));
 			}
 			else if(theSame == 3 || usedNatureToken) {
-				
+				identical.add(animals.get(i));
+				identical.add(animals.get(i+1));
+				identical.add(animals.get(i+2));
 			}
 			else if(theSame == 4) { //Find a way to clear the board and add new animals
-				
+				int j = 0; 
+				//This while loop will go through the first four elements of your animals arrayList and remove the specified elements
+				//It will then add these values to your arrayList identical that will be stored for later use 
+				while(j < 4) {
+					identical.add(animals.remove(j));
+				}
 			}
 			
 		}
@@ -174,4 +189,3 @@ public class Game {
 			
 		}
 	}
-}

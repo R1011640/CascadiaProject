@@ -63,8 +63,8 @@ public class Game {
 		allNodes.add("mmmrrr-hs.png");
 		allNodes.add("mmwwwm-fh.png");
 		allNodes.add("pfffpp-bes.png");
-		/*allNodes.add((new Node(200, 200, "ppmmmp-bf.png", 50)));
-		allNodes.add((new Node(200, 200, "pppfff-es.png", 50)));
+		allNodes.add("ppmmmp-bf.png");
+		/*allNodes.add((new Node(200, 200, "pppfff-es.png", 50)));
 		allNodes.add((new Node(200, 200, "pppfff-fs.png", 50)));
 		allNodes.add((new Node(200, 200, "pppmmm-bs.png", 50)));
 		allNodes.add((new Node(200, 200, "pppmmm-es.png", 50)));

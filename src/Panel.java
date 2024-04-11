@@ -27,7 +27,7 @@ public class Panel extends JPanel implements MouseListener{
 		
 		game = new Game(0, "c");
 		p = new Player();
-		Node n = new Node(200, 200, "mmrrrm-bs.png", 50);
+		Node n = new Node(300, 200, "mmrrrm-bs.png", 50);
 		p.addNode(n);
 		avs = new ArrayList<Node>();
 		addMouseListener(this);
@@ -89,10 +89,14 @@ public class Panel extends JPanel implements MouseListener{
 			
 			for(int i=1; i<7; i++) {
 				// badly optimized. fix later if possible
-				Node a = new Node(n.getX() + xcords[i-1], n.getY() + ycords[i-1], "available.png", 15);
-				if(n.getNearbyNode(i) == null && !avs.toString().contains(a.toString())) {
-					avs.add(a);
+				if(50 < n.getX()+xcords[i-1] && n.getX()+xcords[i-1] < 550 &&
+					50 < n.getY()+ycords[i-1] && n.getY()+ycords[i-1] < 450) {
 					
+					Node a = new Node(n.getX() + xcords[i-1], n.getY() + ycords[i-1], "available.png", 15);
+					if(n.getNearbyNode(i) == null && !avs.toString().contains(a.toString())) {
+						avs.add(a);
+						
+				}
 				}
 			}
 			

@@ -1,11 +1,10 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Polygon;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
@@ -20,7 +19,7 @@ public class Panel extends JPanel implements MouseListener{
 	int[] xcords = {50, 25, -25, -50, -25, 25};
 	int[] ycords = {0, 40, 40, 0, -40, -40};
 	ArrayList<String> first4nodes = new ArrayList<String>();
-	String first4animals = "fbhh0"; // number at end is selected animal, 0 is no animal
+	String first4animals = "fbhs0"; // number at end is selected animal, 0 is no animal
 	int natureTokens;
 	boolean spent;
 	public Panel() {
@@ -40,7 +39,7 @@ public class Panel extends JPanel implements MouseListener{
 		g.setColor(Color.white);
 		g.fillRect(0, 0, 800, 600);
 		g.setColor(Color.cyan);
-		
+		g.setFont(new Font("SANS SERIF", 1, 16));
 		first4nodes.add("ffffff-b.png"); 
 		first4nodes.add("mmmmmm-h.png");
 		first4nodes.add("rppprr-bs.png");
@@ -117,7 +116,7 @@ public class Panel extends JPanel implements MouseListener{
 		}
 		
 		
-		for(int i=0; i<4; i++) {
+		for(int i=0; i<Math.min(4, first4nodes.size()); i++) {
 			
 			if((Integer.parseInt(first4animals.substring(4, 5))-1)==i) {
 				g.fillRect(595, 45+(75*i), 60, 60);
@@ -149,6 +148,10 @@ public class Panel extends JPanel implements MouseListener{
 		
 		g.drawString("Rotate", 100, 500);
 		
+		g.drawImage(acorn, 550, 475, 50, 50, null);
+		g.setFont(new Font("SANS SERIF", 1, 25));
+		g.drawString(p.getTokens() + "", 600, 475);
+		
 	}
 	
 	
@@ -159,9 +162,8 @@ public class Panel extends JPanel implements MouseListener{
 	
 	public void mouseClicked(MouseEvent e) {
 		
-		//System.out.println(e.getX() + "<x y>" + e.getY());
 		
-		if(100 <= e.getX() && e.getX() <= 140 && 470 <= e.getY() && e.getY() <= 525) {
+		if(100 <= e.getX() && e.getX() <= 140 && 470 <= e.getY() && e.getY() <= 525) { // rotating selected tile
 			first4nodes.set(4, first4nodes.get(4).charAt(0)
 					+ "" + (Integer.parseInt(first4nodes.get(4).substring(1))+1) + "");
 			if(first4nodes.get(4).charAt(1)=='7') {
@@ -171,17 +173,18 @@ public class Panel extends JPanel implements MouseListener{
 			return;
 		}
 		
-		if(!first4animals.substring(4).equals("0")) {
+		if(!first4animals.substring(4).equals("0")) { // placing animal token if one is selected
 			for(Node n: p.getNodes()) {
 				if(n.isClicked(e.getX(), e.getY())) {
-					n.setAnimal(first4animals.charAt(Integer.parseInt(first4animals.substring(4, 5))-1));
+					if(n.getAvailable().indexOf(first4animals.charAt(Integer.parseInt(first4animals.substring(4, 5))-1)) != -1)
+						n.setAnimal(first4animals.charAt(Integer.parseInt(first4animals.substring(4, 5))-1));
 					repaint();
 					return;
 				}
 			}
 		}
 		
-		for(Node a: avs) {
+		for(Node a: avs) { // placing a tile if one is selected
 			
 			if(a.isClicked(e.getX(), e.getY()) && !first4nodes.get(4).substring(0,1).equals("0")) {
 				
@@ -198,14 +201,14 @@ public class Panel extends JPanel implements MouseListener{
 		}
 		
 		for(int i=0; i<4; i++) {
-			if(600 <= e.getX() && e.getX() <= 650 && 50+(75*i) <= e.getY() && e.getY() <= 100+(75*i)) {
+			if(600 <= e.getX() && e.getX() <= 650 && 50+(75*i) <= e.getY() && e.getY() <= 100+(75*i)) { // selecting an animal token
 				
 				first4animals = first4animals.substring(0, 4) + (i+1);
 				repaint();
 				return;
 			}
 			
-			if(700 <= e.getX() && e.getX() <= 750 && 50+(75*i) <= e.getY() && e.getY() <= 100+(75*i)) {
+			if(700 <= e.getX() && e.getX() <= 750 && 50+(75*i) <= e.getY() && e.getY() <= 100+(75*i)) { // selecting a tile
 				
 				first4nodes.set(4, (i+1) + "1");
 				repaint();

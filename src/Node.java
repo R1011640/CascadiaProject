@@ -1,4 +1,3 @@
-import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -16,6 +15,7 @@ public class Node {
 		this.x = x;
 		this.y = y;
 		edges = imageName.substring(0,6);
+		if(!imageName.equals("available.png")) availableAnimals = imageName.substring(imageName.indexOf("-")+1, imageName.indexOf(".png"));
 		try {
 			img = ImageIO.read(Panel.class.getResource("/assets/" + imageName));
 		} catch (IOException e) {
@@ -44,6 +44,10 @@ public class Node {
 		}
 	}
 	
+	public String getAvailable() {
+		return availableAnimals;
+	}
+	
 	public void setAnimal(char a) {
 		animal = a;
 	}
@@ -59,27 +63,25 @@ public class Node {
 	public void setNearbyNode(int dir, Node n) {
 		nearbyNodes[dir-1] = n;
 	}
-	public char getAnimal() {
-		return animal;
-	}
-	public int getRot() {
-		return rotation;
-	}
-	public void setRot(int r) {
-		rotation = r;
-	}
-	public BufferedImage getImg() {
-		return img;
-	}
-	public Node[] getNearbyNodes() {
-		return nearbyNodes;
-	}
-	public String toString() {
-		return "("+x + "," + y + ")";
-	}
+	public char getAnimal() {return animal;}
+	
+	public int getRot() {return rotation;}
+	
+	public void setRot(int r) {rotation = r;}
+	
+	public BufferedImage getImg() {return img;}
+	
+	public Node[] getNearbyNodes() {return nearbyNodes;}
+	
+	public String toString() {return "("+x + "," + y + ")";}
+	
 	public int getX() {return x;}
+	
 	public void setX(int x) {this.x = x;}
+	
 	public int getY() {return y;}
+	
 	public void setY(int y) {this.y = y;}
+	
 	public int getSize() {return size;}
 }

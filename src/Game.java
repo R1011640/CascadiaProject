@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 
+public class Game {
 
 	private Player [] players;
 	private int currNatureToken;
@@ -189,3 +191,4 @@
 			
 		}
 	}
+}

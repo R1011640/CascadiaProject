@@ -16,6 +16,33 @@ public class Game {
 	public Game(int currentPlayer, String scoringCards) { 
 		this.currentPlayer = currentPlayer;
 		this.scoringCards = scoringCards;
+		//Set startingNodes to be a 5 by 3 matrix that adds the tiles from those placed as starter tiles
+		startingNodes = new String [5][3];
+		//Prepare as the starting tiles will be manually put in
+		
+		/* STARTING TILE ONE*/
+		startingNodes[0][0] = "wwwwww-h.png"; //river w/ hawk key
+		startingNodes[0][1] = "fffrrr-ehs.png"; //river & forest w/ fish, elk, and hawk
+		startingNodes[0][2] = "pmmmpp-bf.png"; //prairie & mountain w/ bear and fox
+
+		/* STARTING TILE TWO*/
+		startingNodes[1][0] = "ffffff-e.png"; //forest w/ elk key
+		startingNodes[1][1] = ;
+		startingNodes[1][2];
+		
+		/* STARTING TILE THREE*/
+		startingNodes[2][0];
+		startingNodes[2][1];
+		startingNodes[2][2];
+		/* STARTING TILE FOUR*/
+		startingNodes[3][0] = "mmmmmm-b.png"; //mountain with bear key
+		startingNodes[3][1] = "wwwfff-hef.png";// wetland & forest w/ hawk, elk, and fox
+		startingNodes[3][2] = "rppprr-bs.png"; //river & prairie w/ fish and bear
+		/* STARTING TILE FIVE*/
+		startingNodes[4][0] = "rrrrrr-s.png"; //river w/ salmon key
+		startingNodes[4][1] = "fffppp-bes.png"; // forest & prairie w/ salmon, bear, and elk
+		startingNodes[4][2] = "mwwwmm-fh.png"; //mountain & wetland w/ fox and hawk
+		
 		
 		// Set up players like so
 		// players.add(new Player());

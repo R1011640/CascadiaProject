@@ -87,22 +87,24 @@ public class Panel extends JPanel implements MouseListener{
 				
 			}
 			
-			for(int i=1; i<7; i++) {
-				// badly optimized. fix later if possible
-				if(50 < n.getX()+xcords[i-1] && n.getX()+xcords[i-1] < 550 &&
-					50 < n.getY()+ycords[i-1] && n.getY()+ycords[i-1] < 450) {
-					
-					Node a = new Node(n.getX() + xcords[i-1], n.getY() + ycords[i-1], "available.png", 15);
-					if(n.getNearbyNode(i) == null && !avs.toString().contains(a.toString())) {
-						avs.add(a);
+			if(first4nodes.get(4).charAt(0)!='0') { // remove this and rework getting avs in future
+				for(int i=1; i<7; i++) {
+					// badly optimized. fix later if possible
+					if(50 < n.getX()+xcords[i-1] && n.getX()+xcords[i-1] < 550 &&
+						50 < n.getY()+ycords[i-1] && n.getY()+ycords[i-1] < 450) {
 						
-				}
+						Node a = new Node(n.getX() + xcords[i-1], n.getY() + ycords[i-1], "available.png", 15);
+						if(n.getNearbyNode(i) == null && !avs.toString().contains(a.toString())) {
+							avs.add(a);
+							
+					}
+					}
 				}
 			}
 			
 		}
 		
-		for(Node q: avs) {
+		for(Node q: avs) { // in the future, only do this when first4nodes.get(4).charAt(0)!='0' and see line 90
 			g.drawImage(q.getImg(), q.getX()-(q.getSize()/2), q.getY()-(q.getSize()/2), q.getSize(), q.getSize(), null);
 		}
 		
@@ -211,7 +213,11 @@ public class Panel extends JPanel implements MouseListener{
 			
 			if(700 <= e.getX() && e.getX() <= 750 && 50+(75*i) <= e.getY() && e.getY() <= 100+(75*i)) { // selecting a tile
 				
-				first4nodes.set(4, (i+1) + "1");
+				if(Integer.parseInt(first4nodes.get(4).substring(0,1)) == (i+1)) {
+					first4nodes.set(4, "01");
+					avs.clear(); // might cause problems later on. see line 107
+				}
+				else first4nodes.set(4, (i+1) + "1");
 				repaint();
 				return;
 			}

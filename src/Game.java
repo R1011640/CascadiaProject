@@ -6,7 +6,7 @@ public class Game {
 	private int currNatureToken;
 	private int currentPlayer = 0;
 	private ArrayList<String> allNodes;
-	private Node [][] startingNodes;
+	private String [][] startingNodes;
 	private ArrayList<Character> animals; // might not need this anymore
 	private String scoringCards;
 	private ArrayList<Character> removedAnimals = new ArrayList<Character> (); //The animals removed from the animal arrayList

@@ -43,6 +43,8 @@ public class Player {
 		
 	}
 	
+	
+	
 	public int getTokens() {
 		return natureTokens;
 	}

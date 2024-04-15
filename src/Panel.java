@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -158,6 +159,20 @@ public class Panel extends JPanel implements MouseListener{
 		
 	}
 	
+	public void makeAvs(Node n) {
+		for(int i=1; i<7; i++) {
+			// badly optimized. fix later if possible
+			if(50 < n.getX()+xcords[i-1] && n.getX()+xcords[i-1] < 550 &&
+				50 < n.getY()+ycords[i-1] && n.getY()+ycords[i-1] < 450) {
+				
+				Node a = new Node(n.getX() + xcords[i-1], n.getY() + ycords[i-1], "available.png", 15);
+				if(n.getNearbyNode(i) == null && !avs.toString().contains(a.toString())) {
+					avs.add(a);
+					
+			}
+			}
+		}
+	}
 	
 	public void addNotify() {
 		super.addNotify();
@@ -227,10 +242,13 @@ public class Panel extends JPanel implements MouseListener{
 	}
 	
 	
+	
 	public void mousePressed(MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
+
+
 }
 
 

@@ -22,6 +22,7 @@ public class Panel extends JPanel implements MouseListener{
 	String first4animals = "fbhs0"; // number at end is selected animal, 0 is no animal
 	int natureTokens;
 	boolean spent;
+	int turnsLeft = 60;
 	public Panel() {
 		
 		game = new Game(0, "c");

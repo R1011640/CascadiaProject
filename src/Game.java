@@ -64,16 +64,16 @@ public class Game {
 		allNodes.add("mmwwwm-fh.png");
 		allNodes.add("pfffpp-bes.png");
 		allNodes.add("ppmmmp-bf.png");
-		/*allNodes.add((new Node(200, 200, "pppfff-es.png", 50)));
-		allNodes.add((new Node(200, 200, "pppfff-fs.png", 50)));
-		allNodes.add((new Node(200, 200, "pppmmm-bs.png", 50)));
-		allNodes.add((new Node(200, 200, "pppmmm-es.png", 50)));
-		allNodes.add((new Node(200, 200, "pppppp-e.png", 50)));
-		allNodes.add((new Node(200, 200, "pppppp-f.png", 50)));
-		allNodes.add((new Node(200, 200, "pppppp-s.png", 50)));
-		allNodes.add((new Node(200, 200, "rfffrr-ehs.png", 50)));
-		allNodes.add((new Node(200, 200, "rrpppr-bs.png", 50)));
-		allNodes.add((new Node(200, 200, "rrrfff-fs.png", 50)));
+		allNodes.add("pppfff-es.png");
+		allNodes.add("pppfff-fs.png");
+		allNodes.add("pppmmm-bs.png");
+		allNodes.add("pppmmm-es.png");
+		allNodes.add("pppppp-e.png");
+		allNodes.add("pppppp-f.png");
+		allNodes.add("pppppp-s.png");
+		allNodes.add("rfffrr-ehs.png");
+		allNodes.add("rrpppr-bs.png");
+		/*allNodes.add((new Node(200, 200, "rrrfff-fs.png", 50)));
 		allNodes.add((new Node(200, 200, "rrrppp-es.png", 50)));
 		allNodes.add((new Node(200, 200, "rrrrrr-b.png", 50)));
 		allNodes.add((new Node(200, 200, "rrrrrr-h.png", 50)));
@@ -111,6 +111,33 @@ public class Game {
 			i++;			
 		}
 		return firstF;
+	}
+	
+	public String getFirst4Animals2() {
+		String ret = "";
+		for(int i=0; i<4; i++) {
+			int an = (int) (Math.random()*5);
+			switch(an) {
+			case 0: 
+				ret += 'f';
+				break;
+			case 1:
+				ret += 's';
+				break;
+			case 2:
+				ret += 'e';
+				break;
+			case 3:
+				ret += 'h';
+				break;
+			case 4:
+				ret += 'b';
+				break;
+			}
+				
+		}
+		
+		return ret;
 	}
 	
 	public int playerNToken() {

@@ -5,9 +5,9 @@ public class Game {
 	private Player [] players;
 	private int currNatureToken;
 	private int currentPlayer = 0;
-	private ArrayList<String> allNodes; // might need to make this an ArrayList of Strings instead
+	private ArrayList<String> allNodes;
 	private Node [][] startingNodes;
-	private ArrayList<Character> animals;
+	private ArrayList<Character> animals; // might not need this anymore
 	private String scoringCards;
 	private ArrayList<Character> removedAnimals = new ArrayList<Character> (); //The animals removed from the animal arrayList
 	private int pos = (int) Math.random(); //This will be used when trying to repopulate the board
@@ -116,28 +116,27 @@ public class Game {
 	public String getFirst4Animals2() {
 		String ret = "";
 		for(int i=0; i<4; i++) {
-			int an = (int) (Math.random()*5);
-			switch(an) {
-			case 0: 
-				ret += 'f';
-				break;
-			case 1:
-				ret += 's';
-				break;
-			case 2:
-				ret += 'e';
-				break;
-			case 3:
-				ret += 'h';
-				break;
-			case 4:
-				ret += 'b';
-				break;
-			}
-				
+			ret += randomAnimal();
 		}
 		
 		return ret;
+	}
+	
+	public char randomAnimal() {
+		int an = (int) (Math.random()*5);
+		switch(an) {
+		case 0: 
+			return 'f';
+		case 1:
+			return 's';
+		case 2:
+			return 'e';
+		case 3:
+			return 'h';
+		case 4:
+			return 'b';
+		}
+		return 'n';
 	}
 	
 	public int playerNToken() {
@@ -216,6 +215,39 @@ public class Game {
 		int similar = 4;
 		for(int i = 0; i < 4; i++) {
 			
+		}
+	}
+	
+	public String overpopulate2(String command, String animals) {
+		// for command
+		// "four" is replace all four animals
+		// "three" is replace three animals of the same type.
+		// "custom-bh" is replace animals after the - with random animals.
+		
+		if(command.equals("four")) {
+			return getFirst4Animals2();
+		} else if (command.equals("three")) {
+			char animal = 'n';
+			if(animals.indexOf('f') != animals.lastIndexOf('f')) {
+				animal = 'f';
+			} else if (animals.indexOf('s') != animals.lastIndexOf('s')) {
+				animal = 's';
+			} else if (animals.indexOf('e') != animals.lastIndexOf('e')) {
+				animal = 'e';
+			} else if (animals.indexOf('h') != animals.lastIndexOf('h')) {
+				animal = 'h';
+			} else if (animals.indexOf('b') != animals.lastIndexOf('b')) {
+				animal = 'b';
+			}
+			
+			for(int i=0; i<animals.length(); i++) {
+				if(animals.charAt(i)==animal) {
+					animals = animals.substring(0,i) + randomAnimal() + animals.substring(i+1);
+				}
+			}
+			return animals;
+		} else {
+			return null;
 		}
 	}
 }

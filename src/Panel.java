@@ -25,6 +25,7 @@ public class Panel extends JPanel implements MouseListener{
 	public Panel() {
 		
 		game = new Game(0, "c");
+		System.out.println(game.overpopulate2("three", "eehe"));
 		p = new Player();
 		Node n = new Node(300, 200, "mmrrrm-bs.png", 50);
 		p.addNode(n);

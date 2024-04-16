@@ -73,8 +73,7 @@ public class Panel extends JPanel implements MouseListener{
 			g2.rotate(Math.toRadians((n.getRot()-1)*60)*-1, n.getX(), n.getY());
 			
 			if(n.getAnimal()!='n') {
-				char an = n.getAnimal();
-				switch (an) {
+				switch (n.getAnimal()) {
 				case 'f': g.drawImage(fox, n.getX()-15, n.getY()-15, 25, 25, null);
 				break;
 				case 'b': g.drawImage(bear, n.getX()-15, n.getY()-15, 25, 25, null);

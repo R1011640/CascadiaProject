@@ -151,8 +151,9 @@ public class Panel extends JPanel implements MouseListener{
 		
 		g.setColor(Color.black);
 		
-		g.drawString("Rotate", 100, 500);
-		
+		g.drawString("Rotate", 10, 500);
+		g.drawString("Player #", 10, 10);
+
 		g.drawImage(acorn, 550, 475, 50, 50, null);
 		g.setFont(new Font("SANS SERIF", 1, 25));
 		g.drawString(p.getTokens() + "", 600, 475);
@@ -182,7 +183,7 @@ public class Panel extends JPanel implements MouseListener{
 	public void mouseClicked(MouseEvent e) {
 		
 		
-		if(100 <= e.getX() && e.getX() <= 140 && 470 <= e.getY() && e.getY() <= 525) { // rotating selected tile
+		if(5 <= e.getX() && e.getX() <= 40 && 470 <= e.getY() && e.getY() <= 525) { // rotating selected tile
 			first4nodes.set(4, first4nodes.get(4).charAt(0)
 					+ "" + (Integer.parseInt(first4nodes.get(4).substring(1))+1) + "");
 			if(first4nodes.get(4).charAt(1)=='7') {

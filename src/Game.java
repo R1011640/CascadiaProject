@@ -27,13 +27,13 @@ public class Game {
 
 		/* STARTING TILE TWO*/
 		startingNodes[1][0] = "ffffff-e.png"; //forest w/ elk key
-		startingNodes[1][1] = ;
-		startingNodes[1][2];
+		startingNodes[1][1] = "rrrmmm-bes.png";
+		startingNodes[1][2] = "pppwww-fs.png";
 		
 		/* STARTING TILE THREE*/
-		startingNodes[2][0];
-		startingNodes[2][1];
-		startingNodes[2][2];
+		startingNodes[2][0] = "wwwwww-h.png";
+		startingNodes[2][1] = "rrrwww-fsh.png";
+		startingNodes[2][2] = "fmmmff-be.png";
 		/* STARTING TILE FOUR*/
 		startingNodes[3][0] = "mmmmmm-b.png"; //mountain with bear key
 		startingNodes[3][1] = "wwwfff-hef.png";// wetland & forest w/ hawk, elk, and fox

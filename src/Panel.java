@@ -22,12 +22,12 @@ public class Panel extends JPanel implements MouseListener{
 	ArrayList<String> first4nodes = new ArrayList<String>();
 	String first4animals = "fbhs0"; // number at end is selected animal, 0 is no animal
 	int natureTokens;
-	boolean spent;
+	char spent; // 'n' = not spent, 's' = spent, select separate, 'o' = spent, overpopulate
 	int turnsLeft = 60;
 	public Panel() {
 		
 		game = new Game(0, "c");
-		System.out.println(game.overpopulate2("three", "eehe"));
+		System.out.println(game.overpopulate2("four", "eehe"));
 		p = new Player();
 		Node n = new Node(300, 200, "mmrrrm-bs.png", 50);
 		p.addNode(n);
@@ -152,7 +152,7 @@ public class Panel extends JPanel implements MouseListener{
 		g.setColor(Color.black);
 		
 		g.drawString("Rotate", 10, 500);
-		g.drawString("Player #", 10, 10);
+		g.drawString("Player #", 10, 20);
 
 		g.drawImage(acorn, 550, 475, 50, 50, null);
 		g.setFont(new Font("SANS SERIF", 1, 25));
@@ -194,12 +194,15 @@ public class Panel extends JPanel implements MouseListener{
 		}
 		
 		if(!first4animals.substring(4).equals("0")) { // placing animal token if one is selected
-			for(Node n: p.getNodes()) {
-				if(n.isClicked(e.getX(), e.getY())) {
-					if(n.getAvailable().indexOf(first4animals.charAt(Integer.parseInt(first4animals.substring(4, 5))-1)) != -1)
-						n.setAnimal(first4animals.charAt(Integer.parseInt(first4animals.substring(4, 5))-1));
-					repaint();
-					return;
+			if(first4nodes.get(4).charAt(0) == '0' || spent == 's'
+				|| first4nodes.get(4).charAt(0) == first4animals.charAt(4)) { // check if adjacent or nature token spent
+				for(Node n: p.getNodes()) {
+					if(n.isClicked(e.getX(), e.getY())) {
+						if(n.getAvailable().indexOf(first4animals.charAt(Integer.parseInt(first4animals.substring(4, 5))-1)) != -1)
+							n.setAnimal(first4animals.charAt(Integer.parseInt(first4animals.substring(4, 5))-1));
+						repaint();
+						return;
+					}
 				}
 			}
 		}

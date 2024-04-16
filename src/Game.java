@@ -62,6 +62,16 @@ public class Game {
 		players[0].addNode(new Node(275, 240, startingNodes[row1][1], 50));
 		players[0].addNode(new Node(325, 240, startingNodes[row1][2], 50));
 		
+		players[1] = new Player();
+		players[1].addNode(new Node(300, 200, startingNodes[row2][0], 50));
+		players[1].addNode(new Node(275, 240, startingNodes[row2][1], 50));
+		players[1].addNode(new Node(325, 240, startingNodes[row2][2], 50));
+		
+		players[2] = new Player();
+		players[2].addNode(new Node(300, 200, startingNodes[row3][0], 50));
+		players[2].addNode(new Node(275, 240, startingNodes[row3][1], 50));
+		players[2].addNode(new Node(325, 240, startingNodes[row3][2], 50));
+		
 	}
 	//This method will return a fixed array of all the first four front nodes in the allNodes arrayList.
 	//this will most likely need a while loop
@@ -89,9 +99,13 @@ public class Game {
 	public Player currentPlayer() {
 		return players[currentPlayer];
 	}
+	
+	public int currentPlayerNum() {
+		return currentPlayer;
+	}
 	public void endTurn() {
 		currentPlayer++;
-		if(currentPlayer == 2) {
+		if(currentPlayer == 3) {
 			currentPlayer = 0;
 		}
 	}

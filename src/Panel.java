@@ -20,15 +20,18 @@ public class Panel extends JPanel implements MouseListener{
 	int[] xcords = {50, 25, -25, -50, -25, 25};
 	int[] ycords = {0, 40, 40, 0, -40, -40};
 	ArrayList<String> first4nodes = new ArrayList<String>();
-	String first4animals = "fbhs0"; // number at end is selected animal, 0 is no animal
+	String first4animals; // number at end is selected animal, 0 is no animal
 	int natureTokens;
 	char spent; // 'n' = not spent, 's' = spent, select separate, 'o' = spent, overpopulate
+	boolean placed; // if player placed a tile or not
 	int turnsLeft = 60;
 	public Panel() {
 		
+		placed = false;
 		game = new Game(0, "c");
+		first4animals = game.getFirst4Animals2() + "0";
 		System.out.println(game.overpopulate2("four", "eehe"));
-		p = new Player();
+		p = new Player();                                       // player made for testing
 		Node n = new Node(300, 200, "mmrrrm-bs.png", 50);
 		p.addNode(n);
 		avs = new ArrayList<Node>();
@@ -64,7 +67,8 @@ public class Panel extends JPanel implements MouseListener{
 		// draw nodes & animals
 		Graphics2D g2 = (Graphics2D) g;
 		
-		for(Node n: p.getNodes()) {
+		// for(Node n: p.getNodes()) {
+		for(Node n: game.currentPlayer().getNodes()) {
 			
 			
 			
@@ -88,11 +92,11 @@ public class Panel extends JPanel implements MouseListener{
 				
 			}
 			
-			if(first4nodes.get(4).charAt(0)!='0') { // remove this and rework getting avs in future
+			if(first4nodes.get(4).charAt(0)!='0' && !placed) { // remove this and rework getting avs in future
 				for(int i=1; i<7; i++) {
 					// badly optimized. fix later if possible
 					if(50 < n.getX()+xcords[i-1] && n.getX()+xcords[i-1] < 550 &&
-						50 < n.getY()+ycords[i-1] && n.getY()+ycords[i-1] < 450) {
+						50 < n.getY()+ycords[i-1] && n.getY()+ycords[i-1] < 350) {
 						
 						Node a = new Node(n.getX() + xcords[i-1], n.getY() + ycords[i-1], "available.png", 15);
 						if(n.getNearbyNode(i) == null && !avs.toString().contains(a.toString())) {
@@ -112,9 +116,9 @@ public class Panel extends JPanel implements MouseListener{
 		int c = (Integer.parseInt(first4nodes.get(4).substring(0,1))-1);
 		if(c!=-1) {
 			try {
-				g2.rotate(Math.toRadians((Integer.parseInt(first4nodes.get(4).substring(1))-1)*60), 425, 475);
-				g.drawImage(ImageIO.read(Panel.class.getResource("/assets/"+ first4nodes.get(c))), 400, 450, 50, 50, null);
-				g2.rotate(Math.toRadians((Integer.parseInt(first4nodes.get(4).substring(1))-1)*60)*-1, 425, 475);
+				g2.rotate(Math.toRadians((Integer.parseInt(first4nodes.get(4).substring(1))-1)*60), 415, 465);
+				g.drawImage(ImageIO.read(Panel.class.getResource("/assets/"+ first4nodes.get(c))), 375, 425, 80, 80, null);
+				g2.rotate(Math.toRadians((Integer.parseInt(first4nodes.get(4).substring(1))-1)*60)*-1, 415, 465);
 			} catch (IOException e) {
 			}
 		}
@@ -148,10 +152,14 @@ public class Panel extends JPanel implements MouseListener{
 			
 		}
 		
+		g.setColor(Color.green); g.fillRect(5, 470, 60, 55);
+		g.setColor(Color.red); g.fillRect(75, 470, 70, 55);
+		
 		g.setColor(Color.black);
 		
 		g.drawString("Rotate", 10, 500);
-		g.drawString("Player #", 10, 20);
+		g.drawString("End Turn", 75, 500);
+		g.drawString("Player #" + (game.currentPlayerNum()+1), 10, 20);
 
 		g.drawImage(acorn, 550, 475, 50, 50, null);
 		g.setFont(new Font("SANS SERIF", 1, 25));
@@ -182,7 +190,7 @@ public class Panel extends JPanel implements MouseListener{
 	public void mouseClicked(MouseEvent e) {
 		
 		
-		if(5 <= e.getX() && e.getX() <= 40 && 470 <= e.getY() && e.getY() <= 525) { // rotating selected tile
+		if(5 <= e.getX() && e.getX() <= 70 && 470 <= e.getY() && e.getY() <= 525) { // rotating selected tile
 			first4nodes.set(4, first4nodes.get(4).charAt(0)
 					+ "" + (Integer.parseInt(first4nodes.get(4).substring(1))+1) + "");
 			if(first4nodes.get(4).charAt(1)=='7') {
@@ -192,10 +200,20 @@ public class Panel extends JPanel implements MouseListener{
 			return;
 		}
 		
+		if(75 <= e.getX() && e.getX() <= 145 && 470 <= e.getY() && e.getY() <= 525 && placed) { // ending turn
+			avs.clear();
+			first4nodes.set(4, "01");
+			placed = false;
+			game.endTurn();
+			repaint();
+			return;
+		}
+		
+		
 		if(!first4animals.substring(4).equals("0")) { // placing animal token if one is selected
 			if(first4nodes.get(4).charAt(0) == '0' || spent == 's'
 				|| first4nodes.get(4).charAt(0) == first4animals.charAt(4)) { // check if adjacent or nature token spent
-				for(Node n: p.getNodes()) {
+				for(Node n: game.currentPlayer().getNodes()) {
 					if(n.isClicked(e.getX(), e.getY())) {
 						if(n.getAvailable().indexOf(first4animals.charAt(Integer.parseInt(first4animals.substring(4, 5))-1)) != -1)
 							n.setAnimal(first4animals.charAt(Integer.parseInt(first4animals.substring(4, 5))-1));
@@ -208,13 +226,14 @@ public class Panel extends JPanel implements MouseListener{
 		
 		for(Node a: avs) { // placing a tile if one is selected
 			
-			if(a.isClicked(e.getX(), e.getY()) && !first4nodes.get(4).substring(0,1).equals("0")) {
+			if(a.isClicked(e.getX(), e.getY()) && !first4nodes.get(4).substring(0,1).equals("0") && !placed) {
 				
 				Node n = new Node(a.getX(), a.getY(), first4nodes.get(Integer.parseInt(first4nodes.get(4).substring(0,1))-1), 50);
-				p.addNode(n);
+				game.currentPlayer().addNode(n);
 				while(n.getRot() != (Integer.parseInt(first4nodes.get(4).substring(1)))){
 					n.rotate();
 				}
+				placed = true;
 				avs.clear();
 				repaint();
 				return;
@@ -230,7 +249,7 @@ public class Panel extends JPanel implements MouseListener{
 				return;
 			}
 			
-			if(700 <= e.getX() && e.getX() <= 750 && 50+(75*i) <= e.getY() && e.getY() <= 100+(75*i)) { // selecting a tile
+			if(700 <= e.getX() && e.getX() <= 750 && 50+(75*i) <= e.getY() && e.getY() <= 100+(75*i) && !placed) { // selecting a tile
 				
 				if(Integer.parseInt(first4nodes.get(4).substring(0,1)) == (i+1)) {
 					first4nodes.set(4, "01");

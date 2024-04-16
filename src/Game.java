@@ -14,6 +14,7 @@ public class Game {
 	
 	//The constructor that sets up everything for the GameBoard
 	public Game(int currentPlayer, String scoringCards) { 
+		players = new Player[3];
 		this.currentPlayer = currentPlayer;
 		this.scoringCards = scoringCards;
 		//Set startingNodes to be a 5 by 3 matrix that adds the tiles from those placed as starter tiles
@@ -44,8 +45,22 @@ public class Game {
 		startingNodes[4][2] = "mwwwmm-fh.png"; //mountain & wetland w/ fox and hawk
 		
 		
-		// Set up players like so
-		// players.add(new Player());
+		int row1 = (int) (Math.random()*5);
+		int row2 = (int) (Math.random()*5);
+		while(row2==row1) {
+			row2 = (int) (Math.random()*5);
+		}
+		int row3 = (int) (Math.random()*5);
+		while(row3==row1 || row3==row2) {
+			row3 = (int) (Math.random()*5);
+		}
+
+		System.out.println(row1 + "" + row2 + "" + row3);
+		
+		players[0] = new Player();
+		players[0].addNode(new Node(300, 200, startingNodes[row1][0], 50));
+		players[0].addNode(new Node(275, 240, startingNodes[row1][1], 50));
+		players[0].addNode(new Node(325, 240, startingNodes[row1][2], 50));
 		
 	}
 	//This method will return a fixed array of all the first four front nodes in the allNodes arrayList.

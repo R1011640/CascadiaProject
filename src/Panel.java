@@ -37,7 +37,7 @@ public class Panel extends JPanel implements MouseListener{
 	}
 	
 	
-	public void paint(Graphics g) {
+	public void paint(Graphics g) { //                              begin painting
 		
 		g.setColor(Color.white);
 		g.fillRect(0, 0, 800, 600);
@@ -158,7 +158,7 @@ public class Panel extends JPanel implements MouseListener{
 		g.setFont(new Font("SANS SERIF", 1, 25));
 		g.drawString(p.getTokens() + "", 600, 475);
 		
-	}
+	}                                                        // end of painting
 	
 	public void makeAvs(Node n) {
 		for(int i=1; i<7; i++) {

@@ -17,12 +17,12 @@ public class Panel extends JPanel implements MouseListener{
 	Game game;
 	ArrayList<Node> avs;
 	Player p;
-	int[] xcords = {50, 25, -25, -50, -25, 25};
-	int[] ycords = {0, 40, 40, 0, -40, -40};
+	public static int[] xcords = {50, 25, -25, -50, -25, 25};
+	public static int[] ycords = {0, 40, 40, 0, -40, -40};
 	ArrayList<String> first4nodes = new ArrayList<String>();
 	String first4animals; // number at end is selected animal, 0 is no animal
 	int natureTokens;
-	char spent; // 'n' = not spent, 's' = spent, select separate, 'o' = spent, overpopulate
+	char spent; // 'n' = not spent, 'p' = spent, pending selection, 's' = spent, select separate, 'o' = spent, overpopulate
 	boolean placed; // if player placed a tile or not
 	int turnsLeft = 60;
 	public Panel() {
@@ -92,7 +92,7 @@ public class Panel extends JPanel implements MouseListener{
 				
 			}
 			
-			if(first4nodes.get(4).charAt(0)!='0' && !placed) { // remove this and rework getting avs in future
+			if(first4nodes.get(4).charAt(0)!='0' && !placed) {
 				for(int i=1; i<7; i++) {
 					// badly optimized. fix later if possible
 					if(50 < n.getX()+xcords[i-1] && n.getX()+xcords[i-1] < 550 &&
@@ -190,6 +190,10 @@ public class Panel extends JPanel implements MouseListener{
 	public void mouseClicked(MouseEvent e) {
 		
 		
+		if(550 <= e.getX() && e.getX() <= 600 && 475 <= e.getY() && e.getY() <= 525) { // clicking acorn
+			System.out.println("acorn clicked");
+		}
+		
 		if(5 <= e.getX() && e.getX() <= 70 && 470 <= e.getY() && e.getY() <= 525) { // rotating selected tile
 			first4nodes.set(4, first4nodes.get(4).charAt(0)
 					+ "" + (Integer.parseInt(first4nodes.get(4).substring(1))+1) + "");
@@ -243,19 +247,24 @@ public class Panel extends JPanel implements MouseListener{
 		
 		for(int i=0; i<4; i++) {
 			if(600 <= e.getX() && e.getX() <= 650 && 50+(75*i) <= e.getY() && e.getY() <= 100+(75*i)) { // selecting an animal token
-				
+				if(spent == 's') {
 				first4animals = first4animals.substring(0, 4) + (i+1);
 				repaint();
 				return;
+				}
 			}
 			
 			if(700 <= e.getX() && e.getX() <= 750 && 50+(75*i) <= e.getY() && e.getY() <= 100+(75*i) && !placed) { // selecting a tile
 				
 				if(Integer.parseInt(first4nodes.get(4).substring(0,1)) == (i+1)) {
 					first4nodes.set(4, "01");
+					first4animals = first4animals.substring(0, 4) + "0"; 
 					avs.clear(); // might cause problems later on. see line 107
 				}
-				else first4nodes.set(4, (i+1) + "1");
+				else {
+					first4nodes.set(4, (i+1) + "1");
+					first4animals = first4animals.substring(0, 4) + (i+1);
+				}
 				repaint();
 				return;
 			}

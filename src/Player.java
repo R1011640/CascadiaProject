@@ -48,6 +48,10 @@ public class Player {
 	public int getTokens() {
 		return natureTokens;
 	}
+	
+	public void setTokens(int t) {
+		natureTokens = t;
+	}
 	//returns the first node that has the animal listed in the parameter
 	public Node findAnimal(char a) {
 		//Lets try a for-each that will go through the array list of nodes

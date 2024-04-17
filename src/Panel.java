@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,26 +15,22 @@ public class Panel extends JPanel implements MouseListener{
 	
 	Game game;
 	ArrayList<Node> avs;
-	Player p;
 	public static int[] xcords = {50, 25, -25, -50, -25, 25};
 	public static int[] ycords = {0, 40, 40, 0, -40, -40};
 	ArrayList<String> first4nodes = new ArrayList<String>();
 	String first4animals; // number at end is selected animal, 0 is no animal
 	int natureTokens;
 	char spent; // 'n' = not spent, 'p' = spent, pending selection, 's' = spent, select separate, 'o' = spent, overpopulate
-	boolean placed; // if player placed a tile or not
+	boolean placed, aplaced; // if player placed a tile or not
 	int turnsLeft = 60;
+	String customOvp;
 	public Panel() {
-		
+		customOvp = "";
 		spent = 'n';
 		placed = false;
+		aplaced = false;
 		game = new Game(0, "c");
 		first4animals = game.getFirst4Animals2() + "0";
-		
-		//System.out.println(game.overpopulate2("four", "eehe"));
-		//p = new Player();                                       // player made for testing
-		//Node n = new Node(300, 200, "mmrrrm-bs.png", 50);
-		//p.addNode(n);
 		avs = new ArrayList<Node>();
 		addMouseListener(this);
 		
@@ -163,9 +158,11 @@ public class Panel extends JPanel implements MouseListener{
 		g.drawString("End Turn", 75, 500);
 		g.drawString("Player #" + (game.currentPlayerNum()+1), 10, 20);
 
-		if(spent=='p') {
-			g.setColor(Color.green); g.fillRect(630, 400, 160, 55);
-			g.fillRect(630, 470, 160, 55); g.setColor(Color.black);
+		if(spent!='n') {
+			g.setColor(Color.green); 
+			g.fillRect(630, 400, 160, spent=='s'?45:30);
+			g.fillRect(630, 470, 160, spent=='o'?45:30); 
+			g.setColor(Color.black);
 			g.setFont(new Font("SANS SERIF", 1, 15));
 			g.drawString("Pick seperate tokens", 630, 420);
 			g.setFont(new Font("SANS SERIF", 1, 20));
@@ -200,9 +197,21 @@ public class Panel extends JPanel implements MouseListener{
 	
 	public void mouseClicked(MouseEvent e) {
 		
-		// add clicking buttons if spent == 'p'
+		//g.fillRect(630, 400, 160, 55); separate  g.fillRect(630, 470, 160, 55); overpopulate
 		
-		if(550 <= e.getX() && e.getX() <= 600 && 475 <= e.getY() && e.getY() <= 525) { // clicking acorn
+		if(630 <= e.getX() && e.getX() <= 790) {
+			if(400 <= e.getY() && e.getY() <= 455) { // click to pick separate tokens
+				spent = 's';
+				repaint();
+				return;
+			} else if (470 <= e.getY() && e.getY() <= (470+55)) { // click to overpopulate
+				spent = 'o';
+				repaint();
+				return;
+			}
+		}
+		
+		if(550 <= e.getX() && e.getX() <= 600 && 475 <= e.getY() && e.getY() <= 525 && !placed && !aplaced) { // clicking acorn
 			if(spent=='n' && game.currentPlayer().getTokens()>0) {
 				spent = 'p';
 				game.currentPlayer().setTokens(game.currentPlayer().getTokens()-1);
@@ -228,7 +237,12 @@ public class Panel extends JPanel implements MouseListener{
 		if(75 <= e.getX() && e.getX() <= 145 && 470 <= e.getY() && e.getY() <= 525 && placed) { // ending turn
 			avs.clear();
 			first4nodes.set(4, "01");
+			first4animals = first4animals.substring(0,4) + "0";
 			placed = false;
+			aplaced = false;
+			//if(spent=='p' || spent=='o') {
+			//	game.currentPlayer().setTokens(game.currentPlayer().getTokens()-1);
+			//}
 			spent = 'n';
 			game.endTurn();
 			repaint();
@@ -241,8 +255,16 @@ public class Panel extends JPanel implements MouseListener{
 				|| first4nodes.get(4).charAt(0) == first4animals.charAt(4)) { // check if adjacent or nature token spent
 				for(Node n: game.currentPlayer().getNodes()) {
 					if(n.isClicked(e.getX(), e.getY())) {
-						if(n.getAvailable().indexOf(first4animals.charAt(Integer.parseInt(first4animals.substring(4, 5))-1)) != -1)
+						if(n.getAvailable().indexOf(first4animals.charAt(Integer.parseInt(first4animals.substring(4, 5))-1)) != -1 && !aplaced && placed) {
 							n.setAnimal(first4animals.charAt(Integer.parseInt(first4animals.substring(4, 5))-1));
+							aplaced = true;
+							if(spent=='s') spent = 'n';
+							first4animals = first4animals.substring(0, (Integer.parseInt(first4animals.substring(4, 5))-1))
+									+ game.randomAnimal() + first4animals.substring((Integer.parseInt(first4animals.substring(4, 5))));
+							first4animals = first4animals.substring(0, 4) + "0"; 
+							System.out.println(first4animals);
+						
+						}
 						repaint();
 						return;
 					}

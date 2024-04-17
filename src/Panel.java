@@ -27,13 +27,15 @@ public class Panel extends JPanel implements MouseListener{
 	int turnsLeft = 60;
 	public Panel() {
 		
+		spent = 'n';
 		placed = false;
 		game = new Game(0, "c");
 		first4animals = game.getFirst4Animals2() + "0";
-		System.out.println(game.overpopulate2("four", "eehe"));
-		p = new Player();                                       // player made for testing
-		Node n = new Node(300, 200, "mmrrrm-bs.png", 50);
-		p.addNode(n);
+		
+		//System.out.println(game.overpopulate2("four", "eehe"));
+		//p = new Player();                                       // player made for testing
+		//Node n = new Node(300, 200, "mmrrrm-bs.png", 50);
+		//p.addNode(n);
 		avs = new ArrayList<Node>();
 		addMouseListener(this);
 		
@@ -161,9 +163,18 @@ public class Panel extends JPanel implements MouseListener{
 		g.drawString("End Turn", 75, 500);
 		g.drawString("Player #" + (game.currentPlayerNum()+1), 10, 20);
 
+		if(spent=='p') {
+			g.setColor(Color.green); g.fillRect(630, 400, 160, 55);
+			g.fillRect(630, 470, 160, 55); g.setColor(Color.black);
+			g.setFont(new Font("SANS SERIF", 1, 15));
+			g.drawString("Pick seperate tokens", 630, 420);
+			g.setFont(new Font("SANS SERIF", 1, 20));
+			g.drawString("Overpopulate", 630, 490);
+		}
+		
 		g.drawImage(acorn, 550, 475, 50, 50, null);
 		g.setFont(new Font("SANS SERIF", 1, 25));
-		g.drawString(p.getTokens() + "", 600, 475);
+		g.drawString(game.currentPlayer().getTokens() + "", 600, 475);
 		
 	}                                                        // end of painting
 	
@@ -189,9 +200,19 @@ public class Panel extends JPanel implements MouseListener{
 	
 	public void mouseClicked(MouseEvent e) {
 		
+		// add clicking buttons if spent == 'p'
 		
 		if(550 <= e.getX() && e.getX() <= 600 && 475 <= e.getY() && e.getY() <= 525) { // clicking acorn
-			System.out.println("acorn clicked");
+			if(spent=='n' && game.currentPlayer().getTokens()>0) {
+				spent = 'p';
+				game.currentPlayer().setTokens(game.currentPlayer().getTokens()-1);
+			}
+			else if(spent!='n'){
+				spent = 'n';
+				game.currentPlayer().setTokens(game.currentPlayer().getTokens()+1);
+			}
+			repaint();
+			return;
 		}
 		
 		if(5 <= e.getX() && e.getX() <= 70 && 470 <= e.getY() && e.getY() <= 525) { // rotating selected tile
@@ -208,6 +229,7 @@ public class Panel extends JPanel implements MouseListener{
 			avs.clear();
 			first4nodes.set(4, "01");
 			placed = false;
+			spent = 'n';
 			game.endTurn();
 			repaint();
 			return;
@@ -236,6 +258,10 @@ public class Panel extends JPanel implements MouseListener{
 				game.currentPlayer().addNode(n);
 				while(n.getRot() != (Integer.parseInt(first4nodes.get(4).substring(1)))){
 					n.rotate();
+				}
+				if(n.getEdges().equals("mmmmmm") || n.getEdges().equals("wwwwww") || n.getEdges().equals("ffffff")
+					|| n.getEdges().equals("rrrrrr") || n.getEdges().equals("pppppp")) {
+					game.currentPlayer().setTokens(game.currentPlayer().getTokens()+1);
 				}
 				placed = true;
 				avs.clear();

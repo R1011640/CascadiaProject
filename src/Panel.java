@@ -359,6 +359,42 @@ public class Panel extends JPanel implements MouseListener{
 }
 
 
+//THE GAME LAYOUT OR BACKGROUND OF THE GAME
+//PLEASE NOTE: ONLY COPY THE THINGS THAT ARE LOCATED IN THE  PAINT METHOD
+
+	
+	
+	//This panel will now draw the layout of the Cascadia Game
+	/*public void paint(Graphics g) {
+		BufferedImage backG = null;
+		
+		try {
+			backG = ImageIO.read(GameLayout.class.getResource("/assets/CasBack.png"));
+		}
+		catch(IOException e) {
+			System.out.println("There was an error");
+		}
+		
+		//cascadia color themes include: blue, white, green, and dark green and/or black
+				g.setColor(Color.BLACK);
+		//this will draw the green image of the background
+			g.drawImage(backG, 0, 0, 1920, 1080, null);	
+		
+			
+			//TIME TO DRAW THE BORDER LINES OF THE GAME
+			
+			//This top line will be written out to serve as the current player number 
+			g.fillRect(0, 100, 1500, 10);
+			
+			//This next line will serve to be as a border that will separate the rest of the game from the animal tokens as well as the animal tiles
+			g.fillRect(1500,0 , 10, 1080);
+			//Lastly, this line will be used to draw out the rotation tool and ultimately end a specific plaer's turn
+			g.fillRect(0, 900, 1500, 10);
+	} */
+
+
+
+
 /* ------------------------------------------------------------ NOTES
  * 
  * Major stuff happens in mouseClicked()

@@ -217,7 +217,15 @@ public class Panel extends JPanel implements MouseListener{
 				repaint();
 				return;
 			} else if (470 <= e.getY() && e.getY() <= (470+55)) { // click to overpopulate
-				spent = 'o';
+				if(spent!='o')spent = 'o';
+				else if (!customOvp.equals("")){
+					for(char i: customOvp.toCharArray()) {
+				first4animals = first4animals.substring(0, (i-'0')-1) +
+				game.randomAnimal() + first4animals.substring((i-'0'));
+					}
+					customOvp = "";
+					spent = 'n';
+				}
 				repaint();
 				return;
 			}

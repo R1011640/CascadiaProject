@@ -110,7 +110,6 @@ public class Game {
 	}
 	//This method is of type void due to only adding the different cards into the ArrayList of allNodes
 	public  void addNodes() { 
-		Player play = new Player();
 		allNodes.add("mmmmmm-b.png");
 		allNodes.add("mmmmmm-e.png");
 		allNodes.add("mmmmmm-h.png");

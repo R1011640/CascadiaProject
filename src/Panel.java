@@ -30,7 +30,6 @@ public class Panel extends JPanel implements MouseListener{
 		placed = false;
 		aplaced = false;
 		game = new Game(0, "c");
-		game.currentPlayer().setTokens(1);
 		first4animals = game.getFirst4Animals2() + "0";
 		while(first4animals.substring(0,4).equals("hhhh") || first4animals.substring(0,4).equals("bbbb")
 				|| first4animals.substring(0,4).equals("eeee") || first4animals.substring(0,4).equals("ffff")

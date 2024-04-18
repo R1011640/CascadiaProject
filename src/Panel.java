@@ -13,24 +13,30 @@ import javax.swing.JPanel;
 
 public class Panel extends JPanel implements MouseListener{
 	
-	Game game;
-	ArrayList<Node> avs;
+	Game game; // the game
+	ArrayList<Node> avs; // spots where the player can place a tile
 	public static int[] xcords = {50, 25, -25, -50, -25, 25};
 	public static int[] ycords = {0, 40, 40, 0, -40, -40};
 	ArrayList<String> first4nodes = new ArrayList<String>();
 	String first4animals; // number at end is selected animal, 0 is no animal
-	int natureTokens;
 	char spent; // 'n' = not spent, 'p' = spent, pending selection, 's' = spent, select separate, 'o' = spent, overpopulate
 	boolean placed, aplaced; // if player placed a tile or not
 	int turnsLeft = 60;
-	String customOvp;
+	String customOvp; // used to find what animals will be replaced if a nature token
+	// is spent to overpopulate
 	public Panel() {
 		customOvp = "";
 		spent = 'n';
 		placed = false;
 		aplaced = false;
 		game = new Game(0, "c");
+		game.currentPlayer().setTokens(1);
 		first4animals = game.getFirst4Animals2() + "0";
+		while(first4animals.substring(0,4).equals("hhhh") || first4animals.substring(0,4).equals("bbbb")
+				|| first4animals.substring(0,4).equals("eeee") || first4animals.substring(0,4).equals("ffff")
+				|| first4animals.substring(0,4).equals("ssss")) {
+			first4animals = game.getFirst4Animals2() + "0";
+		}
 		avs = new ArrayList<Node>();
 		addMouseListener(this);
 		
@@ -41,7 +47,6 @@ public class Panel extends JPanel implements MouseListener{
 		
 		g.setColor(Color.white);
 		g.fillRect(0, 0, 800, 600);
-		g.setColor(Color.cyan);
 		g.setFont(new Font("SANS SERIF", 1, 16));
 		first4nodes.add("ffffff-b.png"); 
 		first4nodes.add("mmmmmm-h.png");
@@ -90,6 +95,7 @@ public class Panel extends JPanel implements MouseListener{
 			}
 			
 			if(first4nodes.get(4).charAt(0)!='0' && !placed) {
+				// this function finds spots where the player can place a tile
 				for(int i=1; i<7; i++) {
 					// badly optimized. fix later if possible
 					if(50 < n.getX()+xcords[i-1] && n.getX()+xcords[i-1] < 550 &&
@@ -107,12 +113,13 @@ public class Panel extends JPanel implements MouseListener{
 		}
 		
 		for(Node q: avs) { // in the future, only do this when first4nodes.get(4).charAt(0)!='0' and see line 90
+			// also this draws the available places where you can place a tile
 			g.drawImage(q.getImg(), q.getX()-(q.getSize()/2), q.getY()-(q.getSize()/2), q.getSize(), q.getSize(), null);
 		}
 		
 		int c = (Integer.parseInt(first4nodes.get(4).substring(0,1))-1);
 		if(c!=-1) {
-			try {
+			try { // draws selected node, if there is one
 				g2.rotate(Math.toRadians((Integer.parseInt(first4nodes.get(4).substring(1))-1)*60), 415, 465);
 				g.drawImage(ImageIO.read(Panel.class.getResource("/assets/"+ first4nodes.get(c))), 375, 425, 80, 80, null);
 				g2.rotate(Math.toRadians((Integer.parseInt(first4nodes.get(4).substring(1))-1)*60)*-1, 415, 465);
@@ -120,11 +127,13 @@ public class Panel extends JPanel implements MouseListener{
 			}
 		}
 		
-		
+		g.setColor(Color.gray);
 		for(int i=0; i<Math.min(4, first4nodes.size()); i++) {
 			
 			if((Integer.parseInt(first4animals.substring(4, 5))-1)==i) {
+				g.setColor(Color.cyan); // shows if an animal token is selected
 				g.fillRect(595, 45+(75*i), 60, 60);
+				g.setColor(Color.gray);
 			}
 			
 			if(first4animals.charAt(i) == 'f') {
@@ -138,11 +147,14 @@ public class Panel extends JPanel implements MouseListener{
 			} else if (first4animals.charAt(i) == 'b') {
 				g.drawImage(bear, 600, 50+(75*i), 50, 50, null);
 			}
-	
+			if(customOvp.contains((i+1)+"")){
+				g.fillRect(550, 50+(75*i), 25, 25);
+			}
 			try {
 				if(!first4nodes.get(i).equals("null")) {
 					g.drawImage(ImageIO.read(Panel.class.getResource("/assets/"+ first4nodes.get(i))), 700, 50+(75*i), 50, 50, null);
 				}
+				
 			} catch (IOException e) {
 				System.out.println("Error");
 			}
@@ -299,6 +311,15 @@ public class Panel extends JPanel implements MouseListener{
 				first4animals = first4animals.substring(0, 4) + (i+1);
 				repaint();
 				return;
+				} else if (spent == 'o') {
+					if(!customOvp.contains((i+1)+"")) customOvp += (i+1);
+					else {
+			customOvp = customOvp.substring(0, customOvp.indexOf((i+1)+"")) + 
+					    customOvp.substring(customOvp.indexOf((i+1)+"")+1); 
+					}
+					repaint();
+					return;
+					
 				}
 			}
 			

@@ -55,7 +55,6 @@ public class Game {
 			row3 = (int) (Math.random()*5);
 		}
 
-		System.out.println(row1 + "" + row2 + "" + row3);
 		
 		players[0] = new Player();
 		players[0].addNode(new Node(300, 200, startingNodes[row1][0], 50));
@@ -138,18 +137,18 @@ public class Game {
 		allNodes.add("rrrwww-fs.png");
 		allNodes.add("rrrwww-hs.png");
 		allNodes.add("wwwfff-bs.png");
-		/*allNodes.add((new Node(200, 200, "wwwfff-es.png", 50)));
-		allNodes.add((new Node(200, 200, "wwwmmm-bs.png", 50)));
-		allNodes.add((new Node(200, 200, "wwwmmm-hs.png", 50)));
-		allNodes.add((new Node(200, 200, "wwwppp-es.png", 50)));
-		allNodes.add((new Node(200, 200, "wwwppp-hs.png", 50)));
-		allNodes.add((new Node(200, 200, "wwwwww-f.png", 50)));
-		allNodes.add((new Node(200, 200, "wwwwww-h.png", 50)));
-		allNodes.add((new Node(200, 200, "wwwwww-s.png", 50)));
-		allNodes.add((new Node(200, 200, "ffffff-b.png", 50)));
-		allNodes.add((new Node(200, 200, "ffffff-e.png", 50)));
-		allNodes.add((new Node(200, 200, "ffffff-f.png", 50)));
-		allNodes.add((new Node(200, 200, "fwwwff-hef.png", 50)));*/
+		allNodes.add("wwwfff-es.png");
+		allNodes.add("wwwmmm-bs.png");
+		allNodes.add("wwwmmm-hs.png");
+		allNodes.add("wwwppp-es.png");
+		allNodes.add("wwwppp-hs.png");
+		allNodes.add("wwwwww-f.png");
+		allNodes.add("wwwwww-h.png");
+		allNodes.add("wwwwww-s.png");
+		allNodes.add("ffffff-b.png");
+		allNodes.add("ffffff-e.png");
+		allNodes.add("ffffff-f.png");
+		allNodes.add("fwwwff-hef.png");
 	}
 	
 	public void addNode(String n) {allNodes.add(n);}

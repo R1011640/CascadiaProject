@@ -28,7 +28,7 @@ public class Game {
 
 		/* STARTING TILE TWO*/
 		startingNodes[1][0] = "ffffff-e.png"; //forest w/ elk key
-		startingNodes[1][1] = "rrrmmm-bes.png";
+		startingNodes[1][1] = "rrrmmm-beh.png";
 		startingNodes[1][2] = "pppwww-fs.png";
 		
 		/* STARTING TILE THREE*/

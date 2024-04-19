@@ -304,4 +304,8 @@ public class Game {
 			return null;
 		}
 	}
+	
+	public Player getPlayer(int p) {
+		return players[p];
+	}
 }

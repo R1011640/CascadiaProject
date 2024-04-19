@@ -70,10 +70,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		}
 		
 		
-		// draw nodes & animals
+		// to draw nodes & animals
 		Graphics2D g2 = (Graphics2D) g;
 		
-		// for(Node n: p.getNodes()) {
+		
 		for(Node n: game.currentPlayer().getNodes()) {
 			
 			

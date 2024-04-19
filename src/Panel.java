@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -9,7 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-public class Panel extends JPanel implements MouseListener{
+public class Panel extends JPanel implements MouseListener, KeyListener{
 	
 	Game game; // the game
 	ArrayList<Node> avs; // spots where the player can place a tile
@@ -40,6 +42,7 @@ public class Panel extends JPanel implements MouseListener{
 		viewedPlayer = game.currentPlayerNum();
 		avs = new ArrayList<Node>();
 		addMouseListener(this);
+		addKeyListener(this);
 		game.currentPlayer().setTokens(1);
 	}
 	
@@ -182,7 +185,6 @@ public class Panel extends JPanel implements MouseListener{
 		}
 		
 		
-		System.out.println(threeAnimals());
 		if(threeAnimals()!='n') {
 			g.fillRect(630, 370, 100, 30);
 		}
@@ -226,6 +228,10 @@ public class Panel extends JPanel implements MouseListener{
 	}
 	
 	public void mouseClicked(MouseEvent e) {
+		
+		
+		if(game.currentPlayerNum() != viewedPlayer) return; // always first
+		
 		
 		System.out.println(e.getX() + " " + e.getY());
 		
@@ -282,11 +288,9 @@ public class Panel extends JPanel implements MouseListener{
 			first4animals = first4animals.substring(0,4) + "0";
 			placed = false;
 			aplaced = false;
-			//if(spent=='p' || spent=='o') {
-			//	game.currentPlayer().setTokens(game.currentPlayer().getTokens()-1);
-			//}
 			spent = 'n';
 			game.endTurn();
+			viewedPlayer = game.currentPlayerNum();
 			repaint();
 			return;
 		}
@@ -371,16 +375,24 @@ public class Panel extends JPanel implements MouseListener{
 		
 	}
 	
-	
+	public void keyTyped(KeyEvent e) {
+		if(1 <= e.getKeyChar()-'0' && e.getKeyChar()-'0' <= 3) {
+			viewedPlayer = (e.getKeyChar()-'0')-1;
+			repaint();
+			return;
+		}
+	}
 	
 	public void mousePressed(MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
+	public void keyPressed(KeyEvent e) {}
+	public void keyReleased(KeyEvent e) {}
 }
 /* ------------------------------------------------------------ NOTES
 *
-* Major stuff happens in mouseClicked()
+* Major stuff happens in mouseClicked(), paint(), constructor, and keyTyped()
 * x and y in the node class specify the CENTER of the node, not the top left.
 * A negative y value means the node is going UP, not down. Same with positive y values.
 *

@@ -24,7 +24,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	int turnsLeft = 60;
 	String customOvp; // used to find what animals will be replaced if a nature token
 	// is spent to overpopulate
-	BufferedImage fox = null, hawk = null, elk = null, bear = null, salmon = null, acorn = null;
+	BufferedImage fox = null, hawk = null, elk = null, bear = null, salmon = null, acorn = null, bg = null;
 	int viewedPlayer; // the player who is having their info being drawn. will default to currentPlayer
 	public Panel() {
 		customOvp = "";
@@ -43,6 +43,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		first4nodes.add("mmmmmm-h.png");
 		first4nodes.add("rppprr-bs.png");
 		first4nodes.add("wwfffw-es.png");
+		first4nodes.add("01"); // first number is selected node, 0 is no node, second number is rotation
 		viewedPlayer = game.currentPlayerNum();
 		avs = new ArrayList<Node>();
 		try {
@@ -52,6 +53,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			bear = ImageIO.read(Panel.class.getResource("/assets/bear.png"));
 			salmon = ImageIO.read(Panel.class.getResource("/assets/fish.png"));
 			acorn = ImageIO.read(Panel.class.getResource("/assets/acorn.png"));
+			bg = ImageIO.read(Panel.class.getResource("/assets/bg2.png"));
 		} catch (IOException e) {
 			System.out.println("Error");
 		}
@@ -63,11 +65,11 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	
 	public void paint(Graphics g) { //                              begin painting
 		
-		g.setColor(Color.white);
-		g.fillRect(0, 0, 800, 600);
+
+		g.drawImage(bg, 0, 0, 1920, 1080, null);
 		g.setFont(new Font("SANS SERIF", 1, 16));
 		
-		first4nodes.add("01"); // first number is selected node, 0 is no node, second number is rotation
+		
 		
 		
 		
@@ -142,23 +144,23 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			
 			if((Integer.parseInt(first4animals.substring(4, 5))-1)==i) {
 				g.setColor(Color.cyan); // shows if an animal token is selected
-				g.fillRect(595, 45+(75*i), 60, 60);
+				g.fillRect(1545, 45+(150*i), 110, 110);
 				g.setColor(Color.gray);
 			}
 			
 			if(first4animals.charAt(i) == 'f') {
-				g.drawImage(fox, 600, 50+(75*i), 50, 50, null);
+				g.drawImage(fox, 1550, 50+(150*i), 100, 100, null);
 			} else if (first4animals.charAt(i) == 's') {
-				g.drawImage(salmon, 600, 50+(75*i), 50, 50, null);
+				g.drawImage(salmon, 1550, 50+(150*i), 100, 100, null);
 			} else if (first4animals.charAt(i) == 'e') {
-				g.drawImage(elk, 600, 50+(75*i), 50, 50, null);
+				g.drawImage(elk, 1550, 50+(150*i), 100, 100, null);
 			} else if (first4animals.charAt(i) == 'h') {
-				g.drawImage(hawk, 600, 50+(75*i), 50, 50, null);
+				g.drawImage(hawk, 1550, 50+(150*i), 100, 100, null);
 			} else if (first4animals.charAt(i) == 'b') {
-				g.drawImage(bear, 600, 50+(75*i), 50, 50, null);
+				g.drawImage(bear, 1550, 50+(150*i), 100, 100, null);
 			}
 			if(customOvp.contains((i+1)+"")){
-				g.fillRect(550, 50+(75*i), 25, 25);
+				g.fillRect(1500, 50+(150*i), 50, 50);
 			}
 			try {
 				if(!first4nodes.get(i).equals("null")) {
@@ -171,16 +173,16 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			
 		}
 		
-		g.setColor(Color.green); g.fillRect(5, 470, 60, 55); // rotate button
-		g.setColor(Color.red); g.fillRect(75, 470, 70, 55); // end turn button
-		
+		g.setColor(Color.green); g.fillRect(5, 900, 150, 100); // rotate button
+		g.setColor(Color.red); g.fillRect(200, 900, 150, 100); // end turn button
+		g.setFont(new Font("SANS SERIF", 1, 35));
 		g.setColor(Color.black);
 		
-		g.drawString("Rotate", 10, 500);
-		g.drawString("End Turn", 75, 500);
-		g.drawString("Player #" + (game.currentPlayerNum()+1) + "'s turn", 10, 20);
-		g.drawString("Viewing Player #" + (viewedPlayer+1), 10, 40);
-		g.drawString("Turns left for all players = " + turnsLeft, 10, 60);
+		g.drawString("Rotate", 5, 950);
+		g.drawString("End Turn", 200, 950);
+		g.drawString("Player #" + (game.currentPlayerNum()+1) + "'s turn", 10, 35);
+		g.drawString("Viewing Player #" + (viewedPlayer+1), 10, 75);
+		g.drawString("Turns left for all players = " + turnsLeft, 10, 115);
 		
 		
 		if(spent!='n') { // buttons to be shown if a nature token is spend
@@ -197,10 +199,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		
 		if(threeAnimals()!='n') { // shows button to overpopulate if 3 animals are the same
 			g.setColor(Color.yellow);
-			g.fillRect(630, 370, 100, 30);
-			g.setFont(new Font("SANS SERIF", 1, 15));
+			g.fillRect(1450, 625, 200, 80);
+			g.setFont(new Font("SANS SERIF", 1, 30));
 			g.setColor(Color.black);
-			g.drawString("Overpopulate", 630, 385);
+			g.drawString("Overpopulate", 1450, 665);
 		}
 		
 		g.drawImage(acorn, 550, 475, 50, 50, null);
@@ -247,9 +249,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		if(game.currentPlayerNum() != viewedPlayer || turnsLeft<=0) return; // always first
 		
 		
-		System.out.println(e.getX() + " " + e.getY());
 		
-		if(630 <= e.getX() && e.getX() <= 730 && 360 <= e.getY() && e.getY() <= 400) { // overpopulate if 3 animals
+		if(1450 <= e.getX() && e.getX() <= 1650 && 625 <= e.getY() && e.getY() <= 825) { // overpopulate if 3 animals
 			char c = threeAnimals();
 			for(int i=0; i<4; i++) {
 				if(first4animals.charAt(i)==c) {
@@ -294,7 +295,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			return;
 		}
 		
-		if(5 <= e.getX() && e.getX() <= 70 && 470 <= e.getY() && e.getY() <= 525) { // rotating selected tile
+		if(5 <= e.getX() && e.getX() <= 155 && 900 <= e.getY() && e.getY() <= 1000) { // rotating selected tile
 			first4nodes.set(4, first4nodes.get(4).charAt(0)
 					+ "" + (Integer.parseInt(first4nodes.get(4).substring(1))+1) + "");
 			if(first4nodes.get(4).charAt(1)=='7') {
@@ -304,7 +305,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			return;
 		}
 		
-		if(75 <= e.getX() && e.getX() <= 145 && 470 <= e.getY() && e.getY() <= 525 && placed) { // ending turn
+		if(200 <= e.getX() && e.getX() <= 350 && 900 <= e.getY() && e.getY() <= 1000 && placed) { // ending turn
 			avs.clear();
 			first4nodes.set(4, "01");
 			first4animals = first4animals.substring(0,4) + "0";
@@ -364,7 +365,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		}
 		
 		for(int i=0; i<4; i++) {
-			if(600 <= e.getX() && e.getX() <= 650 && 50+(75*i) <= e.getY() && e.getY() <= 100+(75*i)) { // selecting an animal token
+			if(1550 <= e.getX() && e.getX() <= 1650 && 50+(150*i) <= e.getY() && e.getY() <= 150+(150*i)) { // selecting an animal token
 				if(spent == 's') {
 				first4animals = first4animals.substring(0, 4) + (i+1);
 				repaint();

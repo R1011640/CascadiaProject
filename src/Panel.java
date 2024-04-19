@@ -39,11 +39,11 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			first4animals = game.getFirst4Animals2() + "0";
 		}
 		
+		first4animals = "hhhe0";
 		viewedPlayer = game.currentPlayerNum();
 		avs = new ArrayList<Node>();
 		addMouseListener(this);
 		addKeyListener(this);
-		game.currentPlayer().setTokens(1);
 	}
 	
 	
@@ -192,7 +192,11 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		
 		
 		if(threeAnimals()!='n') {
+			g.setColor(Color.yellow);
 			g.fillRect(630, 370, 100, 30);
+			g.setFont(new Font("SANS SERIF", 1, 15));
+			g.setColor(Color.black);
+			g.drawString("Overpopulate", 630, 385);
 		}
 		
 		g.drawImage(acorn, 550, 475, 50, 50, null);
@@ -241,8 +245,16 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		
 		System.out.println(e.getX() + " " + e.getY());
 		
-		if(630 <= e.getX() && e.getX() <= 730 && 360 <= e.getY() && e.getY() <= 400) {
-			
+		if(630 <= e.getX() && e.getX() <= 730 && 360 <= e.getY() && e.getY() <= 400) { // overpopulate if 3 animals
+			char c = threeAnimals();
+			for(int i=0; i<4; i++) {
+				if(first4animals.charAt(i)==c) {
+			first4animals = first4animals.substring(0,i) + game.randomAnimal() + 
+					first4animals.substring(i+1);
+				}
+			}
+			repaint();
+			return;
 		}
 		
 		if(630 <= e.getX() && e.getX() <= 790) {

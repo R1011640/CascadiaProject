@@ -8,9 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
-
 import javax.swing.JPanel;
-
 public class Panel extends JPanel implements MouseListener{
 	
 	Game game; // the game
@@ -18,12 +16,13 @@ public class Panel extends JPanel implements MouseListener{
 	public static int[] xcords = {50, 25, -25, -50, -25, 25};
 	public static int[] ycords = {0, 40, 40, 0, -40, -40};
 	ArrayList<String> first4nodes = new ArrayList<String>();
-	String first4animals; // number at end is selected animal, 0 is no animal
+	String first4animals = ""; // number at end is selected animal, 0 is no animal
 	char spent; // 'n' = not spent, 'p' = spent, pending selection, 's' = spent, select separate, 'o' = spent, overpopulate
 	boolean placed, aplaced; // if player placed a tile or not
 	int turnsLeft = 60;
 	String customOvp; // used to find what animals will be replaced if a nature token
 	// is spent to overpopulate
+	int viewedPlayer; // the player who is having their info being drawn. will default to currentPlayer
 	public Panel() {
 		customOvp = "";
 		spent = 'n';
@@ -31,14 +30,17 @@ public class Panel extends JPanel implements MouseListener{
 		aplaced = false;
 		game = new Game(0, "c");
 		first4animals = game.getFirst4Animals2() + "0";
+		
 		while(first4animals.substring(0,4).equals("hhhh") || first4animals.substring(0,4).equals("bbbb")
 				|| first4animals.substring(0,4).equals("eeee") || first4animals.substring(0,4).equals("ffff")
 				|| first4animals.substring(0,4).equals("ssss")) {
 			first4animals = game.getFirst4Animals2() + "0";
 		}
+		
+		viewedPlayer = game.currentPlayerNum();
 		avs = new ArrayList<Node>();
 		addMouseListener(this);
-		
+		game.currentPlayer().setTokens(1);
 	}
 	
 	
@@ -47,7 +49,7 @@ public class Panel extends JPanel implements MouseListener{
 		g.setColor(Color.white);
 		g.fillRect(0, 0, 800, 600);
 		g.setFont(new Font("SANS SERIF", 1, 16));
-		first4nodes.add("ffffff-b.png"); 
+		first4nodes.add("ffffff-b.png");
 		first4nodes.add("mmmmmm-h.png");
 		first4nodes.add("rppprr-bs.png");
 		first4nodes.add("wwfffw-es.png");
@@ -168,11 +170,10 @@ public class Panel extends JPanel implements MouseListener{
 		g.drawString("Rotate", 10, 500);
 		g.drawString("End Turn", 75, 500);
 		g.drawString("Player #" + (game.currentPlayerNum()+1), 10, 20);
-
 		if(spent!='n') {
-			g.setColor(Color.green); 
+			g.setColor(Color.green);
 			g.fillRect(630, 400, 160, spent=='s'?45:30);
-			g.fillRect(630, 470, 160, spent=='o'?45:30); 
+			g.fillRect(630, 470, 160, spent=='o'?45:30);
 			g.setColor(Color.black);
 			g.setFont(new Font("SANS SERIF", 1, 15));
 			g.drawString("Pick seperate tokens", 630, 420);
@@ -180,11 +181,29 @@ public class Panel extends JPanel implements MouseListener{
 			g.drawString("Overpopulate", 630, 490);
 		}
 		
+		
+		System.out.println(threeAnimals());
+		if(threeAnimals()!='n') {
+			g.fillRect(630, 370, 100, 30);
+		}
+		
 		g.drawImage(acorn, 550, 475, 50, 50, null);
 		g.setFont(new Font("SANS SERIF", 1, 25));
 		g.drawString(game.currentPlayer().getTokens() + "", 600, 475);
 		
 	}                                                        // end of painting
+	
+	public char threeAnimals() {
+		for(char q: "fsbeh".toCharArray()) {
+			if(first4animals.contains(q + "")) {
+				if(first4animals.substring(0, first4animals.lastIndexOf(q)).indexOf(q) !=
+					first4animals.substring(0, first4animals.lastIndexOf(q)).lastIndexOf(q)) {
+				return q;
+				}
+			}
+		}
+		return 'n';
+	}
 	
 	public void makeAvs(Node n) {
 		for(int i=1; i<7; i++) {
@@ -208,7 +227,11 @@ public class Panel extends JPanel implements MouseListener{
 	
 	public void mouseClicked(MouseEvent e) {
 		
-		//g.fillRect(630, 400, 160, 55); separate  g.fillRect(630, 470, 160, 55); overpopulate
+		System.out.println(e.getX() + " " + e.getY());
+		
+		if(630 <= e.getX() && e.getX() <= 730 && 360 <= e.getY() && e.getY() <= 400) {
+			
+		}
 		
 		if(630 <= e.getX() && e.getX() <= 790) {
 			if(400 <= e.getY() && e.getY() <= 455) { // click to pick separate tokens
@@ -280,7 +303,7 @@ public class Panel extends JPanel implements MouseListener{
 							if(spent=='s') spent = 'n';
 							first4animals = first4animals.substring(0, (Integer.parseInt(first4animals.substring(4, 5))-1))
 									+ game.randomAnimal() + first4animals.substring((Integer.parseInt(first4animals.substring(4, 5))));
-							first4animals = first4animals.substring(0, 4) + "0"; 
+							first4animals = first4animals.substring(0, 4) + "0";
 							System.out.println(first4animals);
 						
 						}
@@ -321,8 +344,8 @@ public class Panel extends JPanel implements MouseListener{
 				} else if (spent == 'o') {
 					if(!customOvp.contains((i+1)+"")) customOvp += (i+1);
 					else {
-			customOvp = customOvp.substring(0, customOvp.indexOf((i+1)+"")) + 
-					    customOvp.substring(customOvp.indexOf((i+1)+"")+1); 
+			customOvp = customOvp.substring(0, customOvp.indexOf((i+1)+"")) +
+					    customOvp.substring(customOvp.indexOf((i+1)+"")+1);
 					}
 					repaint();
 					return;
@@ -334,7 +357,7 @@ public class Panel extends JPanel implements MouseListener{
 				
 				if(Integer.parseInt(first4nodes.get(4).substring(0,1)) == (i+1)) {
 					first4nodes.set(4, "01");
-					first4animals = first4animals.substring(0, 4) + "0"; 
+					first4animals = first4animals.substring(0, 4) + "0";
 					avs.clear(); // might cause problems later on. see line 107
 				}
 				else {
@@ -354,46 +377,16 @@ public class Panel extends JPanel implements MouseListener{
 	public void mouseReleased(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
-
-
 }
-
-
-//THE GAME LAYOUT OR BACKGROUND OF THE GAME
-//PLEASE NOTE: ONLY COPY THE THINGS THAT ARE LOCATED IN THE  PAINT METHOD
-
-	
-	
-	//This panel will now draw the layout of the Cascadia Game
-	/*public void paint(Graphics g) {
-		BufferedImage backG = null;
-		
-		try {
-			backG = ImageIO.read(GameLayout.class.getResource("/assets/CasBack.png"));
-		}
-		catch(IOException e) {
-			System.out.println("There was an error");
-		}
-		
-		//cascadia color themes include: blue, white, green, and dark green and/or black
-				g.setColor(Color.BLACK);
-		//this will draw the green image of the background
-			g.drawImage(backG, 0, 0, 1920, 1080, null);	
-		
-			
-			//TIME TO DRAW THE BORDER LINES OF THE GAME
-			
-			//This top line will be written out to serve as the current player number 
-			g.fillRect(0, 100, 1500, 10);
-			
-			//This next line will serve to be as a border that will separate the rest of the game from the animal tokens as well as the animal tiles
-			g.fillRect(1500,0 , 10, 1080);
-			//Lastly, this line will be used to draw out the rotation tool and ultimately end a specific plaer's turn
-			g.fillRect(0, 900, 1500, 10);
-	} */
-
-
-
+/* ------------------------------------------------------------ NOTES
+*
+* Major stuff happens in mouseClicked()
+* x and y in the node class specify the CENTER of the node, not the top left.
+* A negative y value means the node is going UP, not down. Same with positive y values.
+*
+*
+*
+*/
 
 /* ------------------------------------------------------------ NOTES
  * 

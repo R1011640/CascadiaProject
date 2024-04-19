@@ -74,7 +74,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		Graphics2D g2 = (Graphics2D) g;
 		
 		
-		for(Node n: game.currentPlayer().getNodes()) {
+		for(Node n: game.getPlayer(viewedPlayer).getNodes()) {
 			
 			
 			
@@ -116,10 +116,15 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			
 		}
 		
-		for(Node q: avs) { // in the future, only do this when first4nodes.get(4).charAt(0)!='0' and see line 90
-			// also this draws the available places where you can place a tile
+		// this draws the available places where you can place a tile
+		if(viewedPlayer==game.currentPlayerNum()) {
+			for(Node q: avs) {
+			
 			g.drawImage(q.getImg(), q.getX()-(q.getSize()/2), q.getY()-(q.getSize()/2), q.getSize(), q.getSize(), null);
 		}
+		}
+		
+		
 		
 		int c = (Integer.parseInt(first4nodes.get(4).substring(0,1))-1);
 		if(c!=-1) {
@@ -172,7 +177,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		
 		g.drawString("Rotate", 10, 500);
 		g.drawString("End Turn", 75, 500);
-		g.drawString("Player #" + (game.currentPlayerNum()+1), 10, 20);
+		g.drawString("Player #" + (game.currentPlayerNum()+1) + "'s turn", 10, 20);
+		g.drawString("Viewing Player #" + (viewedPlayer+1), 10, 40);
 		if(spent!='n') {
 			g.setColor(Color.green);
 			g.fillRect(630, 400, 160, spent=='s'?45:30);

@@ -132,9 +132,9 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		int c = (Integer.parseInt(first4nodes.get(4).substring(0,1))-1);
 		if(c!=-1) {
 			try { // draws selected node, if there is one
-				g2.rotate(Math.toRadians((Integer.parseInt(first4nodes.get(4).substring(1))-1)*60), 415, 465);
-				g.drawImage(ImageIO.read(Panel.class.getResource("/assets/"+ first4nodes.get(c))), 375, 425, 80, 80, null);
-				g2.rotate(Math.toRadians((Integer.parseInt(first4nodes.get(4).substring(1))-1)*60)*-1, 415, 465);
+				g2.rotate(Math.toRadians((Integer.parseInt(first4nodes.get(4).substring(1))-1)*60), 975, 875);
+				g.drawImage(ImageIO.read(Panel.class.getResource("/assets/"+ first4nodes.get(c))), 900, 800, 150, 150, null);
+				g2.rotate(Math.toRadians((Integer.parseInt(first4nodes.get(4).substring(1))-1)*60)*-1, 975, 875);
 			} catch (IOException e) {
 			}
 		}
@@ -205,9 +205,9 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			g.drawString("Overpopulate", 1450, 665);
 		}
 		
-		g.drawImage(acorn, 550, 475, 50, 50, null);
+		g.drawImage(acorn, 1600, 800, 100, 100, null);
 		g.setFont(new Font("SANS SERIF", 1, 25));
-		g.drawString(game.currentPlayer().getTokens() + "", 600, 475);
+		g.drawString(game.currentPlayer().getTokens() + "", 1600, 800);
 		
 	}                                                        // end of painting
 	
@@ -282,7 +282,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			}
 		}
 		
-		if(550 <= e.getX() && e.getX() <= 600 && 475 <= e.getY() && e.getY() <= 525 && !placed && !aplaced) { // clicking acorn
+
+		if(1600 <= e.getX() && e.getX() <= 1700 && 800 <= e.getY() && e.getY() <= 900 && !placed && !aplaced) { // clicking acorn
 			if(spent=='n' && game.currentPlayer().getTokens()>0) {
 				spent = 'p';
 				game.currentPlayer().setTokens(game.currentPlayer().getTokens()-1);

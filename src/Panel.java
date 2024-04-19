@@ -137,7 +137,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		}
 		
 		g.setColor(Color.gray);
-		for(int i=0; i<Math.min(4, first4nodes.size()); i++) {
+		for(int i=0; i<Math.min(4, first4nodes.size()); i++) { // draw animal tokens & tiles
 			
 			if((Integer.parseInt(first4animals.substring(4, 5))-1)==i) {
 				g.setColor(Color.cyan); // shows if an animal token is selected
@@ -170,8 +170,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			
 		}
 		
-		g.setColor(Color.green); g.fillRect(5, 470, 60, 55);
-		g.setColor(Color.red); g.fillRect(75, 470, 70, 55);
+		g.setColor(Color.green); g.fillRect(5, 470, 60, 55); // rotate button
+		g.setColor(Color.red); g.fillRect(75, 470, 70, 55); // end turn button
 		
 		g.setColor(Color.black);
 		
@@ -179,6 +179,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		g.drawString("End Turn", 75, 500);
 		g.drawString("Player #" + (game.currentPlayerNum()+1) + "'s turn", 10, 20);
 		g.drawString("Viewing Player #" + (viewedPlayer+1), 10, 40);
+		g.drawString("Turns left for all players = " + turnsLeft, 10, 60);
 		if(spent!='n') {
 			g.setColor(Color.green);
 			g.fillRect(630, 400, 160, spent=='s'?45:30);
@@ -191,7 +192,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		}
 		
 		
-		if(threeAnimals()!='n') {
+		if(threeAnimals()!='n') { // shows button to overpopulate if 3 animals are the same
 			g.setColor(Color.yellow);
 			g.fillRect(630, 370, 100, 30);
 			g.setFont(new Font("SANS SERIF", 1, 15));
@@ -307,6 +308,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			placed = false;
 			aplaced = false;
 			spent = 'n';
+			turnsLeft--;
+			// make end condition if turnsLeft = 0;
 			game.endTurn();
 			viewedPlayer = game.currentPlayerNum();
 			repaint();

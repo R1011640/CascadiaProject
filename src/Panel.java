@@ -180,7 +180,9 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		g.drawString("Player #" + (game.currentPlayerNum()+1) + "'s turn", 10, 20);
 		g.drawString("Viewing Player #" + (viewedPlayer+1), 10, 40);
 		g.drawString("Turns left for all players = " + turnsLeft, 10, 60);
-		if(spent!='n') {
+		
+		
+		if(spent!='n') { // buttons to be shown if a nature token is spend
 			g.setColor(Color.green);
 			g.fillRect(630, 400, 160, spent=='s'?45:30);
 			g.fillRect(630, 470, 160, spent=='o'?45:30);
@@ -241,7 +243,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	public void mouseClicked(MouseEvent e) {
 		
 		
-		if(game.currentPlayerNum() != viewedPlayer) return; // always first
+		if(game.currentPlayerNum() != viewedPlayer || turnsLeft<=0) return; // always first
 		
 		
 		System.out.println(e.getX() + " " + e.getY());

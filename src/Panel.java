@@ -24,6 +24,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	int turnsLeft = 60;
 	String customOvp; // used to find what animals will be replaced if a nature token
 	// is spent to overpopulate
+	BufferedImage fox = null, hawk = null, elk = null, bear = null, salmon = null, acorn = null;
 	int viewedPlayer; // the player who is having their info being drawn. will default to currentPlayer
 	public Panel() {
 		customOvp = "";
@@ -38,25 +39,12 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 				|| first4animals.substring(0,4).equals("ssss")) {
 			first4animals = game.getFirst4Animals2() + "0";
 		}
-		
-		viewedPlayer = game.currentPlayerNum();
-		avs = new ArrayList<Node>();
-		addMouseListener(this);
-		addKeyListener(this);
-	}
-	
-	
-	public void paint(Graphics g) { //                              begin painting
-		
-		g.setColor(Color.white);
-		g.fillRect(0, 0, 800, 600);
-		g.setFont(new Font("SANS SERIF", 1, 16));
 		first4nodes.add("ffffff-b.png");
 		first4nodes.add("mmmmmm-h.png");
 		first4nodes.add("rppprr-bs.png");
 		first4nodes.add("wwfffw-es.png");
-		first4nodes.add("01"); // first number is selected node, 0 is no node, second number is rotation
-		BufferedImage fox = null, hawk = null, elk = null, bear = null, salmon = null, acorn = null;
+		viewedPlayer = game.currentPlayerNum();
+		avs = new ArrayList<Node>();
 		try {
 			fox = ImageIO.read(Panel.class.getResource("/assets/fox.png"));
 			hawk = ImageIO.read(Panel.class.getResource("/assets/hawk.png"));
@@ -67,6 +55,20 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		} catch (IOException e) {
 			System.out.println("Error");
 		}
+		
+		addMouseListener(this);
+		addKeyListener(this);
+	}
+	
+	
+	public void paint(Graphics g) { //                              begin painting
+		
+		g.setColor(Color.white);
+		g.fillRect(0, 0, 800, 600);
+		g.setFont(new Font("SANS SERIF", 1, 16));
+		
+		first4nodes.add("01"); // first number is selected node, 0 is no node, second number is rotation
+		
 		
 		
 		// to draw nodes & animals

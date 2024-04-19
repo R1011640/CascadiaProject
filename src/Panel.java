@@ -39,7 +39,6 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			first4animals = game.getFirst4Animals2() + "0";
 		}
 		
-		first4animals = "hhhe0";
 		viewedPlayer = game.currentPlayerNum();
 		avs = new ArrayList<Node>();
 		addMouseListener(this);

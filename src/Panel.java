@@ -169,7 +169,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			}
 			try {
 				if(!first4nodes.get(i).equals("null")) {
-					g.drawImage(ImageIO.read(Panel.class.getResource("/assets/"+ first4nodes.get(i))), 700, 50+(75*i), 50, 50, null);
+					g.drawImage(ImageIO.read(Panel.class.getResource("/assets/"+ first4nodes.get(i))), 1500, 50+(150*i), 100, 100, null);
 				}
 				
 			} catch (IOException e) {
@@ -387,8 +387,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 					
 				}
 			}
-			
-			if(700 <= e.getX() && e.getX() <= 750 && 50+(75*i) <= e.getY() && e.getY() <= 100+(75*i) && !placed) { // selecting a tile
+
+			if(1500 <= e.getX() && e.getX() <= 1600 && 50+(150) <= e.getY() && e.getY() <= 150+(150*i) && !placed) { // selecting a tile
 				
 				if(Integer.parseInt(first4nodes.get(4).substring(0,1)) == (i+1)) {
 					first4nodes.set(4, "01");

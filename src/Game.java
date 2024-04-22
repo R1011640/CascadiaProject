@@ -92,9 +92,40 @@ public class Game {
 		
 	}
 	public int [][] scoring(){
-		return null;    
+		int bC = 0;
+		int eC = 0;
+		int sC = 0;
+		int fC = 0;
+		int hC = 0;
+		//The scoring will be based on the following type of card
+		//iterate through the animals, not the players
+		for(int i = 0; i < players.length; i++) {
+			//This is for scoring card bear: Checks for those that are in pairs
+			if(players[i].getNodes().equals('b')) {
+				bC++;
+			}
+			//This is the scoring card elk: Checks for a STRAIGHT line of elks
+			else if(players[i].getNodes().equals('e')) {
+				eC++;
+			}//This is the scoring card salmon: Checks for a run, not a straight line like the elk
+			else if(players[i].getNodes().equals('s')) {
+				sC++;
+			}
+			//This is the scoring card fox: Checks for the number of differing animals surrounding it
+			else if(players[i].getNodes().equals('f')) {
+				fC++;
+			}
+			//This is the scoring card hawk: Checks for each hawk that isn't adjacent to any other hawk
+			else if(players[i].getNodes().equals('h')) {
+				hC++;
+			}
+		}
+		return null;   
 		
 	}
+
+	
+	
 	public Player currentPlayer() {
 		return players[currentPlayer];
 	}
@@ -240,6 +271,7 @@ public class Game {
 				//It will then add these values to your arrayList identical that will be stored for later use 
 				while(j < 4) {
 					identical.add(animals.remove(j));
+					j++;
 				}
 			}
 			

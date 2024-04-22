@@ -2,8 +2,8 @@ import javax.swing.JFrame;
 import java.awt.Toolkit;
 
 public class Frame extends JFrame{
-	private static final int WIDTH = 1920;
-	private static final int HEIGHT = 1080;
+	private static final int WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
+	private static final int HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
 	public Frame (String framename) {
 		super(framename);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import java.awt.Toolkit;
 public class Panel extends JPanel implements MouseListener, KeyListener{
 	
 	Game game; // the game
@@ -26,6 +27,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	// is spent to overpopulate
 	BufferedImage fox = null, hawk = null, elk = null, bear = null, salmon = null, acorn = null, bg = null;
 	int viewedPlayer; // the player who is having their info being drawn. will default to currentPlayer
+	int width = Toolkit.getDefaultToolkit().getScreenSize().width;
+	int height = Toolkit.getDefaultToolkit().getScreenSize().height;
 	public Panel() {
 		customOvp = "";
 		spent = 'n';
@@ -65,7 +68,9 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	
 	public void paint(Graphics g) { //                              begin painting
 		
-
+		width = getSize().width;
+		height = getSize().height;
+		
 		g.drawImage(bg, 0, 0, 1920, 1080, null);
 		g.setFont(new Font("SANS SERIF", 1, 16));
 		
@@ -144,20 +149,20 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			
 			if((Integer.parseInt(first4animals.substring(4, 5))-1)==i) {
 				g.setColor(Color.cyan); // shows if an animal token is selected
-				g.fillRect(1545, 45+(150*i), 110, 110);
+				g.fillRect(width-205, 45+(150*i), 110, 110);
 				g.setColor(Color.gray);
 			}
 			
 			if(first4animals.charAt(i) == 'f') {
-				g.drawImage(fox, 1550, 50+(150*i), 100, 100, null);
+				g.drawImage(fox, width-200, 50+(150*i), 100, 100, null);
 			} else if (first4animals.charAt(i) == 's') {
-				g.drawImage(salmon, 1550, 50+(150*i), 100, 100, null);
+				g.drawImage(salmon, width-200, 50+(150*i), 100, 100, null);
 			} else if (first4animals.charAt(i) == 'e') {
-				g.drawImage(elk, 1550, 50+(150*i), 100, 100, null);
+				g.drawImage(elk, width-200, 50+(150*i), 100, 100, null);
 			} else if (first4animals.charAt(i) == 'h') {
-				g.drawImage(hawk, 1550, 50+(150*i), 100, 100, null);
+				g.drawImage(hawk, width-200, 50+(150*i), 100, 100, null);
 			} else if (first4animals.charAt(i) == 'b') {
-				g.drawImage(bear, 1550, 50+(150*i), 100, 100, null);
+				g.drawImage(bear, width-200, 50+(150*i), 100, 100, null);
 			}
 			if(customOvp.contains((i+1)+"")){
 				g.fillRect(1500, 50+(150*i), 50, 50);
@@ -205,7 +210,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			g.drawString("Overpopulate", 1450, 665);
 		}
 		
-		g.drawImage(acorn, 1600, 800, 100, 100, null);
+		g.drawImage(acorn, 1600, 800, 50, 50, null);
 		g.setFont(new Font("SANS SERIF", 1, 25));
 		g.drawString(game.currentPlayer().getTokens() + "", 1600, 800);
 		

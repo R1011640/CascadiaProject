@@ -37,6 +37,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		game = new Game(0, "c");
 		first4animals = game.getFirst4Animals2() + "0";
 		
+		game.currentPlayer().setTokens(1);
+		
 		while(first4animals.substring(0,4).equals("hhhh") || first4animals.substring(0,4).equals("bbbb")
 				|| first4animals.substring(0,4).equals("eeee") || first4animals.substring(0,4).equals("ffff")
 				|| first4animals.substring(0,4).equals("ssss")) {
@@ -110,8 +112,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 				// this function finds spots where the player can place a tile
 				for(int i=1; i<7; i++) {
 					// badly optimized. fix later if possible
-					if(50 < n.getX()+xcords[i-1] && n.getX()+xcords[i-1] < 550 &&
-						50 < n.getY()+ycords[i-1] && n.getY()+ycords[i-1] < 350) {
+					if(150 < n.getX()+xcords[i-1] && n.getX()+xcords[i-1] < 1550 &&
+						150 < n.getY()+ycords[i-1] && n.getY()+ycords[i-1] < 900) {
 						
 						Node a = new Node(n.getX() + xcords[i-1], n.getY() + ycords[i-1], "available.png", 15);
 						if(n.getNearbyNode(i) == null && !avs.toString().contains(a.toString())) {
@@ -165,7 +167,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 				g.drawImage(bear, width-200, 50+(150*i), 100, 100, null);
 			}
 			if(customOvp.contains((i+1)+"")){
-				g.fillRect(1500, 50+(150*i), 50, 50);
+				g.fillRect(width-150, 50+(150*i), 50, 50);
 			}
 			try {
 				if(!first4nodes.get(i).equals("null")) {
@@ -192,13 +194,13 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		
 		if(spent!='n') { // buttons to be shown if a nature token is spend
 			g.setColor(Color.green);
-			g.fillRect(630, 400, 160, spent=='s'?45:30);
-			g.fillRect(630, 470, 160, spent=='o'?45:30);
+			g.fillRect(1500, 900, 160, spent=='s'?45:30);
+			g.fillRect(1500, 970, 160, spent=='o'?45:30);
 			g.setColor(Color.black);
 			g.setFont(new Font("SANS SERIF", 1, 15));
-			g.drawString("Pick seperate tokens", 630, 420);
+			g.drawString("Pick seperate tokens", 1500, 920);
 			g.setFont(new Font("SANS SERIF", 1, 20));
-			g.drawString("Overpopulate", 630, 490);
+			g.drawString("Overpopulate", 1500, 990);
 		}
 		
 		
@@ -231,8 +233,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	public void makeAvs(Node n) {
 		for(int i=1; i<7; i++) {
 			// badly optimized. fix later if possible
-			if(50 < n.getX()+xcords[i-1] && n.getX()+xcords[i-1] < 550 &&
-				50 < n.getY()+ycords[i-1] && n.getY()+ycords[i-1] < 450) {
+			if(150 < n.getX()+xcords[i-1] && n.getX()+xcords[i-1] < 1600 &&
+				150 < n.getY()+ycords[i-1] && n.getY()+ycords[i-1] < 900) {
 				
 				Node a = new Node(n.getX() + xcords[i-1], n.getY() + ycords[i-1], "available.png", 15);
 				if(n.getNearbyNode(i) == null && !avs.toString().contains(a.toString())) {
@@ -250,6 +252,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	
 	public void mouseClicked(MouseEvent e) {
 		
+		System.out.println(e.getX() + " " + e.getY());
+		
 		
 		if(game.currentPlayerNum() != viewedPlayer || turnsLeft<=0) return; // always first
 		
@@ -266,13 +270,12 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			repaint();
 			return;
 		}
-		
-		if(630 <= e.getX() && e.getX() <= 790) {
-			if(400 <= e.getY() && e.getY() <= 455) { // click to pick separate tokens
+		if(1500 <= e.getX() && e.getX() <= 1660) {
+			if(900 <= e.getY() && e.getY() <= 930 && customOvp.equals("")) { // click to pick separate tokens
 				spent = 's';
 				repaint();
 				return;
-			} else if (470 <= e.getY() && e.getY() <= (470+55)) { // click to overpopulate
+			} else if (970 <= e.getY() && e.getY() <= 1000 && first4animals.charAt(4)=='0') { // click to overpopulate
 				if(spent!='o')spent = 'o';
 				else if (!customOvp.equals("")){
 					for(char i: customOvp.toCharArray()) {
@@ -371,9 +374,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		}
 		
 		for(int i=0; i<4; i++) {
-			if(1550 <= e.getX() && e.getX() <= 1650 && 50+(150*i) <= e.getY() && e.getY() <= 150+(150*i)) { // selecting an animal token
+			if(width-200 <= e.getX() && e.getX() <= width-100 && 50+(150*i) <= e.getY() && e.getY() <= 150+(150*i)) { // selecting an animal token
 				if(spent == 's') {
-				first4animals = first4animals.substring(0, 4) + (i+1);
+				if(first4animals.charAt(4)-'0' == (i+1)) first4animals = first4animals.substring(0, 4) + "0";
+				else first4animals = first4animals.substring(0, 4) + (i+1);
 				repaint();
 				return;
 				} else if (spent == 'o') {

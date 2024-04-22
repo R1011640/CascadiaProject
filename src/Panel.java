@@ -21,7 +21,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	ArrayList<String> first4nodes = new ArrayList<String>();
 	String first4animals = ""; // number at end is selected animal, 0 is no animal
 	char spent; // 'n' = not spent, 'p' = spent, pending selection, 's' = spent, select separate, 'o' = spent, overpopulate
-	boolean placed, aplaced; // if player placed a tile or not
+	boolean placed, aplaced, op3; // if player placed a tile or not
 	int turnsLeft = 60;
 	String customOvp; // used to find what animals will be replaced if a nature token
 	// is spent to overpopulate
@@ -34,6 +34,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		spent = 'n';
 		placed = false;
 		aplaced = false;
+		op3 = false;
 		game = new Game(0, "c");
 		first4animals = game.getFirst4Animals2() + "0";
 		
@@ -190,7 +191,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		g.drawString("Player #" + (game.currentPlayerNum()+1) + "'s turn", 10, 35);
 		g.drawString("Viewing Player #" + (viewedPlayer+1), 10, 75);
 		g.drawString("Turns left for all players = " + turnsLeft, 10, 115);
-		
+		g.setFont(new Font("SANS SERIF", 1, 15));
+		g.drawString("Press 1-3 to see other player's boards.", 10, 140);
 		
 		if(spent!='n') { // buttons to be shown if a nature token is spend
 			g.setColor(Color.green);
@@ -204,7 +206,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		}
 		
 		
-		if(threeAnimals()!='n') { // shows button to overpopulate if 3 animals are the same
+		if(threeAnimals()!='n' && !op3) { // shows button to overpopulate if 3 animals are the same
 			g.setColor(Color.yellow);
 			g.fillRect(1450, 625, 200, 80);
 			g.setFont(new Font("SANS SERIF", 1, 30));
@@ -215,6 +217,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		g.drawImage(acorn, 1600, 800, 50, 50, null);
 		g.setFont(new Font("SANS SERIF", 1, 25));
 		g.drawString(game.currentPlayer().getTokens() + "", 1600, 800);
+		
+		
 		
 	}                                                        // end of painting
 	
@@ -245,7 +249,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		
 		
 		
-		if(1450 <= e.getX() && e.getX() <= 1650 && 625 <= e.getY() && e.getY() <= 825) { // overpopulate if 3 animals
+		if(1450 <= e.getX() && e.getX() <= 1650 && 625 <= e.getY() && e.getY() <= 825 && !op3) { // overpopulate if 3 animals
 			char c = threeAnimals();
 			for(int i=0; i<4; i++) {
 				if(first4animals.charAt(i)==c) {
@@ -253,6 +257,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 					first4animals.substring(i+1);
 				}
 			}
+			op3 = true;
 			repaint();
 			return;
 		}
@@ -306,6 +311,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			first4animals = first4animals.substring(0,4) + "0";
 			placed = false;
 			aplaced = false;
+			op3 = false;
 			spent = 'n';
 			turnsLeft--;
 			// make end condition if turnsLeft = 0;

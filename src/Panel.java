@@ -230,20 +230,6 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		return 'n';
 	}
 	
-	public void makeAvs(Node n) {
-		for(int i=1; i<7; i++) {
-			// badly optimized. fix later if possible
-			if(150 < n.getX()+xcords[i-1] && n.getX()+xcords[i-1] < 1600 &&
-				150 < n.getY()+ycords[i-1] && n.getY()+ycords[i-1] < 900) {
-				
-				Node a = new Node(n.getX() + xcords[i-1], n.getY() + ycords[i-1], "available.png", 15);
-				if(n.getNearbyNode(i) == null && !avs.toString().contains(a.toString())) {
-					avs.add(a);
-					
-			}
-			}
-		}
-	}
 	
 	public void addNotify() {
 		super.addNotify();

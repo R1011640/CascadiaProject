@@ -214,8 +214,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			g.drawString("Overpopulate", 1450, 665);
 		}
 		
+		//g.drawImage(acorn, (int)(width*0.83), (int)(height*0.84), 50, 50, null);
 		g.drawImage(acorn, 1600, 800, 50, 50, null);
 		g.setFont(new Font("SANS SERIF", 1, 25));
+		//g.drawString(game.currentPlayer().getTokens() + "", (int)(width*0.83), (int)(height*0.84));
 		g.drawString(game.currentPlayer().getTokens() + "", 1600, 800);
 		
 		

@@ -101,27 +101,81 @@ public class Game {
 		//iterate through the animals, not the players
 		for(int i = 0; i < players.length; i++) {
 			//This is for scoring card bear: Checks for those that are in pairs
-			if(players[i].getNodes().equals('b')) {
-				bC++;
+			for(Node j: players[i].getNodes()) {
+				if(j.getAnimal() == 'b') { //We have already found one bear node
+					if(j.getNearbyNode(1).getAnimal() == 'b') { //checks if there is another one by it
+						bC++;
+					}
+					else if(j.getNearbyNode(2).getAnimal() == 'b') {
+						bC++;
+					}
+					else if(j.getNearbyNode(3).getAnimal() == 'b') {
+						bC++;
+					}
+					else if(j.getNearbyNode(4).getAnimal() == 'b') {
+						bC++;
+					}
+					else if(j.getNearbyNode(5).getAnimal() == 'b') {
+						bC++;
+					}
+					else if (j.getNearbyNode(6).getAnimal() == 'b') {
+						bC++;
+					}
+					j.setAnimal('n');
+				}
+				//This is the scoring card elk: Checks for a STRAIGHT line of elks
+				//if the nearbyNode is in that direction, keep going in that direction and count the amount of times it is there
+				else if(j.getAnimal() == 'e') {
+					int elkRun = 0;
+					while(elkRun < players[i].getNodes().size()) {
+						if(j.getNearbyNode(1).getAnimal() == 'e') {
+							eC++; //Keep going in that direction of one
+							elkRun++;
+						}
+						else if(j.getNearbyNode(2).getAnimal() == 'e') {
+							eC++;
+							elkRun++;
+						}
+						else if (j.getNearbyNode(3).getAnimal() == 'e') {
+							eC++;
+							elkRun++;
+						}
+						else if(j.getNearbyNode(4).getAnimal() == 'e') {
+							eC++;
+							elkRun++;
+						}
+						else if(j.getNearbyNode(5).getAnimal() == 'e') {
+							eC++;
+							elkRun++;
+						}
+						else if(j.getNearbyNode(6).getAnimal() == 'e') {
+							eC++;
+							elkRun++;
+						}
+						j.setAnimal('n');
+					}
+				}//This is the scoring card salmon: Checks for a run, not a straight line like the elk
+				//For now, make it a bit similar to the elk run count
+				else if(j.getAnimal() == 's') {
+					int fishRun = 0;
+					while(fishRun < players[i].getNodes()) { //checks for the ones that are in a run, not a straight line
+						sC++;
+					}
+				}
+				//This is the scoring card fox: Checks for the number of differing animals surrounding it
+				else if(players[i].getNodes().equals('f')) {
+						int differ = 0;
+						while(differ < players[i].getNodes()) {
+							fC++;
+						}
+				}
+				//This is the scoring card hawk: Checks for each hawk that isn't adjacent to any other hawk
+				else if(players[i].getNodes().equals('h')) {
+					hC++;
+				}
 			}
-			//This is the scoring card elk: Checks for a STRAIGHT line of elks
-			else if(players[i].getNodes().equals('e')) {
-				eC++;
-			}//This is the scoring card salmon: Checks for a run, not a straight line like the elk
-			else if(players[i].getNodes().equals('s')) {
-				sC++;
+			return null; 
 			}
-			//This is the scoring card fox: Checks for the number of differing animals surrounding it
-			else if(players[i].getNodes().equals('f')) {
-				fC++;
-			}
-			//This is the scoring card hawk: Checks for each hawk that isn't adjacent to any other hawk
-			else if(players[i].getNodes().equals('h')) {
-				hC++;
-			}
-		}
-		return null;   
-		
 	}
 
 	

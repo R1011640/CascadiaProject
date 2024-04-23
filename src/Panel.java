@@ -29,7 +29,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	int viewedPlayer; // the player who is having their info being drawn. will default to currentPlayer
 	int width = Toolkit.getDefaultToolkit().getScreenSize().width;
 	int height = Toolkit.getDefaultToolkit().getScreenSize().height;
+	double w = width/1920.0, h = height/1080.0;
 	public Panel() {
+		System.out.println(width + " " + height);
+		System.out.println(w + " " + h);
 		customOvp = "";
 		spent = 'n';
 		placed = false;
@@ -152,23 +155,23 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			
 			if((Integer.parseInt(first4animals.substring(4, 5))-1)==i) {
 				g.setColor(Color.cyan); // shows if an animal token is selected
-				g.fillRect(width-205, 45+(150*i), 110, 110);
+				g.fillRect((int)(1600*w)-5, 45+(150*i), 110, 110);
 				g.setColor(Color.gray);
 			}
 			
 			if(first4animals.charAt(i) == 'f') {
-				g.drawImage(fox, width-200, 50+(150*i), 100, 100, null);
+				g.drawImage(fox, (int)(1600*w), 50+(150*i), 100, 100, null);
 			} else if (first4animals.charAt(i) == 's') {
-				g.drawImage(salmon, width-200, 50+(150*i), 100, 100, null);
+				g.drawImage(salmon, (int)(1600*w), 50+(150*i), 100, 100, null);
 			} else if (first4animals.charAt(i) == 'e') {
-				g.drawImage(elk, width-200, 50+(150*i), 100, 100, null);
+				g.drawImage(elk, (int)(1600*w), 50+(150*i), 100, 100, null);
 			} else if (first4animals.charAt(i) == 'h') {
-				g.drawImage(hawk, width-200, 50+(150*i), 100, 100, null);
+				g.drawImage(hawk, (int)(1600*w), 50+(150*i), 100, 100, null);
 			} else if (first4animals.charAt(i) == 'b') {
-				g.drawImage(bear, width-200, 50+(150*i), 100, 100, null);
+				g.drawImage(bear, (int)(1600*w), 50+(150*i), 100, 100, null);
 			}
 			if(customOvp.contains((i+1)+"")){
-				g.fillRect(width-150, 50+(150*i), 50, 50);
+				g.fillRect((int)(1600*w)-150, 50+(150*i), 50, 50);
 			}
 			try {
 				if(!first4nodes.get(i).equals("null")) {

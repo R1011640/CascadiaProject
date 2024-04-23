@@ -22,7 +22,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	String first4animals = ""; // number at end is selected animal, 0 is no animal
 	char spent; // 'n' = not spent, 'p' = spent, pending selection, 's' = spent, select separate, 'o' = spent, overpopulate
 	boolean placed, aplaced, op3; // if player placed a tile or not
-	int turnsLeft = 60;
+	int turnsLeft = 6;
 	String customOvp; // used to find what animals will be replaced if a nature token
 	// is spent to overpopulate
 	BufferedImage fox = null, hawk = null, elk = null, bear = null, salmon = null, acorn = null, bg = null;
@@ -39,13 +39,13 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		game = new Game(0, "c");
 		first4animals = game.getFirst4Animals2() + "0";
 		
-		game.currentPlayer().setTokens(1);
 		
 		while(first4animals.substring(0,4).equals("hhhh") || first4animals.substring(0,4).equals("bbbb")
 				|| first4animals.substring(0,4).equals("eeee") || first4animals.substring(0,4).equals("ffff")
 				|| first4animals.substring(0,4).equals("ssss")) {
 			first4animals = game.getFirst4Animals2() + "0";
 		}
+		
 		first4nodes.add("ffffff-b.png");
 		first4nodes.add("mmmmmm-h.png");
 		first4nodes.add("rppprr-bs.png");
@@ -152,27 +152,27 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			
 			if((Integer.parseInt(first4animals.substring(4, 5))-1)==i) {
 				g.setColor(Color.cyan); // shows if an animal token is selected
-				g.fillRect((int)(1600*w)-5, 45+(150*i), (int)(110*w), (int)(110*h));
+				g.fillRect((int)(1700*w)-5, 45+(150*i), (int)(110*w), (int)(110*h));
 				g.setColor(Color.gray);
 			}
 			
 			if(first4animals.charAt(i) == 'f') {
-				g.drawImage(fox, (int)(1600*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
+				g.drawImage(fox, (int)(1700*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
 			} else if (first4animals.charAt(i) == 's') {
-				g.drawImage(salmon, (int)(1600*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
+				g.drawImage(salmon, (int)(1700*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
 			} else if (first4animals.charAt(i) == 'e') {
-				g.drawImage(elk, (int)(1600*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
+				g.drawImage(elk, (int)(1700*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
 			} else if (first4animals.charAt(i) == 'h') {
-				g.drawImage(hawk, (int)(1600*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
+				g.drawImage(hawk, (int)(1700*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
 			} else if (first4animals.charAt(i) == 'b') {
-				g.drawImage(bear, (int)(1600*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
+				g.drawImage(bear, (int)(1700*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
 			}
 			if(customOvp.contains((i+1)+"")){
 				g.fillRect((int)(1525*w), 50+(150*i), 50, 50);
 			}
 			try {
 				if(!first4nodes.get(i).equals("null")) {
-					g.drawImage(ImageIO.read(Panel.class.getResource("/assets/"+ first4nodes.get(i))), (int)(1400*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
+					g.drawImage(ImageIO.read(Panel.class.getResource("/assets/"+ first4nodes.get(i))), (int)(1500*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
 				}
 				
 			} catch (IOException e) {
@@ -192,7 +192,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		g.drawString("Viewing Player #" + (viewedPlayer+1), 10, 75);
 		g.drawString("Turns left for all players = " + turnsLeft, 10, 115);
 		g.setFont(new Font("SANS SERIF", 1, 15));
-		g.drawString("Press 1-3 to see other player's boards.", 10, 140);
+		g.drawString("Press 1-3 to see other player's boards.", 520, 35);
+		if(turnsLeft<=0) g.drawString("scoring", 520, 65);
 		
 		if(spent!='n') { // buttons to be shown if a nature token is spend
 			g.setColor(Color.green);
@@ -208,7 +209,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		
 		if(threeAnimals()!='n' && !op3) { // shows button to overpopulate if 3 animals are the same
 			g.setColor(Color.yellow);
-			g.fillRect(1450, 625, 200, 80);
+			g.fillRect((int)(1450*w), (int)(625*h), (int)(200*w), (int)(80*h));
 			g.setFont(new Font("SANS SERIF", 1, 30));
 			g.setColor(Color.black);
 			g.drawString("Overpopulate", 1450, 665);
@@ -251,7 +252,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		
 		
 		
-		if(1450 <= e.getX() && e.getX() <= 1650 && 625 <= e.getY() && e.getY() <= 825 && !op3) { // overpopulate if 3 animals
+		if(1450*w <= e.getX() && e.getX() <= 1650*w && 625*h <= e.getY() && e.getY() <= 705*h && !op3) { // overpopulate if 3 animals
 			char c = threeAnimals();
 			for(int i=0; i<4; i++) {
 				if(first4animals.charAt(i)==c) {
@@ -335,7 +336,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 				|| first4nodes.get(4).charAt(0) == first4animals.charAt(4)) { // check if adjacent or nature token spent
 				for(Node n: game.currentPlayer().getNodes()) {
 					if(n.isClicked(e.getX(), e.getY())) {
-						if(n.getAvailable().indexOf(first4animals.charAt(Integer.parseInt(first4animals.substring(4, 5))-1)) != -1 && !aplaced && placed) {
+						if(n.getAvailable().indexOf(first4animals.charAt(Integer.parseInt(first4animals.substring(4, 5))-1)) != -1 && !aplaced && placed
+								&& n.getAnimal() == 'n') {
 							n.setAnimal(first4animals.charAt(Integer.parseInt(first4animals.substring(4, 5))-1));
 							aplaced = true;
 							if(spent=='s') spent = 'n';
@@ -374,7 +376,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		}
 		
 		for(int i=0; i<4; i++) {
-			if((1600*w) <= e.getX() && e.getX() <= (1700*w) && 50+(150*i) <= e.getY() && e.getY() <= 150+(150*i)) { // selecting an animal token
+			if((1700*w) <= e.getX() && e.getX() <= (1800*w) && 50+(150*i) <= e.getY() && e.getY() <= 150+(150*i)) { // selecting an animal token
 				if(spent == 's') {
 				if(first4animals.charAt(4)-'0' == (i+1)) first4animals = first4animals.substring(0, 4) + "0";
 				else first4animals = first4animals.substring(0, 4) + (i+1);
@@ -392,7 +394,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 				}
 			}
 
-			if((1400*w) <= e.getX() && e.getX() <= (1500*w) && 50+(150*i) <= e.getY() && e.getY() <= 150+(150*i) && !placed) { // selecting a tile
+			if((1500*w) <= e.getX() && e.getX() <= (1600*w) && 50+(150*i) <= e.getY() && e.getY() <= 150+(150*i) && !placed) { // selecting a tile
 				
 				if(Integer.parseInt(first4nodes.get(4).substring(0,1)) == (i+1)) {
 					first4nodes.set(4, "01");

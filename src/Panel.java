@@ -46,6 +46,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			first4animals = game.getFirst4Animals2() + "0";
 		}
 		
+		first4animals = "hhhe0";
+		
 		first4nodes.add("ffffff-b.png");
 		first4nodes.add("mmmmmm-h.png");
 		first4nodes.add("rppprr-bs.png");
@@ -209,10 +211,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		
 		if(threeAnimals()!='n' && !op3) { // shows button to overpopulate if 3 animals are the same
 			g.setColor(Color.yellow);
-			g.fillRect((int)(1450*w), (int)(625*h), (int)(200*w), (int)(80*h));
-			g.setFont(new Font("SANS SERIF", 1, 30));
+			g.fillRect((int)(1400*w), (int)(825*h), (int)(200*w), (int)(80*h));
+			g.setFont(new Font("SANS SERIF", 1, (int)(30*w)));
 			g.setColor(Color.black);
-			g.drawString("Overpopulate", 1450, 665);
+			g.drawString("Overpopulate", (int)(1400*w), (int)(845*h));
 		}
 		
 		//g.drawImage(acorn, (int)(width*0.83), (int)(height*0.84), 50, 50, null);
@@ -252,7 +254,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		
 		
 		
-		if(1450*w <= e.getX() && e.getX() <= 1650*w && 625*h <= e.getY() && e.getY() <= 705*h && !op3) { // overpopulate if 3 animals
+		if(1400*w <= e.getX() && e.getX() <= 1600*w && 825*h <= e.getY() && e.getY() <= 905*h && !op3) { // overpopulate if 3 animals
 			char c = threeAnimals();
 			for(int i=0; i<4; i++) {
 				if(first4animals.charAt(i)==c) {

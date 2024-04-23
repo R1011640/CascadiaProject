@@ -168,7 +168,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 				g.drawImage(bear, (int)(1600*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
 			}
 			if(customOvp.contains((i+1)+"")){
-				g.fillRect((int)(1600*w)-150, 50+(150*i), 50, 50);
+				g.fillRect((int)(1525*w), 50+(150*i), 50, 50);
 			}
 			try {
 				if(!first4nodes.get(i).equals("null")) {
@@ -196,13 +196,13 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		
 		if(spent!='n') { // buttons to be shown if a nature token is spend
 			g.setColor(Color.green);
-			g.fillRect(1500, 900, 160, spent=='s'?45:30);
-			g.fillRect(1500, 970, 160, spent=='o'?45:30);
+			g.fillRect((int)(1400*w), (int)(900*h), (int)(160*w), spent=='s'?45:30);
+			g.fillRect((int)(1400*w), (int)(970*h), (int)(160*w), spent=='o'?45:30);
 			g.setColor(Color.black);
-			g.setFont(new Font("SANS SERIF", 1, 15));
-			g.drawString("Pick seperate tokens", 1500, 920);
-			g.setFont(new Font("SANS SERIF", 1, 20));
-			g.drawString("Overpopulate", 1500, 990);
+			g.setFont(new Font("SANS SERIF", 1, (int)(15*w)));
+			g.drawString("Pick seperate tokens", (int)(1400*w), (int)(920*h));
+			g.setFont(new Font("SANS SERIF", 1, (int)(20*w)));
+			g.drawString("Overpopulate", (int)(1400*w), (int)(990*h));
 		}
 		
 		
@@ -263,12 +263,15 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			repaint();
 			return;
 		}
-		if(1500 <= e.getX() && e.getX() <= 1660) {
-			if(900 <= e.getY() && e.getY() <= 930 && customOvp.equals("")) { // click to pick separate tokens
+		
+		//g.fillRect((int)(1400*w), (int)(900*h), (int)(160*w), spent=='s'?45:30);
+		//g.fillRect((int)(1400*w), (int)(970*h), (int)(160*w), spent=='o'?45:30);
+		if(1400*w <= e.getX() && e.getX() <= 1560*w) {
+			if(900*h <= e.getY() && e.getY() <= 930*h && customOvp.equals("")) { // click to pick separate tokens
 				spent = 's';
 				repaint();
 				return;
-			} else if (970 <= e.getY() && e.getY() <= 1000 && first4animals.charAt(4)=='0') { // click to overpopulate
+			} else if (970*h <= e.getY() && e.getY() <= 1000*h && first4animals.charAt(4)=='0') { // click to overpopulate
 				if(spent!='o')spent = 'o';
 				else if (!customOvp.equals("")){
 					for(char i: customOvp.toCharArray()) {
@@ -284,7 +287,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		}
 		
 
-		if(1600*w <= e.getX() && e.getX() <= 1700*w && 900*h <= e.getY() && e.getY() <= 1000*h && !placed && !aplaced) { // clicking acorn
+		if(1600*w <= e.getX() && e.getX() <= 1650*w && 900*h <= e.getY() && e.getY() <= 950*h && !placed && !aplaced) { // clicking acorn
 			if(spent=='n' && game.currentPlayer().getTokens()>0) {
 				spent = 'p';
 				game.currentPlayer().setTokens(game.currentPlayer().getTokens()-1);

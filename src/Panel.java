@@ -112,7 +112,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			if(first4nodes.get(4).charAt(0)!='0' && !placed) {
 				// this function finds spots where the player can place a tile
 				for(int i=1; i<7; i++) {
-					// badly optimized. fix later if possible
+					// badly optimized. don't have this in the paint function. will get called too much
 					if(150 < n.getX()+xcords[i-1] && n.getX()+xcords[i-1] < 1550 &&
 						150 < n.getY()+ycords[i-1] && n.getY()+ycords[i-1] < 900) {
 						
@@ -398,12 +398,13 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 				
 				if(Integer.parseInt(first4nodes.get(4).substring(0,1)) == (i+1)) {
 					first4nodes.set(4, "01");
-					first4animals = first4animals.substring(0, 4) + "0";
-					avs.clear(); // might cause problems later on. see line 107
+					if(spent != 's') first4animals = first4animals.substring(0, 4) + "0";
+					avs.clear(); // might cause problems later on. 
+					// avs shouldn't be cleared, only hidden. there'll only be one arraylist for each turn.
 				}
 				else {
 					first4nodes.set(4, (i+1) + "1");
-					first4animals = first4animals.substring(0, 4) + (i+1);
+					if(spent != 's') first4animals = first4animals.substring(0, 4) + (i+1);
 				}
 				repaint();
 				return;

@@ -31,8 +31,6 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	int height = Toolkit.getDefaultToolkit().getScreenSize().height;
 	double w = width/1920.0, h = height/1080.0;
 	public Panel() {
-		System.out.println(width + " " + height);
-		System.out.println(w + " " + h);
 		customOvp = "";
 		spent = 'n';
 		placed = false;
@@ -74,8 +72,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	
 	public void paint(Graphics g) { //                              begin painting
 		
-		width = getSize().width;
-		height = getSize().height;
+		
 		
 		g.drawImage(bg, 0, 0, 1920, 1080, null);
 		g.setFont(new Font("SANS SERIF", 1, 16));
@@ -155,27 +152,27 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			
 			if((Integer.parseInt(first4animals.substring(4, 5))-1)==i) {
 				g.setColor(Color.cyan); // shows if an animal token is selected
-				g.fillRect((int)(1600*w)-5, 45+(150*i), 110, 110);
+				g.fillRect((int)(1600*w)-5, 45+(150*i), (int)(110*w), (int)(110*h));
 				g.setColor(Color.gray);
 			}
 			
 			if(first4animals.charAt(i) == 'f') {
-				g.drawImage(fox, (int)(1600*w), 50+(150*i), 100, 100, null);
+				g.drawImage(fox, (int)(1600*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
 			} else if (first4animals.charAt(i) == 's') {
-				g.drawImage(salmon, (int)(1600*w), 50+(150*i), 100, 100, null);
+				g.drawImage(salmon, (int)(1600*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
 			} else if (first4animals.charAt(i) == 'e') {
-				g.drawImage(elk, (int)(1600*w), 50+(150*i), 100, 100, null);
+				g.drawImage(elk, (int)(1600*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
 			} else if (first4animals.charAt(i) == 'h') {
-				g.drawImage(hawk, (int)(1600*w), 50+(150*i), 100, 100, null);
+				g.drawImage(hawk, (int)(1600*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
 			} else if (first4animals.charAt(i) == 'b') {
-				g.drawImage(bear, (int)(1600*w), 50+(150*i), 100, 100, null);
+				g.drawImage(bear, (int)(1600*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
 			}
 			if(customOvp.contains((i+1)+"")){
 				g.fillRect((int)(1600*w)-150, 50+(150*i), 50, 50);
 			}
 			try {
 				if(!first4nodes.get(i).equals("null")) {
-					g.drawImage(ImageIO.read(Panel.class.getResource("/assets/"+ first4nodes.get(i))), width-400, 50+(150*i), 100, 100, null);
+					g.drawImage(ImageIO.read(Panel.class.getResource("/assets/"+ first4nodes.get(i))), (int)(1400*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
 				}
 				
 			} catch (IOException e) {
@@ -218,10 +215,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		}
 		
 		//g.drawImage(acorn, (int)(width*0.83), (int)(height*0.84), 50, 50, null);
-		g.drawImage(acorn, 1600, 800, 50, 50, null);
+		g.drawImage(acorn, (int)(1600*w), (int)(900*h), (int)(50*w), (int)(50*h), null);
 		g.setFont(new Font("SANS SERIF", 1, 25));
 		//g.drawString(game.currentPlayer().getTokens() + "", (int)(width*0.83), (int)(height*0.84));
-		g.drawString(game.currentPlayer().getTokens() + "", 1600, 800);
+		g.drawString(game.currentPlayer().getTokens() + "", (int)(1600*w), (int)(900*h));
 		
 		
 		
@@ -287,7 +284,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		}
 		
 
-		if(1600 <= e.getX() && e.getX() <= 1700 && 800 <= e.getY() && e.getY() <= 900 && !placed && !aplaced) { // clicking acorn
+		if(1600*w <= e.getX() && e.getX() <= 1700*w && 900*h <= e.getY() && e.getY() <= 1000*h && !placed && !aplaced) { // clicking acorn
 			if(spent=='n' && game.currentPlayer().getTokens()>0) {
 				spent = 'p';
 				game.currentPlayer().setTokens(game.currentPlayer().getTokens()-1);
@@ -374,7 +371,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		}
 		
 		for(int i=0; i<4; i++) {
-			if(width-200 <= e.getX() && e.getX() <= width-100 && 50+(150*i) <= e.getY() && e.getY() <= 150+(150*i)) { // selecting an animal token
+			if((1600*w) <= e.getX() && e.getX() <= (1700*w) && 50+(150*i) <= e.getY() && e.getY() <= 150+(150*i)) { // selecting an animal token
 				if(spent == 's') {
 				if(first4animals.charAt(4)-'0' == (i+1)) first4animals = first4animals.substring(0, 4) + "0";
 				else first4animals = first4animals.substring(0, 4) + (i+1);
@@ -392,7 +389,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 				}
 			}
 
-			if(width-400 <= e.getX() && e.getX() <= width-300 && 50+(150) <= e.getY() && e.getY() <= 150+(150*i) && !placed) { // selecting a tile
+			if((1400*w) <= e.getX() && e.getX() <= (1500*w) && 50+(150*i) <= e.getY() && e.getY() <= 150+(150*i) && !placed) { // selecting a tile
 				
 				if(Integer.parseInt(first4nodes.get(4).substring(0,1)) == (i+1)) {
 					first4nodes.set(4, "01");

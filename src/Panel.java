@@ -140,9 +140,9 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		int c = (Integer.parseInt(first4nodes.get(4).substring(0,1))-1);
 		if(c!=-1) {
 			try { // draws selected node, if there is one
-				g2.rotate(Math.toRadians((Integer.parseInt(first4nodes.get(4).substring(1))-1)*60), 975, 875);
-				g.drawImage(ImageIO.read(Panel.class.getResource("/assets/"+ first4nodes.get(c))), 900, 800, 150, 150, null);
-				g2.rotate(Math.toRadians((Integer.parseInt(first4nodes.get(4).substring(1))-1)*60)*-1, 975, 875);
+				g2.rotate(Math.toRadians((Integer.parseInt(first4nodes.get(4).substring(1))-1)*60), (width/2+50), (height*0.75)+50);
+				g.drawImage(ImageIO.read(Panel.class.getResource("/assets/"+ first4nodes.get(c))), width/2, (int)(height*0.75), 100, 100, null);
+				g2.rotate(Math.toRadians((Integer.parseInt(first4nodes.get(4).substring(1))-1)*60)*-1, (width/2+50), (height*0.75)+50);
 			} catch (IOException e) {
 			}
 		}
@@ -181,13 +181,13 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			
 		}
 		
-		g.setColor(Color.green); g.fillRect(5, 900, 150, 100); // rotate button
-		g.setColor(Color.red); g.fillRect(200, 900, 150, 100); // end turn button
+		g.setColor(Color.green); g.fillRect(5, (int)(height*0.85)-35, 150, 100); // rotate button
+		g.setColor(Color.red); g.fillRect(200, (int)(height*0.85)-35, 150, 100); // end turn button
 		g.setFont(new Font("SANS SERIF", 1, 35));
 		g.setColor(Color.black);
 		
-		g.drawString("Rotate", 5, 950);
-		g.drawString("End Turn", 200, 950);
+		g.drawString("Rotate", 5, (int)(height*0.85));
+		g.drawString("End Turn", 200, (int)(height*0.85));
 		g.drawString("Player #" + (game.currentPlayerNum()+1) + "'s turn", 10, 35);
 		g.drawString("Viewing Player #" + (viewedPlayer+1), 10, 75);
 		g.drawString("Turns left for all players = " + turnsLeft, 10, 115);
@@ -295,7 +295,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			return;
 		}
 		
-		if(5 <= e.getX() && e.getX() <= 155 && 900 <= e.getY() && e.getY() <= 1000) { // rotating selected tile
+		if(5 <= e.getX() && e.getX() <= 155 && (int)(height*0.85)-35 <= e.getY() 
+				&& e.getY() <= (int)(height*0.85)+115) { // rotating selected tile
 			first4nodes.set(4, first4nodes.get(4).charAt(0)
 					+ "" + (Integer.parseInt(first4nodes.get(4).substring(1))+1) + "");
 			if(first4nodes.get(4).charAt(1)=='7') {
@@ -305,7 +306,9 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			return;
 		}
 		
-		if(200 <= e.getX() && e.getX() <= 350 && 900 <= e.getY() && e.getY() <= 1000 && placed) { // ending turn
+		
+		if(200 <= e.getX() && e.getX() <= 350 && (int)(height*0.85)-35 <= e.getY() 
+				&& e.getY() <= (int)(height*0.85)+115 && placed) { // ending turn
 			avs.clear();
 			first4nodes.set(4, "01");
 			first4animals = first4animals.substring(0,4) + "0";

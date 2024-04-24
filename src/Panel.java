@@ -96,15 +96,15 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			
 			if(n.getAnimal()!='n') {
 				switch (n.getAnimal()) {
-				case 'f': g.drawImage(fox, n.getX()-15, n.getY()-15, 25, 25, null);
+				case 'f': g.drawImage(fox, n.getX()-15, n.getY()-15, 40, 40, null);
 				break;
-				case 'b': g.drawImage(bear, n.getX()-15, n.getY()-15, 25, 25, null);
+				case 'b': g.drawImage(bear, n.getX()-15, n.getY()-15, 40, 40, null);
 				break;
-				case 's': g.drawImage(salmon, n.getX()-15, n.getY()-15, 25, 25, null);
+				case 's': g.drawImage(salmon, n.getX()-15, n.getY()-15, 40, 40, null);
 				break;
-				case 'e': g.drawImage(elk, n.getX()-15, n.getY()-15, 25, 25, null);
+				case 'e': g.drawImage(elk, n.getX()-15, n.getY()-15, 40, 40, null);
 				break;
-				case 'h': g.drawImage(hawk, n.getX()-15, n.getY()-15, 25, 25, null);
+				case 'h': g.drawImage(hawk, n.getX()-15, n.getY()-15, 40, 40, null);
 				break;
 				}
 				

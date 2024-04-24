@@ -11,10 +11,10 @@ public class Player {
 	}
 	public void addNode(Node n) {
 		for(Node node: nodes) {
-			if(node.getX() == n.getX()+Panel.xcords[0] && node.getY() == n.getY()) {
+			if(node.getX() == n.getX()+80 && node.getY() == n.getY()) {
 				n.setNearbyNode(1, node);
 				node.setNearbyNode(4, n);
-			} else if (node.getX() == n.getX()+Panel.xcords[2]) {
+			} else if (node.getX() == n.getX()+40) {
 				if(node.getY() == n.getY()+60) {
 					n.setNearbyNode(2, node);
 					node.setNearbyNode(5, n);
@@ -22,7 +22,7 @@ public class Player {
 					n.setNearbyNode(6, node);
 					node.setNearbyNode(3, n);
 				}
-			} else if (node.getX() == n.getX()-Panel.xcords[2]) {
+			} else if (node.getX() == n.getX()-40) {
 				if(node.getY() == n.getY()+40) {
 					n.setNearbyNode(3, node);
 					node.setNearbyNode(6, n);
@@ -30,7 +30,7 @@ public class Player {
 					n.setNearbyNode(5, node);
 					node.setNearbyNode(2, n);
 				}
-			} else if (node.getX() == n.getX()-Panel.xcords[3] && node.getY() == n.getY()) {
+			} else if (node.getX() == n.getX()-80 && node.getY() == n.getY()) {
 				n.setNearbyNode(4, node);
 				node.setNearbyNode(1, n);
 			}

@@ -114,14 +114,12 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 				// this function finds spots where the player can place a tile
 				for(int i=1; i<7; i++) {
 					// badly optimized. don't have this in the paint function. will get called too much
-					if(150 < n.getX()+xcords[i-1] && n.getX()+xcords[i-1] < 1550 &&
-						150 < n.getY()+ycords[i-1] && n.getY()+ycords[i-1] < 900) {
 						
 						Node a = new Node(n.getX() + xcords[i-1], n.getY() + ycords[i-1], "available.png", 15);
 						if(n.getNearbyNode(i) == null && !avs.toString().contains(a.toString())) {
 							avs.add(a);
 							
-					}
+					
 					}
 				}
 			}
@@ -131,8 +129,9 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		// this draws the available places where you can place a tile
 		if(viewedPlayer==game.currentPlayerNum()) {
 			for(Node q: avs) {
-			
-			g.drawImage(q.getImg(), q.getX()-(q.getSize()/2), q.getY()-(q.getSize()/2), q.getSize(), q.getSize(), null);
+				if(150 < q.getX() && q.getX() < 1550 &&
+						150 < q.getY() && q.getY() < 900) 
+					g.drawImage(q.getImg(), q.getX()-(q.getSize()/2), q.getY()-(q.getSize()/2), q.getSize(), q.getSize(), null);
 		}
 		}
 		
@@ -358,7 +357,9 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		for(Node a: avs) { // placing a tile if one is selected
 			
 			if(a.isClicked(e.getX(), e.getY()) && !first4nodes.get(4).substring(0,1).equals("0") && !placed) {
-				
+				if(150 < a.getX() && a.getX() < 1550 &&
+						150 < a.getY() && a.getY() < 900) {
+					
 				Node n = new Node(a.getX(), a.getY(), first4nodes.get(Integer.parseInt(first4nodes.get(4).substring(0,1))-1), 75);
 				game.currentPlayer().addNode(n);
 				while(n.getRot() != (Integer.parseInt(first4nodes.get(4).substring(1)))){
@@ -372,6 +373,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 				avs.clear();
 				repaint();
 				return;
+				}
 			}
 			
 		}
@@ -400,8 +402,6 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 				if(Integer.parseInt(first4nodes.get(4).substring(0,1)) == (i+1)) {
 					first4nodes.set(4, "01");
 					if(spent != 's') first4animals = first4animals.substring(0, 4) + "0";
-					avs.clear(); // might cause problems later on. 
-					// avs shouldn't be cleared, only hidden. there'll only be one arraylist for each turn.
 				}
 				else {
 					first4nodes.set(4, (i+1) + "1");

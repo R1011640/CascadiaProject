@@ -92,34 +92,35 @@ public class Game {
 		
 	}
 	public int [][] scoring(){
-		int bC = 0;
-		int eC = 0;
-		int sC = 0;
-		int fC = 0;
-		int hC = 0;
+		int bearC = 0;
+		int elkC = 0;
+		int salmonC = 0;
+		int foxC = 0;
+		int hawkC = 0;
 		//The scoring will be based on the following type of card
 		//iterate through the animals, not the players
+		//The scoring may or may not need to use a recursion method
 		for(int i = 0; i < players.length; i++) {
 			//This is for scoring card bear: Checks for those that are in pairs
 			for(Node j: players[i].getNodes()) {
 				if(j.getAnimal() == 'b') { //We have already found one bear node
 					if(j.getNearbyNode(1).getAnimal() == 'b') { //checks if there is another one by it
-						bC++;
+						bearC++;
 					}
 					else if(j.getNearbyNode(2).getAnimal() == 'b') {
-						bC++;
+						bearC++;
 					}
 					else if(j.getNearbyNode(3).getAnimal() == 'b') {
-						bC++;
+						bearC++;
 					}
 					else if(j.getNearbyNode(4).getAnimal() == 'b') {
-						bC++;
+						bearC++;
 					}
 					else if(j.getNearbyNode(5).getAnimal() == 'b') {
-						bC++;
+						bearC++;
 					}
 					else if (j.getNearbyNode(6).getAnimal() == 'b') {
-						bC++;
+						bearC++;
 					}
 					j.setAnimal('n');
 				}
@@ -129,28 +130,34 @@ public class Game {
 					int elkRun = 0;
 					while(elkRun < players[i].getNodes().size()) {
 						if(j.getNearbyNode(1).getAnimal() == 'e') {
-							eC++; //Keep going in that direction of one
+							elkC++; //Keep going in that direction of one
 							elkRun++;
+							j.setAnimal('n'); //after using this node, don't count it again
 						}
 						else if(j.getNearbyNode(2).getAnimal() == 'e') {
-							eC++;
+							elkC++;
 							elkRun++;
+							j.setAnimal('n');
 						}
 						else if (j.getNearbyNode(3).getAnimal() == 'e') {
-							eC++;
+							elkC++;
 							elkRun++;
+							j.setAnimal('n');
 						}
 						else if(j.getNearbyNode(4).getAnimal() == 'e') {
-							eC++;
+							elkC++;
 							elkRun++;
+							j.setAnimal('n');
 						}
 						else if(j.getNearbyNode(5).getAnimal() == 'e') {
-							eC++;
+							elkC++;
 							elkRun++;
+							j.setAnimal('n');
 						}
 						else if(j.getNearbyNode(6).getAnimal() == 'e') {
-							eC++;
+							elkC++;
 							elkRun++;
+							j.setAnimal('n');
 						}
 						j.setAnimal('n');
 					}
@@ -158,24 +165,122 @@ public class Game {
 				//For now, make it a bit similar to the elk run count
 				else if(j.getAnimal() == 's') {
 					int fishRun = 0;
-					/*while(fishRun < players[i].getNodes()) { //checks for the ones that are in a run, not a straight line
-						sC++;
+					while(fishRun < players[i].getNodes().size()) { //checks for the ones that are in a run, not a straight line
+						if(j.getNearbyNode(1).getAnimal() == 's') {
+							salmonC++;
+							fishRun++;
+							j.setAnimal('n'); //Dont count this node again after using it 
+						}
+						else if(j.getNearbyNode(2).getAnimal() == 's') {
+							salmonC++;
+							fishRun++;
+							j.setAnimal('n');
+						}
+						else if(j.getNearbyNode(3).getAnimal() == 's') {
+							salmonC++;
+							fishRun++;
+							j.setAnimal('n');
+						}
+						else if(j.getNearbyNode(4).getAnimal() == 's') {
+							salmonC++;
+							fishRun++;
+							j.setAnimal('n');
+						}
+						else if(j.getNearbyNode(5).getAnimal() == 's') {
+							salmonC++; 
+							fishRun++;
+							j.setAnimal('n');
+						}
+						else if(j.getNearbyNode(6).getAnimal() == 's') {
+							salmonC++;
+							fishRun++;
+							j.setAnimal('n');
+						}
+						j.setAnimal('n'); //This one will firmly end the use of counting the specific node selected
 					}
 				}
 				//This is the scoring card fox: Checks for the number of differing animals surrounding it
-				else if(players[i].getNodes().equals('f')) {
-						int differ = 0;
-						while(differ < players[i].getNodes()) {
-							fC++;
-						}*/
+				else if(j.getAnimal() == 'f') {
+						int differ = 0; // This counts the differing amount of animals that are surrounding the fox
+						while(differ < players[i].getNodes().size()) {
+							if(j.getNearbyNode(1).getAnimal() == 'f') {
+								differ++;
+								foxC++;
+								j.setAnimal('n');
+							}
+							else if(j.getNearbyNode(2).getAnimal() == 'f') {
+								differ++;
+								foxC++;
+								j.setAnimal('n');
+							}
+							else if (j.getNearbyNode(3).getAnimal() == 'f') {
+								differ++;
+								foxC++;
+								j.setAnimal('n');
+							}
+							else if(j.getNearbyNode(4).getAnimal() == 'f') {
+								differ++;
+								foxC++;
+								j.setAnimal('n');
+							}
+							else if(j.getNearbyNode(5).getAnimal() == 'f') {
+								differ++;
+								foxC++;
+								j.setAnimal('n');
+							}
+							else if (j.getNearbyNode(6).getAnimal() == 'f') {
+								differ++;
+								foxC++;
+								j.setAnimal('n');
+							}
+							j.setAnimal('n'); // this will firmly end the node's use on the current player's board and also make sure that it isn't counted twice
+						}
 				}
 				//This is the scoring card hawk: Checks for each hawk that isn't adjacent to any other hawk
-				else if(players[i].getNodes().equals('h')) {
-					hC++;
+				//Hawk counting might actually be the one that really needs to use a recursive method to check if there are no adjacent pairs
+				else if(j.getAnimal() == 'h') {
+					int isNotAdjacent = 0;
+					int hawkRun = 0;
+					while(hawkRun < players[i].getNodes().size()) {
+						if(j.getNearbyNode(1).getAnimal() != 'h') {
+							isNotAdjacent++;
+							hawkRun++;
+							j.setAnimal('n');
+						}
+						if(j.getNearbyNode(2).getAnimal() != 'h') {
+							isNotAdjacent++;
+							hawkRun++;
+							j.setAnimal('n');
+						}
+						if(j.getNearbyNode(3).getAnimal() != 'h') {
+							isNotAdjacent++;
+							hawkRun++;
+							j.setAnimal('n');
+						}
+						if(j.getNearbyNode(4).getAnimal() != 'h') {
+							isNotAdjacent++;
+							hawkRun++;
+							j.setAnimal('n');
+						}
+						if(j.getNearbyNode(5).getAnimal() != 'h') {
+							isNotAdjacent++;
+							hawkRun++;
+							j.setAnimal('n');
+						}
+						if(j.getNearbyNode(6).getAnimal() != 'h') {
+							isNotAdjacent++;
+							hawkRun++;
+							j.setAnimal('n');
+						}
+						if(isNotAdjacent == 6) {
+							hawkC++;
+						}
+						j.setAnimal('n');
+					}
 				}
 			}
 			return null; 
-			}
+		}
 		return null;
 	}
 

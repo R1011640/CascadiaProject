@@ -57,19 +57,19 @@ public class Game {
 
 		
 		players[0] = new Player();
-		players[0].addNode(new Node(300, 200, startingNodes[row1][0], 50));
-		players[0].addNode(new Node(275, 240, startingNodes[row1][1], 50));
-		players[0].addNode(new Node(325, 240, startingNodes[row1][2], 50));
+		players[0].addNode(new Node(400, 200, startingNodes[row1][0], 75));
+		players[0].addNode(new Node(360, 260, startingNodes[row1][1], 75));
+		players[0].addNode(new Node(440, 260, startingNodes[row1][2], 75));
 		
 		players[1] = new Player();
-		players[1].addNode(new Node(300, 200, startingNodes[row2][0], 50));
-		players[1].addNode(new Node(275, 240, startingNodes[row2][1], 50));
-		players[1].addNode(new Node(325, 240, startingNodes[row2][2], 50));
+		players[1].addNode(new Node(400, 200, startingNodes[row2][0], 75));
+		players[1].addNode(new Node(360, 260, startingNodes[row2][1], 75));
+		players[1].addNode(new Node(440, 260, startingNodes[row2][2], 75));
 		
 		players[2] = new Player();
-		players[2].addNode(new Node(300, 200, startingNodes[row3][0], 50));
-		players[2].addNode(new Node(275, 240, startingNodes[row3][1], 50));
-		players[2].addNode(new Node(325, 240, startingNodes[row3][2], 50));
+		players[2].addNode(new Node(400, 200, startingNodes[row3][0], 75));
+		players[2].addNode(new Node(360, 260, startingNodes[row3][1], 75));
+		players[2].addNode(new Node(440, 260, startingNodes[row3][2], 75));
 		
 	}
 	//This method will return a fixed array of all the first four front nodes in the allNodes arrayList.
@@ -158,7 +158,7 @@ public class Game {
 				//For now, make it a bit similar to the elk run count
 				else if(j.getAnimal() == 's') {
 					int fishRun = 0;
-					while(fishRun < players[i].getNodes()) { //checks for the ones that are in a run, not a straight line
+					/*while(fishRun < players[i].getNodes()) { //checks for the ones that are in a run, not a straight line
 						sC++;
 					}
 				}
@@ -167,7 +167,7 @@ public class Game {
 						int differ = 0;
 						while(differ < players[i].getNodes()) {
 							fC++;
-						}
+						}*/
 				}
 				//This is the scoring card hawk: Checks for each hawk that isn't adjacent to any other hawk
 				else if(players[i].getNodes().equals('h')) {
@@ -176,6 +176,7 @@ public class Game {
 			}
 			return null; 
 			}
+		return null;
 	}
 
 	

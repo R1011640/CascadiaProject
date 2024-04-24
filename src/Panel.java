@@ -16,8 +16,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	
 	Game game; // the game
 	ArrayList<Node> avs; // spots where the player can place a tile
-	public static int[] xcords = {50, 25, -25, -50, -25, 25};
-	public static int[] ycords = {0, 40, 40, 0, -40, -40};
+	public static int[] xcords = {80, 40, -40, -80, -40, 40};
+	public static int[] ycords = {0, 60, 60, 0, -60, -60};
 	ArrayList<String> first4nodes = new ArrayList<String>();
 	String first4animals = ""; // number at end is selected animal, 0 is no animal
 	char spent; // 'n' = not spent, 'p' = spent, pending selection, 's' = spent, select separate, 'o' = spent, overpopulate
@@ -46,7 +46,6 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			first4animals = game.getFirst4Animals2() + "0";
 		}
 		
-		first4animals = "hhhe0";
 		
 		first4nodes.add("ffffff-b.png");
 		first4nodes.add("mmmmmm-h.png");
@@ -360,7 +359,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			
 			if(a.isClicked(e.getX(), e.getY()) && !first4nodes.get(4).substring(0,1).equals("0") && !placed) {
 				
-				Node n = new Node(a.getX(), a.getY(), first4nodes.get(Integer.parseInt(first4nodes.get(4).substring(0,1))-1), 50);
+				Node n = new Node(a.getX(), a.getY(), first4nodes.get(Integer.parseInt(first4nodes.get(4).substring(0,1))-1), 75);
 				game.currentPlayer().addNode(n);
 				while(n.getRot() != (Integer.parseInt(first4nodes.get(4).substring(1)))){
 					n.rotate();

@@ -111,10 +111,17 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		
 		
 		
-		
+		if(viewedPlayer==game.currentPlayerNum() && first4nodes.get(4).charAt(0)!='0' && !placed) {
+			for(Node q: avs) {
+				if(150 < q.getX()+offsetx && q.getX()+offsetx < 1400 &&
+						150 < q.getY()+offsety && q.getY()+offsety < 900) 
+					g.drawImage(q.getImg(), q.getX()-(q.getSize()/2)+offsetx, q.getY()-(q.getSize()/2)+offsety, q.getSize(), q.getSize(), null);
+		}
+		}
 		
 		// to draw nodes & animals
 		Graphics2D g2 = (Graphics2D) g;
+		// this draws the available places where you can place a tile
 		
 		
 		for(Node n: game.getPlayer(viewedPlayer).getNodes()) {
@@ -129,17 +136,18 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			
 			g2.rotate(Math.toRadians((n.getRot()-1)*60)*-1, n.getX()+offsetx, n.getY()+offsety);
 			
-			if(n.getAnimal()!='n') {
+			if(n.getAnimal()!='n' && 150 < n.getX()+offsetx && n.getX()+offsetx < 1400 &&
+					150 < n.getY()+offsety && n.getY()+offsety < 900) {
 				switch (n.getAnimal()) {
-				case 'f': g.drawImage(fox, n.getX()-15+offsetx, n.getY()-15+offsety, 40, 40, null);
+				case 'f': g.drawImage(fox, n.getX()-20+offsetx, n.getY()-15+offsety, 40, 40, null);
 				break;
-				case 'b': g.drawImage(bear, n.getX()-15+offsetx, n.getY()-15+offsety, 40, 40, null);
+				case 'b': g.drawImage(bear, n.getX()-20+offsetx, n.getY()-15+offsety, 40, 40, null);
 				break;
-				case 's': g.drawImage(salmon, n.getX()-15+offsetx, n.getY()-15+offsety, 40, 40, null);
+				case 's': g.drawImage(salmon, n.getX()-20+offsetx, n.getY()-15+offsety, 40, 40, null);
 				break;
-				case 'e': g.drawImage(elk, n.getX()-15+offsetx, n.getY()-15+offsety, 40, 40, null);
+				case 'e': g.drawImage(elk, n.getX()-20+offsetx, n.getY()-15+offsety, 40, 40, null);
 				break;
-				case 'h': g.drawImage(hawk, n.getX()-15+offsetx, n.getY()-15+offsety, 40, 40, null);
+				case 'h': g.drawImage(hawk, n.getX()-20+offsetx, n.getY()-15+offsety, 40, 40, null);
 				break;
 				}
 				
@@ -161,14 +169,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			
 		}
 		
-		// this draws the available places where you can place a tile
-		if(viewedPlayer==game.currentPlayerNum() && first4nodes.get(4).charAt(0)!='0' && !placed) {
-			for(Node q: avs) {
-				if(150 < q.getX()+offsetx && q.getX()+offsetx < 1400 &&
-						150 < q.getY()+offsety && q.getY()+offsety < 900) 
-					g.drawImage(q.getImg(), q.getX()-(q.getSize()/2)+offsetx, q.getY()-(q.getSize()/2)+offsety, q.getSize(), q.getSize(), null);
-		}
-		}
+		
 		
 		
 		

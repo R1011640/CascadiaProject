@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.FileNotFoundException;
 public class Panel extends JPanel implements MouseListener, KeyListener{
 	
 	Game game; // the game
@@ -56,6 +58,13 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			first4animals = game.getFirst4Animals2() + "0";
 		}
 		
+		
+		
+		try {
+			game.addNodes();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 		first4nodes.add("ffffff-b.png");
 		first4nodes.add("mmmmmm-h.png");
@@ -122,15 +131,15 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			
 			if(n.getAnimal()!='n') {
 				switch (n.getAnimal()) {
-				case 'f': g.drawImage(fox, n.getX()-15, n.getY()-15, 40, 40, null);
+				case 'f': g.drawImage(fox, n.getX()-15+offsetx, n.getY()-15+offsety, 40, 40, null);
 				break;
-				case 'b': g.drawImage(bear, n.getX()-15, n.getY()-15, 40, 40, null);
+				case 'b': g.drawImage(bear, n.getX()-15+offsetx, n.getY()-15+offsety, 40, 40, null);
 				break;
-				case 's': g.drawImage(salmon, n.getX()-15, n.getY()-15, 40, 40, null);
+				case 's': g.drawImage(salmon, n.getX()-15+offsetx, n.getY()-15+offsety, 40, 40, null);
 				break;
-				case 'e': g.drawImage(elk, n.getX()-15, n.getY()-15, 40, 40, null);
+				case 'e': g.drawImage(elk, n.getX()-15+offsetx, n.getY()-15+offsety, 40, 40, null);
 				break;
-				case 'h': g.drawImage(hawk, n.getX()-15, n.getY()-15, 40, 40, null);
+				case 'h': g.drawImage(hawk, n.getX()-15+offsetx, n.getY()-15+offsety, 40, 40, null);
 				break;
 				}
 				

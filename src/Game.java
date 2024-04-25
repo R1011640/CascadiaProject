@@ -1,4 +1,7 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.File;
 
 public class Game {
 
@@ -14,6 +17,7 @@ public class Game {
 	
 	//The constructor that sets up everything for the GameBoard
 	public Game(int currentPlayer, String scoringCards) { 
+		allNodes = new ArrayList<String>();
 		players = new Player[3];
 		this.currentPlayer = currentPlayer;
 		this.scoringCards = scoringCards;
@@ -309,6 +313,8 @@ public class Game {
 		for(int i = 0; i < 63; i++) {
 			allNodes.add(Tokens.get((int)(Math.random()*38)));
 		}
+		
+		System.out.println(allNodes.get(0));
 	}
 	
 	public void addNode(String n) {allNodes.add(n);}

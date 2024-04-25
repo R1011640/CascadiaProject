@@ -228,7 +228,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		g.drawString("Turns left for all players = " + turnsLeft, 10, 115);
 		g.setFont(new Font("SANS SERIF", 1, 15));
 		g.drawString("Press 1-3 to see other player's boards.", 520, 35);
-		if(turnsLeft<=0) g.drawString("scoring", 520, 65);
+		g.drawString("Use WASD to move your board around.", 520, 65);
+		if(turnsLeft<=0) g.drawString("scoring", 520, 95);
 		
 		if(spent!='n') { // buttons to be shown if a nature token is spend
 			g.setColor(Color.green);
@@ -281,7 +282,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	public void mouseClicked(MouseEvent e) {
 		
 		//System.out.println(e.getX() + " " + e.getY());
-		System.out.println(e.getX()-offsetx + " " + (e.getY()-offsety));
+		//System.out.println(e.getX()-offsetx + " " + (e.getY()-offsety));
 		
 		if(game.currentPlayerNum() != viewedPlayer || turnsLeft<=0) return; // always first
 		

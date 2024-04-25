@@ -271,8 +271,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	
 	public void mouseClicked(MouseEvent e) {
 		
-		System.out.println(e.getX() + " " + e.getY());
-		System.out.println(e.getX()+offsetx + " " + (e.getY()+offsety));
+		//System.out.println(e.getX() + " " + e.getY());
+		System.out.println(e.getX()-offsetx + " " + (e.getY()-offsety));
 		
 		if(game.currentPlayerNum() != viewedPlayer || turnsLeft<=0) return; // always first
 		
@@ -342,15 +342,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		if(200 <= e.getX() && e.getX() <= 350 && (int)(height*0.85)-35 <= e.getY() // ending turn
 				&& e.getY() <= (int)(height*0.85)+115 && placed) { 
 			avs.clear();
-			
-			first4nodes.set(4, "01");
+			offsetx = 0; offsety = 0; first4nodes.set(4, "01");
 			first4animals = first4animals.substring(0,4) + "0";
-			placed = false;
-			aplaced = false;
-			op3 = false;
-			spent = 'n';
-			turnsLeft--;
-			// make end condition if turnsLeft = 0;
+			placed = false; aplaced = false; op3 = false;
+			spent = 'n'; turnsLeft--; 
 			game.endTurn();
 			viewedPlayer = game.currentPlayerNum();
 			for(Node n: game.currentPlayer().getNodes()) {
@@ -374,7 +369,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			if(first4nodes.get(4).charAt(0) == '0' || spent == 's'
 				|| first4nodes.get(4).charAt(0) == first4animals.charAt(4)) { // check if adjacent or nature token spent
 				for(Node n: game.currentPlayer().getNodes()) {
-					if(n.isClicked(e.getX()+offsetx, e.getY()+offsety)) {
+					if(n.isClicked((e.getX()-offsetx), (e.getY()-offsety))) {
 						if(n.getAvailable().indexOf(first4animals.charAt(Integer.parseInt(first4animals.substring(4, 5))-1)) != -1 && !aplaced && placed
 								&& n.getAnimal() == 'n') {
 							n.setAnimal(first4animals.charAt(Integer.parseInt(first4animals.substring(4, 5))-1));
@@ -383,7 +378,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 							first4animals = first4animals.substring(0, (Integer.parseInt(first4animals.substring(4, 5))-1))
 									+ game.randomAnimal() + first4animals.substring((Integer.parseInt(first4animals.substring(4, 5))));
 							first4animals = first4animals.substring(0, 4) + "0";
-							System.out.println(first4animals);
+							//System.out.println(first4animals);
 						
 						}
 						repaint();
@@ -395,9 +390,9 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		
 		for(Node a: avs) { // placing a tile if one is selected
 			
-			if(a.isClicked(e.getX(), e.getY()) && !first4nodes.get(4).substring(0,1).equals("0") && !placed) {
-				if(150 < a.getX() && a.getX() < 1550 &&
-						150 < a.getY() && a.getY() < 900) {
+			if(a.isClicked(e.getX()-offsetx, e.getY()-offsety) && !first4nodes.get(4).substring(0,1).equals("0") && !placed) {
+				if(150 < a.getX()+offsetx && a.getX()+offsetx < 1550 &&
+						150 < a.getY()+offsety && a.getY()+offsety < 900) {
 					
 				Node n = new Node(a.getX(), a.getY(), first4nodes.get(Integer.parseInt(first4nodes.get(4).substring(0,1))-1), 75);
 				game.currentPlayer().addNode(n);

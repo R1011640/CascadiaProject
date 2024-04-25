@@ -15,18 +15,28 @@ import java.awt.Toolkit;
 public class Panel extends JPanel implements MouseListener, KeyListener{
 	
 	Game game; // the game
+	
 	ArrayList<Node> avs; // spots where the player can place a tile
+	
 	public static int[] xcords = {80, 40, -40, -80, -40, 40};
+	
 	public static int[] ycords = {0, 60, 60, 0, -60, -60};
+	
 	ArrayList<String> first4nodes = new ArrayList<String>();
+	
 	String first4animals = ""; // number at end is selected animal, 0 is no animal
+	
 	char spent; // 'n' = not spent, 'p' = spent, pending selection, 's' = spent, select separate, 'o' = spent, overpopulate
+	
 	boolean placed, aplaced, op3; // if player placed a tile or not
-	int turnsLeft = 6;
+	
+	int turnsLeft = 6, viewedPlayer;
+	static int offsetx, offsety;
+	
 	String customOvp; // used to find what animals will be replaced if a nature token
 	// is spent to overpopulate
+	
 	BufferedImage fox = null, hawk = null, elk = null, bear = null, salmon = null, acorn = null, bg = null;
-	int viewedPlayer; // the player who is having their info being drawn. will default to currentPlayer
 	int width = Toolkit.getDefaultToolkit().getScreenSize().width;
 	int height = Toolkit.getDefaultToolkit().getScreenSize().height;
 	double w = width/1920.0, h = height/1080.0;
@@ -38,7 +48,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		op3 = false;
 		game = new Game(0, "c");
 		first4animals = game.getFirst4Animals2() + "0";
-		
+		offsetx = 0; offsety = 0;
 		
 		while(first4animals.substring(0,4).equals("hhhh") || first4animals.substring(0,4).equals("bbbb")
 				|| first4animals.substring(0,4).equals("eeee") || first4animals.substring(0,4).equals("ffff")
@@ -65,7 +75,19 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		} catch (IOException e) {
 			System.out.println("Error");
 		}
-		
+		// this function finds spots where the player can place a tile
+		for(Node n: game.currentPlayer().getNodes()) {
+			for(int i=1; i<7; i++) {
+				// badly optimized. don't have this in the paint function. will get called too much
+					
+					Node a = new Node(n.getX() + xcords[i-1], n.getY() + ycords[i-1], "available.png", 15);
+					if(n.getNearbyNode(i) == null && !avs.toString().contains(a.toString())) {
+						avs.add(a);
+						
+				
+				}
+			}
+		}
 		addMouseListener(this);
 		addKeyListener(this);
 	}
@@ -90,9 +112,13 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			
 			
 			
-			g2.rotate(Math.toRadians((n.getRot()-1)*60), n.getX(), n.getY());
-			g2.drawImage(n.getImg(), n.getX()-(n.getSize()/2), n.getY()-(n.getSize()/2), n.getSize(), n.getSize(), null);
-			g2.rotate(Math.toRadians((n.getRot()-1)*60)*-1, n.getX(), n.getY());
+			g2.rotate(Math.toRadians((n.getRot()-1)*60), n.getX()+offsetx, n.getY()+offsety);
+			if(150 < n.getX()+offsetx && n.getX()+offsetx < 1400 &&
+					150 < n.getY()+offsety && n.getY()+offsety < 900) {
+				g2.drawImage(n.getImg(), n.getX()-(n.getSize()/2)+offsetx, n.getY()-(n.getSize()/2)+offsety, n.getSize(), n.getSize(), null);
+			}
+			
+			g2.rotate(Math.toRadians((n.getRot()-1)*60)*-1, n.getX()+offsetx, n.getY()+offsety);
 			
 			if(n.getAnimal()!='n') {
 				switch (n.getAnimal()) {
@@ -111,7 +137,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			}
 			
 			if(first4nodes.get(4).charAt(0)!='0' && !placed) {
-				// this function finds spots where the player can place a tile
+				/*// this function finds spots where the player can place a tile
 				for(int i=1; i<7; i++) {
 					// badly optimized. don't have this in the paint function. will get called too much
 						
@@ -121,17 +147,17 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 							
 					
 					}
-				}
+				}*/
 			}
 			
 		}
 		
 		// this draws the available places where you can place a tile
-		if(viewedPlayer==game.currentPlayerNum()) {
+		if(viewedPlayer==game.currentPlayerNum() && first4nodes.get(4).charAt(0)!='0' && !placed) {
 			for(Node q: avs) {
-				if(150 < q.getX() && q.getX() < 1550 &&
-						150 < q.getY() && q.getY() < 900) 
-					g.drawImage(q.getImg(), q.getX()-(q.getSize()/2), q.getY()-(q.getSize()/2), q.getSize(), q.getSize(), null);
+				if(150 < q.getX()+offsetx && q.getX()+offsetx < 1400 &&
+						150 < q.getY()+offsety && q.getY()+offsety < 900) 
+					g.drawImage(q.getImg(), q.getX()-(q.getSize()/2)+offsetx, q.getY()-(q.getSize()/2)+offsety, q.getSize(), q.getSize(), null);
 		}
 		}
 		
@@ -246,7 +272,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	public void mouseClicked(MouseEvent e) {
 		
 		System.out.println(e.getX() + " " + e.getY());
-		
+		System.out.println(e.getX()+offsetx + " " + (e.getY()+offsety));
 		
 		if(game.currentPlayerNum() != viewedPlayer || turnsLeft<=0) return; // always first
 		
@@ -301,8 +327,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			return;
 		}
 		
-		if(5 <= e.getX() && e.getX() <= 155 && (int)(height*0.85)-35 <= e.getY() 
-				&& e.getY() <= (int)(height*0.85)+115) { // rotating selected tile
+		if(5 <= e.getX() && e.getX() <= 155 && (int)(height*0.85)-35 <= e.getY() // rotating selected tile
+				&& e.getY() <= (int)(height*0.85)+115) { 
 			first4nodes.set(4, first4nodes.get(4).charAt(0)
 					+ "" + (Integer.parseInt(first4nodes.get(4).substring(1))+1) + "");
 			if(first4nodes.get(4).charAt(1)=='7') {
@@ -313,9 +339,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		}
 		
 		
-		if(200 <= e.getX() && e.getX() <= 350 && (int)(height*0.85)-35 <= e.getY() 
-				&& e.getY() <= (int)(height*0.85)+115 && placed) { // ending turn
+		if(200 <= e.getX() && e.getX() <= 350 && (int)(height*0.85)-35 <= e.getY() // ending turn
+				&& e.getY() <= (int)(height*0.85)+115 && placed) { 
 			avs.clear();
+			
 			first4nodes.set(4, "01");
 			first4animals = first4animals.substring(0,4) + "0";
 			placed = false;
@@ -326,6 +353,18 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			// make end condition if turnsLeft = 0;
 			game.endTurn();
 			viewedPlayer = game.currentPlayerNum();
+			for(Node n: game.currentPlayer().getNodes()) {
+				for(int i=1; i<7; i++) {
+					// badly optimized. don't have this in the paint function. will get called too much
+						
+						Node a = new Node(n.getX() + xcords[i-1], n.getY() + ycords[i-1], "available.png", 15);
+						if(n.getNearbyNode(i) == null && !avs.toString().contains(a.toString())) {
+							avs.add(a);
+							
+					
+					}
+				}
+			}
 			repaint();
 			return;
 		}
@@ -335,7 +374,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			if(first4nodes.get(4).charAt(0) == '0' || spent == 's'
 				|| first4nodes.get(4).charAt(0) == first4animals.charAt(4)) { // check if adjacent or nature token spent
 				for(Node n: game.currentPlayer().getNodes()) {
-					if(n.isClicked(e.getX(), e.getY())) {
+					if(n.isClicked(e.getX()+offsetx, e.getY()+offsety)) {
 						if(n.getAvailable().indexOf(first4animals.charAt(Integer.parseInt(first4animals.substring(4, 5))-1)) != -1 && !aplaced && placed
 								&& n.getAnimal() == 'n') {
 							n.setAnimal(first4animals.charAt(Integer.parseInt(first4animals.substring(4, 5))-1));
@@ -417,6 +456,25 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	public void keyTyped(KeyEvent e) {
 		if(1 <= e.getKeyChar()-'0' && e.getKeyChar()-'0' <= 3) {
 			viewedPlayer = (e.getKeyChar()-'0')-1;
+			repaint();
+			return;
+		}
+		else {
+
+			switch (e.getKeyChar()) {
+			case 'w': offsety -= 60;// W
+			break;
+			case 'a': offsetx -= 80;// A
+			break;
+			case 's': offsety += 60;// S
+			break;
+			case 'd': offsetx += 80;// D
+			break;	
+			case ' ': // Space
+			offsetx = 0; 
+			offsety = 0;
+			break;
+			}
 			repaint();
 			return;
 		}

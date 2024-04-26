@@ -1,4 +1,7 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.File;
 
 public class Game {
 
@@ -403,45 +406,15 @@ public class Game {
 		}
 	}
 	//This method is of type void due to only adding the different cards into the ArrayList of allNodes
-	public  void addNodes() { 
-		allNodes.add("mmmmmm-b.png");
-		allNodes.add("mmmmmm-e.png");
-		allNodes.add("mmmmmm-h.png");
-		allNodes.add("mmmrrr-bs.png");
-		allNodes.add("mmmrrr-hs.png");
-		allNodes.add("mmwwwm-fh.png");
-		allNodes.add("pfffpp-bes.png");
-		allNodes.add("ppmmmp-bf.png");
-		allNodes.add("pppfff-es.png");
-		allNodes.add("pppfff-fs.png");
-		allNodes.add("pppmmm-bs.png");
-		allNodes.add("pppmmm-es.png");
-		allNodes.add("pppppp-e.png");
-		allNodes.add("pppppp-f.png");
-		allNodes.add("pppppp-s.png");
-		allNodes.add("rfffrr-ehs.png");
-		allNodes.add("rrpppr-bs.png");
-		allNodes.add("rrrfff-fs.png");
-		allNodes.add("rrrppp-es.png");
-		allNodes.add("rrrrrr-b.png");
-		allNodes.add("rrrrrr-h.png");
-		allNodes.add("rrrrrr-s.png");
-		allNodes.add("rrrwww-bs.png");
-		allNodes.add("rrrwww-fs.png");
-		allNodes.add("rrrwww-hs.png");
-		allNodes.add("wwwfff-bs.png");
-		allNodes.add("wwwfff-es.png");
-		allNodes.add("wwwmmm-bs.png");
-		allNodes.add("wwwmmm-hs.png");
-		allNodes.add("wwwppp-es.png");
-		allNodes.add("wwwppp-hs.png");
-		allNodes.add("wwwwww-f.png");
-		allNodes.add("wwwwww-h.png");
-		allNodes.add("wwwwww-s.png");
-		allNodes.add("ffffff-b.png");
-		allNodes.add("ffffff-e.png");
-		allNodes.add("ffffff-f.png");
-		allNodes.add("fwwwff-hef.png");
+	public  void addNodes() throws FileNotFoundException { 
+		Scanner T = new Scanner(new File(Panel.class.getResource("/assets/tiles.dat").getPath()));
+		ArrayList<String> Tokens = new ArrayList<String>();
+		while(T.hasNextLine()) {
+			Tokens.add(T.nextLine());
+		}
+		for(int i = 0; i < 63; i++) {
+			allNodes.add(Tokens.get((int)(Math.random()*38)));
+		}
 	}
 	
 	public void addNode(String n) {allNodes.add(n);}

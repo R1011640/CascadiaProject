@@ -374,7 +374,11 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			repaint();
 			return;
 		}
-		
+		for(Node test: game.currentPlayer().getNodes()) {
+			if(test.isClicked((e.getX()-offsetx), (e.getY()-offsety))) {
+				System.out.println(test.getNearbyAnimals());
+			}
+		}
 		
 		if(!first4animals.substring(4).equals("0")) { // placing animal token if one is selected
 			if(first4nodes.get(4).charAt(0) == '0' || spent == 's'

@@ -79,6 +79,7 @@ public class Game {
 	}
 	
 	public String getNode() {
+		if(allNodes.size()==0) return "null";
 		int c = (int)(Math.random()*allNodes.size());
 		String ret = allNodes.get(c);
 		allNodes.remove(c);
@@ -404,7 +405,7 @@ public class Game {
 		while(T.hasNextLine()) {
 			Tokens.add(T.nextLine());
 		}
-		for(int i = 0; i < 63; i++) {
+		for(int i = 0; i < 9; i++) {
 			allNodes.add(Tokens.get((int)(Math.random()*38)));
 		}
 	}

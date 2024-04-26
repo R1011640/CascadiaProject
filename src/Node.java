@@ -15,7 +15,7 @@ public class Node {
 		this.x = x;
 		this.y = y;
 		edges = imageName.substring(0,6);
-		if(!imageName.equals("available.png")) availableAnimals = imageName.substring(imageName.indexOf("-")+1, imageName.indexOf(".png"));
+		if(!imageName.equals("available.png") && !imageName.equals("null")) availableAnimals = imageName.substring(imageName.indexOf("-")+1, imageName.indexOf(".png"));
 		try {
 			img = ImageIO.read(Panel.class.getResource("/assets/" + imageName));
 		} catch (IOException e) {

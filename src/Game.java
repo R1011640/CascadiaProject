@@ -104,6 +104,7 @@ public class Game {
 			
 			for(Node j: players[i].getNodes()) {
 				if(j.getAnimal() == 'b') {
+					// rework, use getNearbyAnimals() in Node class
 					if(j.getNearbyNode(1).getAnimal() == 'b') { 
 						bearC++;
 					}

@@ -66,11 +66,12 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			e.printStackTrace();
 		}
 		
-		first4nodes.add("ffffff-b.png");
-		first4nodes.add("mmmmmm-h.png");
-		first4nodes.add("rppprr-bs.png");
-		first4nodes.add("wwfffw-es.png");
+
+		first4nodes.add(game.getNode()); first4nodes.add(game.getNode());
+		first4nodes.add(game.getNode()); first4nodes.add(game.getNode());
+		
 		first4nodes.add("01"); // first number is selected node, 0 is no node, second number is rotation
+		System.out.println(first4nodes);
 		viewedPlayer = game.currentPlayerNum();
 		avs = new ArrayList<Node>();
 		try {

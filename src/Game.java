@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -17,6 +18,7 @@ public class Game {
 	
 	//The constructor that sets up everything for the GameBoard
 	public Game(int currentPlayer, String scoringCards) { 
+		allNodes = new ArrayList<String>();
 		players = new Player[3];
 		this.currentPlayer = currentPlayer;
 		this.scoringCards = scoringCards;
@@ -75,24 +77,12 @@ public class Game {
 		players[2].addNode(new Node(440, 260, startingNodes[row3][2], 75));
 		
 	}
-	//This method will return a fixed array of all the first four front nodes in the allNodes arrayList.
-	//this will most likely need a while loop
-	public ArrayList<String> getNodes() {
-		ArrayList<String> theFirstFour = new ArrayList<String>();
-		int pos = 0;
-		int limit = 4;
-		boolean isFour = false;
-		while(pos<allNodes.size()) {
-			theFirstFour.add(allNodes.get(pos));
-			pos++;
-		}
-		if(pos == limit) {
-			isFour = true;
-		}
-		
-		// remove the nodes you took from allNodes
-		return theFirstFour;
-		
+	
+	public String getNode() {
+		int c = (int)(Math.random()*allNodes.size());
+		String ret = allNodes.get(c);
+		allNodes.remove(c);
+		return ret;
 	}
 	public int [][] scoring(){
 		//ANIMAL COUNTING
@@ -407,7 +397,9 @@ public class Game {
 	}
 	//This method is of type void due to only adding the different cards into the ArrayList of allNodes
 	public  void addNodes() throws FileNotFoundException { 
-		Scanner T = new Scanner(new File(Panel.class.getResource("/assets/tiles.dat").getPath()));
+		
+		
+		Scanner T = new Scanner(new File("tiles.dat"));
 		ArrayList<String> Tokens = new ArrayList<String>();
 		while(T.hasNextLine()) {
 			Tokens.add(T.nextLine());

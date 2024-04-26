@@ -373,12 +373,75 @@ public class Game {
 							prairieC++;
 							t.setEdges("n" + t.getEdges().substring(6));
 						}
+						//wetland count
+						else if (t.getNearbyNode(1).equals('w')) {
+							wetlandRun++;
+							wetlandC++;
+							t.setEdges("n" + t.getEdges().substring(1));
+						}
+						else if (t.getNearbyNode(2).equals('w')) {
+							wetlandRun++;
+							wetlandC++;
+							t.setEdges("n" + t.getEdges().substring(2));
+						}
+						else if (t.getNearbyNode(3).equals('w')) {
+							wetlandRun++;
+							wetlandC++;
+							t.setEdges("n" + t.getEdges().substring(3));
+						}
+						else if (t.getNearbyNode(4).equals('w')) {
+							wetlandRun++;
+							wetlandC++;
+							t.setEdges("n" + t.getEdges().substring(4));
+						}
+						else if (t.getNearbyNode(5).equals('w')) {
+							wetlandRun++;
+							wetlandC++;
+							t.setEdges("n" + t.getEdges().substring(5));
+						}
+						else if (t.getNearbyNode(6).equals('w')) {
+							wetlandRun++;
+							wetlandC++;
+							t.setEdges("n" + t.getEdges().substring(6));
+						}
+						//river count
+						else if (t.getNearbyNode(1).equals('r')) {
+							riverRun++;
+							riverC++;
+							t.setEdges("n" + t.getEdges().substring(1));
+						}
+						else if (t.getNearbyNode(2).equals('r')) {
+							riverRun++;
+							riverC++;
+							t.setEdges("n" + t.getEdges().substring(2));
+						}
+						else if (t.getNearbyNode(3).equals('r')) {
+							riverRun++;
+							riverC++;
+							t.setEdges("n" + t.getEdges().substring(3));
+						}
+						else if (t.getNearbyNode(4).equals('r')) {
+							riverRun++;
+							riverC++;
+							t.setEdges("n" + t.getEdges().substring(4));
+						}
+						else if (t.getNearbyNode(5).equals('r')) {
+							riverRun++;
+							riverC++;
+							t.setEdges("n" + t.getEdges().substring(5));
+						}
+						else if (t.getNearbyNode(6).equals('r')) {
+							riverRun++;
+							riverC++;
+							t.setEdges("n" + t.getEdges().substring(6));
+						}
 					}
 				}
 			}
 			return null; 
 		}
 		return null;
+		//return bearC + elkC + foxC + salmonC + hawkC + mountainC + forestC + prairieC + wetlandC + riverC;
 	}
 
 	

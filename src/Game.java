@@ -405,7 +405,7 @@ public class Game {
 		while(T.hasNextLine()) {
 			Tokens.add(T.nextLine());
 		}
-		for(int i = 0; i < 9; i++) {
+		for(int i = 0; i < 63; i++) {
 			allNodes.add(Tokens.get((int)(Math.random()*38)));
 		}
 	}

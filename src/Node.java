@@ -15,7 +15,7 @@ public class Node {
 		this.x = x;
 		this.y = y;
 		edges = imageName.substring(0,6);
-		if(!imageName.equals("available.png")) availableAnimals = imageName.substring(imageName.indexOf("-")+1, imageName.indexOf(".png"));
+		if(!imageName.equals("available.png") && !imageName.equals("null")) availableAnimals = imageName.substring(imageName.indexOf("-")+1, imageName.indexOf(".png"));
 		try {
 			img = ImageIO.read(Panel.class.getResource("/assets/" + imageName));
 		} catch (IOException e) {
@@ -71,6 +71,15 @@ public class Node {
 	public BufferedImage getImg() {return img;}
 	
 	public Node[] getNearbyNodes() {return nearbyNodes;}
+	
+	public String getNearbyAnimals() {
+		String ret = "";
+		for(int i=0; i<6; i++) {
+			if(nearbyNodes[i]!=null) ret += nearbyNodes[i].getAnimal();
+			else ret += " ";
+		}
+		return ret;
+	}
 	
 	public String toString() {return "("+x + "," + y + ")";}
 	

@@ -66,10 +66,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			e.printStackTrace();
 		}
 		
-		first4nodes.add("ffffff-b.png");
-		first4nodes.add("mmmmmm-h.png");
-		first4nodes.add("rppprr-bs.png");
-		first4nodes.add("wwfffw-es.png");
+
+		first4nodes.add(game.getNode()); first4nodes.add(game.getNode());
+		first4nodes.add(game.getNode()); first4nodes.add(game.getNode());
+		
 		first4nodes.add("01"); // first number is selected node, 0 is no node, second number is rotation
 		viewedPlayer = game.currentPlayerNum();
 		avs = new ArrayList<Node>();
@@ -353,7 +353,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		if(200 <= e.getX() && e.getX() <= 350 && (int)(height*0.85)-35 <= e.getY() // ending turn
 				&& e.getY() <= (int)(height*0.85)+115 && placed) { 
 			avs.clear();
-			offsetx = 0; offsety = 0; first4nodes.set(4, "01");
+			offsetx = 0; offsety = 0;
 			first4animals = first4animals.substring(0,4) + "0";
 			placed = false; aplaced = false; op3 = false;
 			spent = 'n'; turnsLeft--; 
@@ -374,7 +374,11 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			repaint();
 			return;
 		}
-		
+		for(Node test: game.currentPlayer().getNodes()) {
+			if(test.isClicked((e.getX()-offsetx), (e.getY()-offsety))) {
+				System.out.println(test.getNearbyAnimals());
+			}
+		}
 		
 		if(!first4animals.substring(4).equals("0")) { // placing animal token if one is selected
 			if(first4nodes.get(4).charAt(0) == '0' || spent == 's'
@@ -414,8 +418,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 					|| n.getEdges().equals("rrrrrr") || n.getEdges().equals("pppppp")) {
 					game.currentPlayer().setTokens(game.currentPlayer().getTokens()+1);
 				}
+				first4nodes.set(Integer.parseInt(first4nodes.get(4).substring(0,1))-1, game.getNode());
 				placed = true;
 				avs.clear();
+				first4nodes.set(4, "01");
 				repaint();
 				return;
 				}

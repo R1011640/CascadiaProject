@@ -38,7 +38,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	String customOvp; // used to find what animals will be replaced if a nature token
 	// is spent to overpopulate
 	
-	BufferedImage fox = null, hawk = null, elk = null, bear = null, salmon = null, acorn = null, bg = null;
+	BufferedImage fox = null, hawk = null, elk = null, bear = null, salmon = null, acorn = null, bg = null, bg2 = null;
 	int width = Toolkit.getDefaultToolkit().getScreenSize().width;
 	int height = Toolkit.getDefaultToolkit().getScreenSize().height;
 	double w = width/1920.0, h = height/1080.0;
@@ -110,7 +110,6 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		g.setFont(new Font("SANS SERIF", 1, 16));
 		
 		
-		
 		if(viewedPlayer==game.currentPlayerNum() && first4nodes.get(4).charAt(0)!='0' && !placed) {
 			for(Node q: avs) {
 				if(150 < q.getX()+offsetx && q.getX()+offsetx < 1400 &&
@@ -122,7 +121,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		// to draw nodes & animals
 		Graphics2D g2 = (Graphics2D) g;
 		// this draws the available places where you can place a tile
-		
+		g.setColor(Color.black);
 		
 		for(Node n: game.getPlayer(viewedPlayer).getNodes()) {
 			
@@ -138,16 +137,23 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			
 			if(n.getAnimal()!='n' && 150 < n.getX()+offsetx && n.getX()+offsetx < 1400 &&
 					150 < n.getY()+offsety && n.getY()+offsety < 900) {
+				g.fillOval(n.getX()-23+offsetx, n.getY()-18+offsety, 46, 46);
 				switch (n.getAnimal()) {
-				case 'f': g.drawImage(fox, n.getX()-20+offsetx, n.getY()-15+offsety, 40, 40, null);
+				case 'f': 
+					
+					g.drawImage(fox, n.getX()-20+offsetx, n.getY()-15+offsety, 40, 40, null);
 				break;
-				case 'b': g.drawImage(bear, n.getX()-20+offsetx, n.getY()-15+offsety, 40, 40, null);
+				case 'b': 
+					g.drawImage(bear, n.getX()-20+offsetx, n.getY()-15+offsety, 40, 40, null);
 				break;
-				case 's': g.drawImage(salmon, n.getX()-20+offsetx, n.getY()-15+offsety, 40, 40, null);
+				case 's': 
+					g.drawImage(salmon, n.getX()-20+offsetx, n.getY()-15+offsety, 40, 40, null);
 				break;
-				case 'e': g.drawImage(elk, n.getX()-20+offsetx, n.getY()-15+offsety, 40, 40, null);
+				case 'e': 
+					g.drawImage(elk, n.getX()-20+offsetx, n.getY()-15+offsety, 40, 40, null);
 				break;
-				case 'h': g.drawImage(hawk, n.getX()-20+offsetx, n.getY()-15+offsety, 40, 40, null);
+				case 'h': 
+					g.drawImage(hawk, n.getX()-20+offsetx, n.getY()-15+offsety, 40, 40, null);
 				break;
 				}
 				
@@ -173,48 +179,61 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		
 		
 		
-		int c = (Integer.parseInt(first4nodes.get(4).substring(0,1))-1);
-		if(c!=-1) {
-			try { // draws selected node, if there is one
-				g2.rotate(Math.toRadians((Integer.parseInt(first4nodes.get(4).substring(1))-1)*60), (width/2+50), (height*0.75)+50);
-				g.drawImage(ImageIO.read(Panel.class.getResource("/assets/"+ first4nodes.get(c))), width/2, (int)(height*0.75), 100, 100, null);
-				g2.rotate(Math.toRadians((Integer.parseInt(first4nodes.get(4).substring(1))-1)*60)*-1, (width/2+50), (height*0.75)+50);
-			} catch (IOException e) {
-			}
-		}
+		/*g.drawImage(bg2,0,0,175,1080,null);
+		g.drawImage(bg2,0,0,1920,150,null);
+		g.drawImage(bg2,0,1080-225,1920,225,null);
+		g.drawImage(bg2,1920-550,0,550,1080,null);*/
+		g.setColor(new Color(200, 209, 174));
+		g.fillRect(0,0,175,1080);
+		g.fillRect(0,0,1920,150); // border
+		g.fillRect(0,1080-225,1920,225); // border
+		g.fillRect(1920-550,0,550,1080);
+		
 		
 		g.setColor(Color.gray);
 		for(int i=0; i<Math.min(4, first4nodes.size()); i++) { // draw animal tokens & tiles
 			
 			if((Integer.parseInt(first4animals.substring(4, 5))-1)==i) {
 				g.setColor(Color.cyan); // shows if an animal token is selected
-				g.fillRect((int)(1700*w)-5, 45+(150*i), (int)(110*w), (int)(110*h));
+				g.fillRect((int)(1700*w)-5, 170+(150*i), (int)(110*w), (int)(110*h));
 				g.setColor(Color.gray);
 			}
 			
 			if(first4animals.charAt(i) == 'f') {
-				g.drawImage(fox, (int)(1700*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
+				g.drawImage(fox, (int)(1700*w), 175+(150*i), (int)(100*w), (int)(100*h), null);
 			} else if (first4animals.charAt(i) == 's') {
-				g.drawImage(salmon, (int)(1700*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
+				g.drawImage(salmon, (int)(1700*w), 175+(150*i), (int)(100*w), (int)(100*h), null);
 			} else if (first4animals.charAt(i) == 'e') {
-				g.drawImage(elk, (int)(1700*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
+				g.drawImage(elk, (int)(1700*w), 175+(150*i), (int)(100*w), (int)(100*h), null);
 			} else if (first4animals.charAt(i) == 'h') {
-				g.drawImage(hawk, (int)(1700*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
+				g.drawImage(hawk, (int)(1700*w), 175+(150*i), (int)(100*w), (int)(100*h), null);
 			} else if (first4animals.charAt(i) == 'b') {
-				g.drawImage(bear, (int)(1700*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
+				g.drawImage(bear, (int)(1700*w), 175+(150*i), (int)(100*w), (int)(100*h), null);
 			}
 			if(customOvp.contains((i+1)+"")){
-				g.fillRect((int)(1525*w), 50+(150*i), 50, 50);
+				g.fillRect((int)(1675*w), 175+(150*i), 50, 50);
 			}
 			try {
 				if(!first4nodes.get(i).equals("null")) {
-					g.drawImage(ImageIO.read(Panel.class.getResource("/assets/"+ first4nodes.get(i))), (int)(1500*w), 50+(150*i), (int)(100*w), (int)(100*h), null);
+					g.drawImage(ImageIO.read(Panel.class.getResource("/assets/"+ first4nodes.get(i))), (int)(1500*w), 175+(150*i), (int)(100*w), (int)(100*h), null);
 				}
 				
 			} catch (IOException e) {
 				System.out.println("Error");
 			}
 			
+		}
+		
+		
+		
+		int c = (Integer.parseInt(first4nodes.get(4).substring(0,1))-1);
+		if(c!=-1) {
+			try { // draws selected node, if there is one
+				g2.rotate(Math.toRadians((Integer.parseInt(first4nodes.get(4).substring(1))-1)*60), (width/2+50), (height*0.8)+50);
+				g.drawImage(ImageIO.read(Panel.class.getResource("/assets/"+ first4nodes.get(c))), width/2, (int)(height*0.8), 100, 100, null);
+				g2.rotate(Math.toRadians((Integer.parseInt(first4nodes.get(4).substring(1))-1)*60)*-1, (width/2+50), (height*0.8)+50);
+			} catch (IOException e) {
+			}
 		}
 		
 		g.setColor(Color.green); g.fillRect(5, (int)(height*0.85)-35, 150, 100); // rotate button
@@ -230,7 +249,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		g.setFont(new Font("SANS SERIF", 1, 15));
 		g.drawString("Press 1-3 to see other player's boards.", 520, 35);
 		g.drawString("Use WASD to move your board around.", 520, 65);
-		if(turnsLeft<=0) g.drawString("scoring", 520, 95);
+		if(spent=='o' && !customOvp.equals("")) g.drawString("Press the overpopulate button again to overpopulate", 520, 95);
+		if(turnsLeft<=0) g.drawString("scoring", 520, 125);
 		
 		if(spent!='n') { // buttons to be shown if a nature token is spend
 			g.setColor(Color.green);
@@ -430,7 +450,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		}
 		
 		for(int i=0; i<4; i++) {
-			if((1700*w) <= e.getX() && e.getX() <= (1800*w) && 50+(150*i) <= e.getY() && e.getY() <= 150+(150*i)) { // selecting an animal token
+			if((1700*w) <= e.getX() && e.getX() <= (1800*w) && 175+(150*i) <= e.getY() && e.getY() <= 275+(150*i)) { // selecting an animal token
 				if(spent == 's') {
 				if(first4animals.charAt(4)-'0' == (i+1)) first4animals = first4animals.substring(0, 4) + "0";
 				else first4animals = first4animals.substring(0, 4) + (i+1);
@@ -448,7 +468,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 				}
 			}
 
-			if((1500*w) <= e.getX() && e.getX() <= (1600*w) && 50+(150*i) <= e.getY() && e.getY() <= 150+(150*i) && !placed) { // selecting a tile
+			if((1500*w) <= e.getX() && e.getX() <= (1600*w) && 175+(150*i) <= e.getY() && e.getY() <= 275+(150*i) && !placed) { // selecting a tile
 				
 				if(Integer.parseInt(first4nodes.get(4).substring(0,1)) == (i+1)) {
 					first4nodes.set(4, "01");

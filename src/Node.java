@@ -72,6 +72,15 @@ public class Node {
 	
 	public Node[] getNearbyNodes() {return nearbyNodes;}
 	
+	public String getNearbyAnimals() {
+		String ret = "";
+		for(int i=0; i<6; i++) {
+			if(nearbyNodes[i]!=null) ret += nearbyNodes[i].getAnimal();
+			else ret += " ";
+		}
+		return ret;
+	}
+	
 	public String toString() {return "("+x + "," + y + ")";}
 	
 	public int getX() {return x;}

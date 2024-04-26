@@ -62,19 +62,19 @@ public class Game {
 
 		
 		players[0] = new Player();
-		players[0].addNode(new Node(400, 200, startingNodes[row1][0], 75));
-		players[0].addNode(new Node(360, 260, startingNodes[row1][1], 75));
-		players[0].addNode(new Node(440, 260, startingNodes[row1][2], 75));
+		players[0].addNode(new Node(500, 300, startingNodes[row1][0], 75));
+		players[0].addNode(new Node(460, 360, startingNodes[row1][1], 75));
+		players[0].addNode(new Node(540, 360, startingNodes[row1][2], 75));
 		
 		players[1] = new Player();
-		players[1].addNode(new Node(400, 200, startingNodes[row2][0], 75));
-		players[1].addNode(new Node(360, 260, startingNodes[row2][1], 75));
-		players[1].addNode(new Node(440, 260, startingNodes[row2][2], 75));
+		players[1].addNode(new Node(500, 300, startingNodes[row2][0], 75));
+		players[1].addNode(new Node(460, 360, startingNodes[row2][1], 75));
+		players[1].addNode(new Node(540, 360, startingNodes[row2][2], 75));
 		
 		players[2] = new Player();
-		players[2].addNode(new Node(400, 200, startingNodes[row3][0], 75));
-		players[2].addNode(new Node(360, 260, startingNodes[row3][1], 75));
-		players[2].addNode(new Node(440, 260, startingNodes[row3][2], 75));
+		players[2].addNode(new Node(500, 300, startingNodes[row3][0], 75));
+		players[2].addNode(new Node(460, 360, startingNodes[row3][1], 75));
+		players[2].addNode(new Node(540, 360, startingNodes[row3][2], 75));
 		
 	}
 	

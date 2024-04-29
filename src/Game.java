@@ -104,6 +104,7 @@ public class Game {
 			
 			for(Node j: players[i].getNodes()) {
 				if(j.getAnimal() == 'b') {
+					// rework, use getNearbyAnimals() in Node class
 					if(j.getNearbyNode(1).getAnimal() == 'b') { 
 						bearC++;
 					}
@@ -444,7 +445,66 @@ public class Game {
 		//return bearC + elkC + foxC + salmonC + hawkC + mountainC + forestC + prairieC + wetlandC + riverC;
 	}
 
+	public int[][] scoring2(){
+		int[][] scores = new int[14][3];
+		// 14 rows, 3 columns
+		for(int i=0; i<3; i++) {
+			Player p = players[i];
+			
+			// fox is row 5
+			while(p.findAnimal('f')!=null) {
+				Node f = p.findAnimal('f');
+				scores[5][i] += f.getNearbyAnimals().indexOf("f")!=-1?1:0;
+				scores[5][i] += f.getNearbyAnimals().indexOf("b")!=-1?1:0;
+				scores[5][i] += f.getNearbyAnimals().indexOf("s")!=-1?1:0;
+				scores[5][i] += f.getNearbyAnimals().indexOf("e")!=-1?1:0;
+				scores[5][i] += f.getNearbyAnimals().indexOf("h")!=-1?1:0;
+				f.setAnimal('n');
+			}
+			
+			
+			// hawk is row 4
+			int hawkc = 0;
+			while(p.findAnimal('h')!=null) {
+				Node h = p.findAnimal('h');
+				if(h.getNearbyAnimals().indexOf('h')==-1) hawkc++;
+				h.setAnimal('n');
+			}
+			
+			if(1<=hawkc && hawkc<=5)scores[4][i] = 2 + (3*(i-1));
+			else if (hawkc!=0) scores[4][i] = 14 + (4*(i-5));
+			if(scores[4][i]>26) scores[4][i] = 26;
+			
+			// elk is row 3
+			while(p.findAnimal('e')!=null) {
+				Node e = p.findAnimal('e');
+				int dir = e.getNearbyAnimals().indexOf('e');
+				int count = 1;
+				e.setAnimal('n');
+				if(dir!=-1) {
+					while(e.getNearbyNode(dir+1)!=null) {
+						e = e.getNearbyNode(dir+1);
+						if(e.getAnimal()!='e') break;
+						else {
+							count++;
+							e.setAnimal('n');
+						}
+					}
+				}
+				if(count==1) scores[3][i] += 2;
+				else if(count==2) scores[3][i] += 5;
+				else if(count==3) scores[3][i] += 9;
+				else if(count==4) scores[3][i] += 13;
+			}
+			
+			
+		}
+		return scores;
+	}
 	
+	public int terrainCount(char t, Node n) { // recursive function for counting terrain
+		return 0;
+	}
 	
 	public Player currentPlayer() {
 		return players[currentPlayer];

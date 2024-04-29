@@ -58,7 +58,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			first4animals = game.getFirst4Animals2() + "0";
 		}
 		
-		
+		first4animals = "eeee0";
 		
 		try {
 			game.addNodes();
@@ -394,11 +394,6 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			repaint();
 			return;
 		}
-		for(Node test: game.currentPlayer().getNodes()) {
-			if(test.isClicked((e.getX()-offsetx), (e.getY()-offsety))) {
-				System.out.println(test.getNearbyAnimals());
-			}
-		}
 		
 		if(!first4animals.substring(4).equals("0")) { // placing animal token if one is selected
 			if(first4nodes.get(4).charAt(0) == '0' || spent == 's'
@@ -505,6 +500,15 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			case ' ': // Space
 			offsetx = 0; 
 			offsety = 0;
+			break;
+			case 'q': // for testing purposes
+			int[][] s = game.scoring2();
+			for(int[] s1: s) {
+				for(int s2: s1) {
+					System.out.print(s2);
+				}
+				System.out.println("");
+			}
 			break;
 			}
 			repaint();

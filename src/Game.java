@@ -476,12 +476,30 @@ public class Game {
 			if(scores[4][i]>26) scores[4][i] = 26;
 			
 			// elk is row 3
-			while(p.findAnimal('h')!=null) {
-				Node h = p.findAnimal('h');
-				if(h.getNearbyAnimals().indexOf('h')==-1) hawkc++;
+			while(p.findAnimal('e')!=null) {
+				Node e = p.findAnimal('e');
+				int dir = e.getNearbyAnimals().indexOf('e');
+				int count = 1;
+				e.setAnimal('n');
+				if(dir!=-1) {
+					while(e.getNearbyNode(dir+1)!=null) {
+						e = e.getNearbyNode(dir+1);
+						if(e.getAnimal()!='e') break;
+						else {
+							count++;
+							e.setAnimal('n');
+						}
+					}
+				}
+				if(count==1) scores[3][i] += 2;
+				else if(count==2) scores[3][i] += 5;
+				else if(count==3) scores[3][i] += 9;
+				else if(count==4) scores[3][i] += 13;
 			}
+			
+			
 		}
-		return null;
+		return scores;
 	}
 	
 	public int terrainCount(char t, Node n) { // recursive function for counting terrain

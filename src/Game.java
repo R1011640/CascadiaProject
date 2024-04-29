@@ -445,7 +445,27 @@ public class Game {
 		//return bearC + elkC + foxC + salmonC + hawkC + mountainC + forestC + prairieC + wetlandC + riverC;
 	}
 
-	
+	public int[][] scoring2(){
+		int[][] scores = new int[14][3];
+		// 14 rows, 3 columns
+		for(int i=0; i<3; i++) {
+			Player p = players[i];
+			
+			// fox is row 5
+			while(p.findAnimal('f')!=null) {
+				Node f = p.findAnimal('f');
+				scores[5][i] += f.getNearbyAnimals().indexOf("f")!=-1?1:0;
+				scores[5][i] += f.getNearbyAnimals().indexOf("b")!=-1?1:0;
+				scores[5][i] += f.getNearbyAnimals().indexOf("s")!=-1?1:0;
+				scores[5][i] += f.getNearbyAnimals().indexOf("e")!=-1?1:0;
+				scores[5][i] += f.getNearbyAnimals().indexOf("h")!=-1?1:0;
+				f.setAnimal('n');
+			}
+			
+			
+		}
+		return null;
+	}
 	
 	public Player currentPlayer() {
 		return players[currentPlayer];

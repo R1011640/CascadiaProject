@@ -468,6 +468,7 @@ public class Game {
 			while(p.findAnimal('h')!=null) {
 				Node h = p.findAnimal('h');
 				if(h.getNearbyAnimals().indexOf('h')==-1) hawkc++;
+				h.setAnimal('n');
 			}
 			
 			if(1<=hawkc && hawkc<=5)scores[4][i] = 2 + (3*(i-1));

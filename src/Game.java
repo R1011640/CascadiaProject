@@ -468,11 +468,16 @@ public class Game {
 			while(p.findAnimal('h')!=null) {
 				Node h = p.findAnimal('h');
 				if(h.getNearbyAnimals().indexOf('h')==-1) hawkc++;
+				else {
+					for(Node h22: h.getNearbyNodes()) {
+						if(h22!=null) if(h22.getAnimal()=='h') h22.setAnimal('n');
+					}
+				}
 				h.setAnimal('n');
 			}
 			
-			if(1<=hawkc && hawkc<=5)scores[3][i] = 2 + (3*(i-1));
-			else if (hawkc!=0) scores[3][i] = 14 + (4*(i-5));
+			if(1<=hawkc && hawkc<=5)scores[3][i] = 2 + (3*(hawkc-1));
+			else if (hawkc!=0) scores[3][i] = 14 + (4*(hawkc-5));
 			if(scores[3][i]>26) scores[3][i] = 26;
 			
 			// elk is row 3
@@ -530,17 +535,34 @@ public class Game {
 			while(p.findAnimal('b')!=null) {
 				Node b = p.findAnimal('b');
 				if(b.getNearbyAnimals().indexOf('b')==b.getNearbyAnimals().indexOf('b') && b.getNearbyAnimals().indexOf('b')!=-1) {
-					if(b.getNearbyNode(b.getNearbyAnimals().indexOf('b')+1).getNearbyAnimals().indexOf('b')!=0);
+					if(b.getNearbyNode(b.getNearbyAnimals().indexOf('b')+1).getNearbyAnimals().indexOf('b')==
+					   b.getNearbyNode(b.getNearbyAnimals().indexOf('b')+1).getNearbyAnimals().lastIndexOf('b')) {
+						bpairs++;
+					}
 				}
 				b.setAnimal('n');
+			}
+			switch(bpairs) {
+			case 1: scores[0][i] += 4; break;
+			case 2: scores[0][i] += 11; break;
+			case 3: scores[0][i] += 19; break;
+			case 4: scores[0][i] += 27; break;
 			}
 			
 		}
 		return scores;
 	}
 	
-	public int terrainCount(char t, Node n) { // recursive function for counting terrain
-		return 0;
+	public ArrayList<Node> terrainCount(char t, Node n) { // function for counting terrain. maybe recursive
+		ArrayList<Node> countedNodes = new ArrayList<Node>();
+		// checks all side for a node with same terrain on adjacent side, then puts node in countedNodes
+		for(int i=1; i<7; i++) {
+			if(n.getEdges().charAt(i-1)==t && 
+					n.getNearbyNode(i).getEdges().charAt(i+3>6?(i-3)-1:i+2)==t) {
+				System.out.println("q");
+			}
+		}
+		return countedNodes;
 	}
 	
 	public Player currentPlayer() {

@@ -58,7 +58,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			first4animals = game.getFirst4Animals2() + "0";
 		}
 		
-		first4animals = "ssss0";
+		first4animals = "hhhh0";
+		
 		
 		try {
 			game.addNodes();
@@ -505,7 +506,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			int[][] s = game.scoring2();
 			for(int[] s1: s) {
 				for(int s2: s1) {
-					System.out.print(s2);
+					System.out.print(s2 + " ");
 				}
 				System.out.println("");
 			}

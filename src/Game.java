@@ -525,6 +525,16 @@ public class Game {
 				else if(count>=7) scores[1][i] += 26;
 			}
 			
+			// bear is row 1
+			int bpairs = 0; // pairs of bears
+			while(p.findAnimal('b')!=null) {
+				Node b = p.findAnimal('b');
+				if(b.getNearbyAnimals().indexOf('b')==b.getNearbyAnimals().indexOf('b') && b.getNearbyAnimals().indexOf('b')!=-1) {
+					if(b.getNearbyNode(b.getNearbyAnimals().indexOf('b')+1).getNearbyAnimals().indexOf('b')!=0);
+				}
+				b.setAnimal('n');
+			}
+			
 		}
 		return scores;
 	}

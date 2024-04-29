@@ -454,11 +454,11 @@ public class Game {
 			// fox is row 5
 			while(p.findAnimal('f')!=null) {
 				Node f = p.findAnimal('f');
-				scores[5][i] += f.getNearbyAnimals().indexOf("f")!=-1?1:0;
-				scores[5][i] += f.getNearbyAnimals().indexOf("b")!=-1?1:0;
-				scores[5][i] += f.getNearbyAnimals().indexOf("s")!=-1?1:0;
-				scores[5][i] += f.getNearbyAnimals().indexOf("e")!=-1?1:0;
-				scores[5][i] += f.getNearbyAnimals().indexOf("h")!=-1?1:0;
+				scores[4][i] += f.getNearbyAnimals().indexOf("f")!=-1?1:0;
+				scores[4][i] += f.getNearbyAnimals().indexOf("b")!=-1?1:0;
+				scores[4][i] += f.getNearbyAnimals().indexOf("s")!=-1?1:0;
+				scores[4][i] += f.getNearbyAnimals().indexOf("e")!=-1?1:0;
+				scores[4][i] += f.getNearbyAnimals().indexOf("h")!=-1?1:0;
 				f.setAnimal('n');
 			}
 			
@@ -471,9 +471,9 @@ public class Game {
 				h.setAnimal('n');
 			}
 			
-			if(1<=hawkc && hawkc<=5)scores[4][i] = 2 + (3*(i-1));
-			else if (hawkc!=0) scores[4][i] = 14 + (4*(i-5));
-			if(scores[4][i]>26) scores[4][i] = 26;
+			if(1<=hawkc && hawkc<=5)scores[3][i] = 2 + (3*(i-1));
+			else if (hawkc!=0) scores[3][i] = 14 + (4*(i-5));
+			if(scores[3][i]>26) scores[3][i] = 26;
 			
 			// elk is row 3
 			while(p.findAnimal('e')!=null) {
@@ -491,12 +491,39 @@ public class Game {
 						}
 					}
 				}
-				if(count==1) scores[3][i] += 2;
-				else if(count==2) scores[3][i] += 5;
-				else if(count==3) scores[3][i] += 9;
-				else if(count==4) scores[3][i] += 13;
+				if(count==1) scores[2][i] += 2;
+				else if(count==2) scores[2][i] += 5;
+				else if(count==3) scores[2][i] += 9;
+				else if(count==4) scores[2][i] += 13;
 			}
 			
+			
+			// salmon is row 2
+			while(p.findAnimal('s')!=null) {
+				Node s = p.findAnimal('s');
+				int count = 1;
+				if (s.getNearbyAnimals().indexOf('s')!=s.getNearbyAnimals().lastIndexOf('s')) count = 0;
+				s.setAnimal('n');
+				while(s.getNearbyAnimals().indexOf('s')==s.getNearbyAnimals().lastIndexOf('s') && s.getNearbyAnimals().indexOf('s')!=-1) {
+					count++;
+					s = s.getNearbyNode(s.getNearbyAnimals().indexOf('s')+1);
+					s.setAnimal('n');
+				}
+				if (s.getNearbyAnimals().indexOf('s')!=s.getNearbyAnimals().lastIndexOf('s')) {
+					for(int s2=0; s2<6; s2++) {
+						if(s.getNearbyAnimals().charAt(s2)=='s') {
+							s.getNearbyNode(s2+1).setAnimal('n');
+						}
+					}
+				}
+				if(count==1) scores[1][i] += 2;
+				else if(count==2) scores[1][i] += 4;
+				else if(count==3) scores[1][i] += 7;
+				else if(count==4) scores[1][i] += 11;
+				else if(count==5) scores[1][i] += 15;
+				else if(count==6) scores[1][i] += 20;
+				else if(count>=7) scores[1][i] += 26;
+			}
 			
 		}
 		return scores;

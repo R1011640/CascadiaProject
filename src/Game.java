@@ -463,8 +463,28 @@ public class Game {
 			}
 			
 			
+			// hawk is row 4
+			int hawkc = 0;
+			while(p.findAnimal('h')!=null) {
+				Node h = p.findAnimal('h');
+				if(h.getNearbyAnimals().indexOf('h')==-1) hawkc++;
+			}
+			
+			if(1<=hawkc && hawkc<=5)scores[4][i] = 2 + (3*(i-1));
+			else if (hawkc!=0) scores[4][i] = 14 + (4*(i-5));
+			if(scores[4][i]>26) scores[4][i] = 26;
+			
+			// elk is row 3
+			while(p.findAnimal('h')!=null) {
+				Node h = p.findAnimal('h');
+				if(h.getNearbyAnimals().indexOf('h')==-1) hawkc++;
+			}
 		}
 		return null;
+	}
+	
+	public int terrainCount(char t, Node n) { // recursive function for counting terrain
+		return 0;
 	}
 	
 	public Player currentPlayer() {

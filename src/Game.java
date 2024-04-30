@@ -554,19 +554,21 @@ public class Game {
 			//     add up totals for score sheet
 			
 			//          TERRAIN SCORING
-			int prevSize = 0;
+			
 			
 			while(p.findTerrain('m')!=null) {
+				int prevSize = 0;
 				Node m = p.findTerrain('m');
 				ArrayList<Node> tnodes = new ArrayList<Node>();
 				ArrayList<Node> ftnodes = new ArrayList<Node>();
 				tnodes.add(m);
-				ftnodes.add(m);
 				while(tnodes.size()!=prevSize) {
+					ftnodes.addAll(tnodes);
 					prevSize = tnodes.size();
 					for(Node tn: ftnodes) {
 						for(Node tn2: terrainCount('m',tn)) if(!tnodes.contains(tn2)) tnodes.add(tn2);
 					}
+					ftnodes.clear();
 				}
 				if(tnodes.size()>scores[8][i]) scores[8][i] = tnodes.size();
 			}

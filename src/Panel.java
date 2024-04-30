@@ -256,7 +256,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		g.drawString("Turns left for all players = " + turnsLeft, 10, 115);
 		g.setFont(new Font("SANS SERIF", 1, 15));
 		g.drawString("Press 1-3 to see other player's boards.", 520, 35);
-		g.drawString("Use WASD to move your board around.", 520, 65);
+		g.drawString("Use WASD to move your board around, and Space to center your board.", 520, 65);
 		if(spent=='o' && !customOvp.equals("")) g.drawString("Press the overpopulate button again to overpopulate", 520, 95);
 		if(turnsLeft<=0) g.drawString("scoring", 520, 125);
 		

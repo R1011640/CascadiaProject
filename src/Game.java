@@ -607,8 +607,40 @@ public class Game {
 				if(tnodes.size()>scores[8][i]) scores[8][i] = tnodes.size();
 			}
 			
-			// wetland is row 10
-			// river is row 11
+			
+			while(p.findTerrain('w')!=null) { // wetland is row 10
+				int prevSize = 0;
+				Node m = p.findTerrain('w');
+				ArrayList<Node> tnodes = new ArrayList<Node>();
+				ArrayList<Node> ftnodes = new ArrayList<Node>();
+				tnodes.add(m);
+				while(tnodes.size()!=prevSize) {
+					ftnodes.addAll(tnodes);
+					prevSize = tnodes.size();
+					for(Node tn: ftnodes) {
+						for(Node tn2: terrainCount('w',tn)) if(!tnodes.contains(tn2)) tnodes.add(tn2);
+					}
+					ftnodes.clear();
+				}
+				if(tnodes.size()>scores[9][i]) scores[9][i] = tnodes.size();
+			}
+			
+			while(p.findTerrain('r')!=null) { // river is row 11
+				int prevSize = 0;
+				Node m = p.findTerrain('r');
+				ArrayList<Node> tnodes = new ArrayList<Node>();
+				ArrayList<Node> ftnodes = new ArrayList<Node>();
+				tnodes.add(m);
+				while(tnodes.size()!=prevSize) {
+					ftnodes.addAll(tnodes);
+					prevSize = tnodes.size();
+					for(Node tn: ftnodes) {
+						for(Node tn2: terrainCount('r',tn)) if(!tnodes.contains(tn2)) tnodes.add(tn2);
+					}
+					ftnodes.clear();
+				}
+				if(tnodes.size()>scores[10][i]) scores[10][i] = tnodes.size();
+			}
 		}
 		return scores;
 	}

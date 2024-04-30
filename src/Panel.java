@@ -511,6 +511,13 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 				System.out.println("");
 			}
 			break;
+			case 'e': // for testing purposes
+				for(Node n: game.currentPlayer().getNodes()) {
+					System.out.println(n.getEdges());
+					System.out.println(game.terrainCount('w', n));
+					System.out.println(n.getEdges());
+				}
+			break;
 			}
 			repaint();
 			return;

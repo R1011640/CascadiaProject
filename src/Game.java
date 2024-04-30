@@ -446,10 +446,12 @@ public class Game {
 	}
 
 	public int[][] scoring2(){
-		int[][] scores = new int[14][3];
+		int[][] scores = new int[19][3];
 		// 14 rows, 3 columns
 		for(int i=0; i<3; i++) {
 			Player p = players[i];
+			
+			//                     ANIMAL SCORING
 			
 			// fox is row 5
 			while(p.findAnimal('f')!=null) {
@@ -549,6 +551,12 @@ public class Game {
 			case 4: scores[0][i] += 27; break;
 			}
 			
+			//     add up totals for score sheet
+			
+			//          TERRAIN SCORING
+			int prevSize = -1;
+			
+			// mountains is row 7
 		}
 		return scores;
 	}
@@ -557,13 +565,21 @@ public class Game {
 		ArrayList<Node> countedNodes = new ArrayList<Node>();
 		// checks all side for a node with same terrain on adjacent side, then puts node in countedNodes
 		for(int i=1; i<7; i++) {
+			if(n.getNearbyNode(i)!=null) {
+			int other = i+3>6?i-3:i+3;
 			if(n.getEdges().charAt(i-1)==t && 
-					n.getNearbyNode(i).getEdges().charAt(i+3>6?(i-3)-1:i+2)==t) {
-				System.out.println("q");
+					n.getNearbyNode(i).getEdges().charAt(other-1)==t) {
+				if(!countedNodes.contains(n.getNearbyNode(i)))countedNodes.add(n.getNearbyNode(i));
+				n.setEdges(n.getEdges().substring(0, i-1) + 'n' + n.getEdges().substring(i));
+				n.getNearbyNode(i).setEdges(n.getNearbyNode(i).getEdges().substring(0, other-1) 
+						+ 'n' + n.getNearbyNode(i).getEdges().substring(other));
 			}
+			}
+			if(n.getEdges().charAt(i-1)==t) n.setEdges(n.getEdges().substring(0, i-1) + 'n' + n.getEdges().substring(i));
 		}
 		return countedNodes;
 	}
+	
 	
 	public Player currentPlayer() {
 		return players[currentPlayer];

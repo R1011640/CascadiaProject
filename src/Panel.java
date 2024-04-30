@@ -32,7 +32,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	
 	boolean placed, aplaced, op3; // if player placed a tile or not
 	
-	int turnsLeft = 60, viewedPlayer;
+	int turnsLeft = 3, viewedPlayer;
 	static int offsetx, offsety;
 	
 	String customOvp; // used to find what animals will be replaced if a nature token
@@ -104,7 +104,15 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	
 	public void paint(Graphics g) { //                              begin painting
 		
-		
+		if(turnsLeft==0) {
+			int[][] s = game.scoring2();
+			for (int s1=0; s1<s.length; s1++) {
+				for(int s2=0; s2<s[s1].length; s2++) {
+					g.drawString(s[s1][s2]+"", 20+(20*s2), 200+(20*s1));
+				}
+			}
+			return;
+		}
 		
 		g.drawImage(bg, 0, 0, 1920, 1080, null);
 		g.setFont(new Font("SANS SERIF", 1, 16));
@@ -501,7 +509,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			offsetx = 0; 
 			offsety = 0;
 			break;
-			case 'q': // for testing purposes
+			/*case 'q': // for testing purposes
 			int[][] s = game.scoring2();
 			for(int[] s1: s) {
 				for(int s2: s1) {
@@ -516,7 +524,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 					System.out.println(game.terrainCount('w', n));
 					System.out.println(n.getEdges());
 				}
-			break;
+			break;*/
 			}
 			repaint();
 			return;

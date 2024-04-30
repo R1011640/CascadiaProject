@@ -32,7 +32,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	
 	boolean placed, aplaced, op3; // if player placed a tile or not
 	
-	int turnsLeft = 3, viewedPlayer;
+	int turnsLeft = 60, viewedPlayer;
 	static int offsetx, offsety;
 	
 	String customOvp; // used to find what animals will be replaced if a nature token

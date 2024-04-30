@@ -556,7 +556,7 @@ public class Game {
 			//          TERRAIN SCORING
 			
 			
-			while(p.findTerrain('m')!=null) {
+			while(p.findTerrain('m')!=null) { // mountains is row 7
 				int prevSize = 0;
 				Node m = p.findTerrain('m');
 				ArrayList<Node> tnodes = new ArrayList<Node>();
@@ -570,11 +570,45 @@ public class Game {
 					}
 					ftnodes.clear();
 				}
+				if(tnodes.size()>scores[6][i]) scores[6][i] = tnodes.size();
+			}
+			
+			while(p.findTerrain('f')!=null) { // forest is row 8
+				int prevSize = 0;
+				Node m = p.findTerrain('f');
+				ArrayList<Node> tnodes = new ArrayList<Node>();
+				ArrayList<Node> ftnodes = new ArrayList<Node>();
+				tnodes.add(m);
+				while(tnodes.size()!=prevSize) {
+					ftnodes.addAll(tnodes);
+					prevSize = tnodes.size();
+					for(Node tn: ftnodes) {
+						for(Node tn2: terrainCount('f',tn)) if(!tnodes.contains(tn2)) tnodes.add(tn2);
+					}
+					ftnodes.clear();
+				}
+				if(tnodes.size()>scores[7][i]) scores[7][i] = tnodes.size();
+			}
+			
+			while(p.findTerrain('p')!=null) { // prairie is row 9
+				int prevSize = 0;
+				Node m = p.findTerrain('p');
+				ArrayList<Node> tnodes = new ArrayList<Node>();
+				ArrayList<Node> ftnodes = new ArrayList<Node>();
+				tnodes.add(m);
+				while(tnodes.size()!=prevSize) {
+					ftnodes.addAll(tnodes);
+					prevSize = tnodes.size();
+					for(Node tn: ftnodes) {
+						for(Node tn2: terrainCount('p',tn)) if(!tnodes.contains(tn2)) tnodes.add(tn2);
+					}
+					ftnodes.clear();
+				}
 				if(tnodes.size()>scores[8][i]) scores[8][i] = tnodes.size();
 			}
-			// mountains is row 7
 			
-			
+			// wetland is row 10
+			// river is row 11
 		}
 		return scores;
 	}

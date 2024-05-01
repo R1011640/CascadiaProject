@@ -32,7 +32,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	
 	boolean placed, aplaced, op3; // if player placed a tile or not
 	
-	int turnsLeft = 60, viewedPlayer;
+	int turnsLeft = 2, viewedPlayer;
 	static int offsetx, offsety;
 	
 	String customOvp; // used to find what animals will be replaced if a nature token
@@ -106,7 +106,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		
 		if(turnsLeft==0) {
 			int[][] s = game.scoring2();
-			for (int s1=0; s1<s.length; s1++) {
+			for (int s1=0; s1<11; s1++) {
 				for(int s2=0; s2<s[s1].length; s2++) {
 					g.drawString(s[s1][s2]+"", 20+(20*s2), 200+(20*s1));
 				}
@@ -420,6 +420,11 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 							first4animals = first4animals.substring(0, (Integer.parseInt(first4animals.substring(4, 5))-1))
 									+ game.randomAnimal() + first4animals.substring((Integer.parseInt(first4animals.substring(4, 5))));
 							first4animals = first4animals.substring(0, 4) + "0";
+							while(first4animals.substring(0,4).equals("hhhh") || first4animals.substring(0,4).equals("bbbb")
+									|| first4animals.substring(0,4).equals("eeee") || first4animals.substring(0,4).equals("ffff")
+									|| first4animals.substring(0,4).equals("ssss")) {
+								first4animals = game.getFirst4Animals2() + "0";
+							}
 							//System.out.println(first4animals);
 						
 						}

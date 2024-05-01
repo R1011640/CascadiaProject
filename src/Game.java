@@ -641,6 +641,9 @@ public class Game {
 				}
 				if(tnodes.size()>scores[10][i]) scores[10][i] = tnodes.size();
 			}
+			
+			// extra points for mountain is row 12, mountain is row 7
+			
 		}
 		return scores;
 	}

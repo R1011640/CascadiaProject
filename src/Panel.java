@@ -38,7 +38,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	String customOvp; // used to find what animals will be replaced if a nature token
 	// is spent to overpopulate
 	
-	BufferedImage fox = null, hawk = null, elk = null, bear = null, salmon = null, acorn = null, bg = null, bg2 = null;
+	BufferedImage fox = null, hawk = null, elk = null, bear = null, salmon = null, acorn = null, bg = null, scoringcard = null;
 	int width = Toolkit.getDefaultToolkit().getScreenSize().width;
 	int height = Toolkit.getDefaultToolkit().getScreenSize().height;
 	double w = width/1920.0, h = height/1080.0;
@@ -81,6 +81,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			salmon = ImageIO.read(Panel.class.getResource("/assets/fish.png"));
 			acorn = ImageIO.read(Panel.class.getResource("/assets/acorn.png"));
 			bg = ImageIO.read(Panel.class.getResource("/assets/bg2.png"));
+			scoringcard = ImageIO.read(Panel.class.getResource("/assets/scoresheet.png"));
 		} catch (IOException e) {
 			System.out.println("Error");
 		}
@@ -105,10 +106,14 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	public void paint(Graphics g) { //                              begin painting
 		
 		if(turnsLeft==0) {
+			g.drawImage(scoringcard, 0, 0, 188, 406, null);
 			int[][] s = game.scoring2();
+			g.drawString("P1", 55, 55-23);
+			g.drawString("P2", 55+28, 55-23);
+			g.drawString("P3", 55+56, 55-23);
 			for (int s1=0; s1<11; s1++) {
 				for(int s2=0; s2<s[s1].length; s2++) {
-					g.drawString(s[s1][s2]+"", 20+(20*s2), 200+(20*s1));
+					g.drawString(s[s1][s2]+"", 55+(30*s2), 55+(23*s1));
 				}
 			}
 			return;

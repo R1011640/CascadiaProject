@@ -551,7 +551,7 @@ public class Game {
 			case 4: scores[0][i] += 27; break;
 			}
 			
-			//     add up totals for score sheet
+			scores[5][i] = scores[4][i] + scores[3][i] + scores[2][i] + scores[1][i] + scores[0][i];
 			
 			//          TERRAIN SCORING
 			

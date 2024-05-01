@@ -411,6 +411,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 						if(n.getAvailable().indexOf(first4animals.charAt(Integer.parseInt(first4animals.substring(4, 5))-1)) != -1 && !aplaced && placed
 								&& n.getAnimal() == 'n') {
 							n.setAnimal(first4animals.charAt(Integer.parseInt(first4animals.substring(4, 5))-1));
+							if(n.getEdges().equals("mmmmmm") || n.getEdges().equals("wwwwww") || n.getEdges().equals("ffffff")
+									|| n.getEdges().equals("rrrrrr") || n.getEdges().equals("pppppp")) {
+									game.currentPlayer().setTokens(game.currentPlayer().getTokens()+1);
+							}
 							aplaced = true;
 							if(spent=='s') spent = 'n';
 							first4animals = first4animals.substring(0, (Integer.parseInt(first4animals.substring(4, 5))-1))
@@ -437,10 +441,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 				while(n.getRot() != (Integer.parseInt(first4nodes.get(4).substring(1)))){
 					n.rotate();
 				}
-				if(n.getEdges().equals("mmmmmm") || n.getEdges().equals("wwwwww") || n.getEdges().equals("ffffff")
-					|| n.getEdges().equals("rrrrrr") || n.getEdges().equals("pppppp")) {
-					game.currentPlayer().setTokens(game.currentPlayer().getTokens()+1);
-				}
+				
 				first4nodes.set(Integer.parseInt(first4nodes.get(4).substring(0,1))-1, game.getNode());
 				placed = true;
 				avs.clear();

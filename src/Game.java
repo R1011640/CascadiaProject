@@ -447,7 +447,7 @@ public class Game {
 
 	public int[][] scoring2(){
 		int[][] scores = new int[19][3];
-		// 14 rows, 3 columns
+		// 19 rows, 3 columns
 		for(int i=0; i<3; i++) {
 			Player p = players[i];
 			
@@ -551,6 +551,7 @@ public class Game {
 			case 4: scores[0][i] += 27; break;
 			}
 			
+			// tally animal points up
 			scores[5][i] = scores[4][i] + scores[3][i] + scores[2][i] + scores[1][i] + scores[0][i];
 			
 			//          TERRAIN SCORING
@@ -642,9 +643,55 @@ public class Game {
 				if(tnodes.size()>scores[10][i]) scores[10][i] = tnodes.size();
 			}
 			
-			// extra points for mountain is row 12, mountain is row 7
+			// extra points for nature tokens
+			scores[17][i] = players[i].getTokens();
 			
 		}
+		
+		// extra points for terrain
+		// extra points for mountain is row 12, mountain is row 7
+		// extra points for river is row 16, river is row 11
+		
+		for(int s=11; s<16; s++) {
+			int max = Math.max(Math.max(scores[s-5][0], scores[s-5][1]), scores[s-5][2]);
+			if(max==scores[s-5][0] && max==scores[s-5][1] && max==scores[s-5][2]) { // all tie
+				scores[s][0] = scores[s][1] = scores[s][2] = 1;
+			} else if (max==scores[s-5][0] && max==scores[s-5][1]) { // 2 tie
+				scores[s][0] = scores[s][1] = 2;
+			} else if (max==scores[s-5][0] && max==scores[s-5][2]) { // 2 tie
+				scores[s][0] = scores[s][2] = 2;
+			} else if (max==scores[s-5][1] && max==scores[s-5][2]) { // 2 tie
+				scores[s][1] = scores[s][2] = 2;
+			} else if(max==scores[s-5][0]) { // player 1 highest
+				scores[s][0] = 3;
+				if(Math.max(scores[s-5][1], scores[s-5][2])==scores[s-5][1] && Math.max(scores[s-5][1], scores[s-5][2])==scores[s-5][2]) 
+					continue;
+				else if(Math.max(scores[s-5][1], scores[s-5][2])==scores[s-5][1]) scores[s][1] = 1;
+				else if(Math.max(scores[s-5][1], scores[s-5][2])==scores[s-5][2]) scores[s][2] = 1;
+			} else if(max==scores[s-5][1]) { // player 2 highest
+				scores[s][1] = 3;
+				if(Math.max(scores[s-5][0], scores[s-5][2])==scores[s-5][0] && Math.max(scores[s-5][0], scores[s-5][2])==scores[s-5][2]) 
+					continue;
+				else if(Math.max(scores[s-5][0], scores[s-5][2])==scores[s-5][0]) scores[s][0] = 1;
+				else if(Math.max(scores[s-5][0], scores[s-5][2])==scores[s-5][2]) scores[s][2] = 1;
+			} else if(max==scores[s-5][2]) { // player 3 highest
+				scores[s][2] = 3;
+				if(Math.max(scores[s-5][0], scores[s-5][1])==scores[s-5][0] && Math.max(scores[s-5][0], scores[s-5][1])==scores[s-5][1]) 
+					continue;
+				else if(Math.max(scores[s-5][0], scores[s-5][1])==scores[s-5][0]) scores[s][0] = 1;
+				else if(Math.max(scores[s-5][0], scores[s-5][1])==scores[s-5][1]) scores[s][1] = 1;
+			} 
+		}
+		
+		// totals for terrain
+		
+		for(int q=0; q<3; q++) {
+			scores[16][q] = scores[11][q] + scores[12][q] + scores[13][q] + scores[14][q] + scores[15][q]
+					+ scores[6][q] + scores[7][q] + scores[8][q] + scores[9][q] + scores[10][q];
+		}
+		
+		// tally everything up
+		
 		return scores;
 	}
 	

@@ -31,8 +31,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	char spent; // 'n' = not spent, 'p' = spent, pending selection, 's' = spent, select separate, 'o' = spent, overpopulate
 	
 	boolean placed, aplaced, op3; // if player placed a tile or not
-	
-	int turnsLeft = 2, viewedPlayer;
+	int[][] s = null;
+	int turnsLeft = 0, viewedPlayer;
 	static int offsetx, offsety;
 	
 	String customOvp; // used to find what animals will be replaced if a nature token
@@ -107,13 +107,23 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		
 		if(turnsLeft==0) {
 			g.drawImage(scoringcard, 0, 0, 188, 406, null);
-			int[][] s = game.scoring2();
+			if(s==null) s = game.scoring2();
 			g.drawString("P1", 55, 55-23);
 			g.drawString("P2", 55+28, 55-23);
 			g.drawString("P3", 55+56, 55-23);
-			for (int s1=0; s1<11; s1++) {
+			for (int s1=0; s1<5; s1++) { // set s.length to 11 or vice versa
 				for(int s2=0; s2<s[s1].length; s2++) {
-					g.drawString(s[s1][s2]+"", 55+(30*s2), 55+(23*s1));
+					g.drawString(s[s1][s2]+"", 55+(30*s2), 50+(23*s1));
+				}
+			}
+			for (int s1=5; s1<11; s1++) {
+				for(int s2=0; s2<s[s1].length; s2++) {
+					g.drawString(s[s1][s2]+"", 55+(30*s2), 52+(24*s1));
+				}
+			}
+			for (int s1=11; s1<16; s1++) {
+				for(int s2=0; s2<s[s1].length; s2++) {
+					g.drawString(s[s1][s2]+"", 70+(30*s2), 198+(25*(s1-11)));
 				}
 			}
 			return;
@@ -540,6 +550,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			repaint();
 			return;
 		}
+	}
+	
+	public ArrayList<Player> whoWon(int[][] scores){
+		return null;
 	}
 	
 	public void mousePressed(MouseEvent e) {}

@@ -414,7 +414,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 							if(n.getEdges().equals("mmmmmm") || n.getEdges().equals("wwwwww") || n.getEdges().equals("ffffff")
 									|| n.getEdges().equals("rrrrrr") || n.getEdges().equals("pppppp")) {
 									game.currentPlayer().setTokens(game.currentPlayer().getTokens()+1);
-							}
+							}//
 							aplaced = true;
 							if(spent=='s') spent = 'n';
 							first4animals = first4animals.substring(0, (Integer.parseInt(first4animals.substring(4, 5))-1))

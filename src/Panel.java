@@ -297,12 +297,12 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			g.drawString("P3", 55+56, 55-23);
 			for (int s1=0; s1<5; s1++) { // set s.length to 11 or vice versa
 				for(int s2=0; s2<s[s1].length; s2++) {
-					g.drawString(s[s1][s2]+"", 55+(30*s2), 48+(23*s1));
+					g.drawString(s[s1][s2]+"", 55+(30*s2), 48+(22*s1));
 				}
 			}
 			for (int s1=5; s1<11; s1++) {
 				for(int s2=0; s2<s[s1].length; s2++) {
-					g.drawString(s[s1][s2]+"", 55+(30*s2), 52+(24*s1));
+					g.drawString(s[s1][s2]+"", 55+(30*s2), 50+(24*s1));
 				}
 			}
 			for (int s1=11; s1<16; s1++) {

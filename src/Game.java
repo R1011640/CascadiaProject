@@ -454,9 +454,23 @@ public class Game {
 		ArrayList<Node> n3s = new ArrayList<Node>();
 		
 		for(Node n2d: players[0].getNodes()) {
-			//n1s.add(new Node(n2d.getX(), n2d.getY()));
+			Node s2qq = new Node(n2d.getX(), n2d.getY(), n2d.getName(), n2d.getSize());
+			s2qq.setAnimal(n2d.getAnimal());
+			s2qq.setRot(n2d.getRot());
+			n1s.add(s2qq);
 		}
-		
+		for(Node n2d2: players[1].getNodes()) {
+			Node s2qq2 = new Node(n2d2.getX(), n2d2.getY(), n2d2.getName(), n2d2.getSize());
+			s2qq2.setAnimal(n2d2.getAnimal());
+			s2qq2.setRot(n2d2.getRot());
+			n2s.add(s2qq2);
+		}
+		for(Node n2d: players[2].getNodes()) {
+			Node s2qq3 = new Node(n2d.getX(), n2d.getY(), n2d.getName(), n2d.getSize());
+			s2qq3.setAnimal(n2d.getAnimal());
+			s2qq3.setRot(n2d.getRot());
+			n3s.add(s2qq3);
+		}
 		for(int i=0; i<3; i++) {
 			Player p = players[i];
 			
@@ -706,6 +720,12 @@ public class Game {
 		players[0].getNodes().clear();
 		for(Node kds: n1s) {
 			players[0].getNodes().add(kds);
+		}
+		for(Node kds: n2s) {
+			players[1].getNodes().add(kds);
+		}
+		for(Node kds: n3s) {
+			players[2].getNodes().add(kds);
 		}
 		
 		return scores;

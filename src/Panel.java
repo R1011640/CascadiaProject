@@ -188,7 +188,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		g.fillRect(0,1080-225,1920,225); // border
 		g.fillRect(1920-550,0,550,1080);
 		
-		
+		if(turnsLeft>0) {
+			
 		g.setColor(Color.gray);
 		for(int i=0; i<Math.min(4, first4nodes.size()); i++) { // draw animal tokens & tiles
 			
@@ -235,6 +236,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			}
 		}
 		
+		
 		g.setColor(Color.green); g.fillRect(5, (int)(height*0.85)-35, 150, 100); // rotate button
 		g.setColor(Color.red); g.fillRect(200, (int)(height*0.85)-35, 150, 100); // end turn button
 		g.setFont(new Font("SANS SERIF", 1, 35));
@@ -249,7 +251,19 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		g.drawString("Press 1-3 to see other player's boards.", 520, 35);
 		g.drawString("Use WASD to move your board around, and Space to center your board.", 520, 65);
 		if(spent=='o' && !customOvp.equals("")) g.drawString("Press the overpopulate button again to overpopulate", 520, 95);
-		if(turnsLeft<=0) g.drawString("scoring", 520, 125);
+		//g.drawImage(acorn, (int)(width*0.83), (int)(height*0.84), 50, 50, null);
+		g.drawImage(acorn, (int)(1600*w), (int)(900*h), (int)(50*w), (int)(50*h), null);
+		g.setFont(new Font("SANS SERIF", 1, 25));
+		//g.drawString(game.currentPlayer().getTokens() + "", (int)(width*0.83), (int)(height*0.84));
+		g.drawString(game.currentPlayer().getTokens() + "", (int)(1600*w), (int)(900*h));
+		
+		}
+		
+		if(turnsLeft<=0) {
+			g.setFont(new Font("SERIF", 1, 20));
+			g.setColor(new Color(65, 65, 92));
+			g.drawString("Game is over! Continue to use 1-3 to see other boards and WASD to move the board around.", 520, 35);
+		}
 		
 		if(spent!='n') { // buttons to be shown if a nature token is spend
 			g.setColor(Color.green);
@@ -271,13 +285,9 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			g.drawString("Overpopulate", (int)(1400*w), (int)(845*h));
 		}
 		
-		//g.drawImage(acorn, (int)(width*0.83), (int)(height*0.84), 50, 50, null);
-		g.drawImage(acorn, (int)(1600*w), (int)(900*h), (int)(50*w), (int)(50*h), null);
-		g.setFont(new Font("SANS SERIF", 1, 25));
-		//g.drawString(game.currentPlayer().getTokens() + "", (int)(width*0.83), (int)(height*0.84));
-		g.drawString(game.currentPlayer().getTokens() + "", (int)(1600*w), (int)(900*h));
 		
 		
+		g.setColor(Color.black);
 		if(turnsLeft<=0) {
 			g.setFont(new Font("SERIF", 1, 15));
 			g.drawImage(scoringcard, 0, 0, 188, 406, null);

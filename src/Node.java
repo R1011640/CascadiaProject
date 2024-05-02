@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 public class Node {
 	//public Polygon hexagon;
 	private int x, y, rotation, size;
-	private String availableAnimals, edges;
+	private String availableAnimals, edges, imageName;
 	private BufferedImage img;
 	public char animal;
 	private Node[] nearbyNodes;
@@ -21,6 +21,7 @@ public class Node {
 		} catch (IOException e) {
 			System.out.println("Error");
 		}
+		this.imageName = imageName;
 		rotation = 1;
 		nearbyNodes = new Node[6];
 		this.size = size;
@@ -92,4 +93,6 @@ public class Node {
 	public void setY(int y) {this.y = y;}
 	
 	public int getSize() {return size;}
+	
+	public String getName() {return imageName;}
 }

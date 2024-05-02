@@ -1,6 +1,7 @@
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 import java.io.File;
 
@@ -448,6 +449,14 @@ public class Game {
 	public int[][] scoring2(){
 		int[][] scores = new int[19][3];
 		// 19 rows, 3 columns
+		ArrayList<Node> n1s = new ArrayList<Node>();
+		ArrayList<Node> n2s = new ArrayList<Node>();
+		ArrayList<Node> n3s = new ArrayList<Node>();
+		
+		for(Node n2d: players[0].getNodes()) {
+			//n1s.add(new Node(n2d.getX(), n2d.getY()));
+		}
+		
 		for(int i=0; i<3; i++) {
 			Player p = players[i];
 			
@@ -683,14 +692,21 @@ public class Game {
 			} 
 		}
 		
-		// totals for terrain
+		
 		
 		for(int q=0; q<3; q++) {
+			// totals for terrain
 			scores[16][q] = scores[11][q] + scores[12][q] + scores[13][q] + scores[14][q] + scores[15][q]
 					+ scores[6][q] + scores[7][q] + scores[8][q] + scores[9][q] + scores[10][q];
+			
+			// tally everything up
+			scores[18][q] = scores[16][q] + scores[17][q] + scores[5][q];
 		}
 		
-		// tally everything up
+		players[0].getNodes().clear();
+		for(Node kds: n1s) {
+			players[0].getNodes().add(kds);
+		}
 		
 		return scores;
 	}

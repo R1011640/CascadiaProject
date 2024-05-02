@@ -32,7 +32,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	
 	boolean placed, aplaced, op3; // if player placed a tile or not
 	int[][] s = null;
-	int turnsLeft = 0, viewedPlayer;
+	int turnsLeft = 1, viewedPlayer;
 	static int offsetx, offsety;
 	
 	String customOvp; // used to find what animals will be replaced if a nature token
@@ -104,31 +104,6 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	
 	
 	public void paint(Graphics g) { //                              begin painting
-		
-		if(turnsLeft==0) {
-			g.drawImage(scoringcard, 0, 0, 188, 406, null);
-			if(s==null) s = game.scoring2();
-			g.drawString("P1", 55, 55-23);
-			g.drawString("P2", 55+28, 55-23);
-			g.drawString("P3", 55+56, 55-23);
-			for (int s1=0; s1<5; s1++) { // set s.length to 11 or vice versa
-				for(int s2=0; s2<s[s1].length; s2++) {
-					g.drawString(s[s1][s2]+"", 55+(30*s2), 50+(23*s1));
-				}
-			}
-			for (int s1=5; s1<11; s1++) {
-				for(int s2=0; s2<s[s1].length; s2++) {
-					g.drawString(s[s1][s2]+"", 55+(30*s2), 52+(24*s1));
-				}
-			}
-			for (int s1=11; s1<16; s1++) {
-				for(int s2=0; s2<s[s1].length; s2++) {
-					g.drawString(s[s1][s2]+"", 70+(30*s2), 198+(25*(s1-11)));
-				}
-			}
-			g.drawString(s[16][0]+"", 70, 318);
-			return;
-		}
 		
 		g.drawImage(bg, 0, 0, 1920, 1080, null);
 		g.setFont(new Font("SANS SERIF", 1, 16));
@@ -301,6 +276,41 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		g.setFont(new Font("SANS SERIF", 1, 25));
 		//g.drawString(game.currentPlayer().getTokens() + "", (int)(width*0.83), (int)(height*0.84));
 		g.drawString(game.currentPlayer().getTokens() + "", (int)(1600*w), (int)(900*h));
+		
+		
+		if(turnsLeft<=0) {
+			g.setFont(new Font("SERIF", 1, 15));
+			g.drawImage(scoringcard, 0, 0, 188, 406, null);
+			if(s==null) s = game.scoring2();
+			g.drawString("P1", 55, 55-23);
+			g.drawString("P2", 55+28, 55-23);
+			g.drawString("P3", 55+56, 55-23);
+			for (int s1=0; s1<5; s1++) { // set s.length to 11 or vice versa
+				for(int s2=0; s2<s[s1].length; s2++) {
+					g.drawString(s[s1][s2]+"", 55+(30*s2), 48+(23*s1));
+				}
+			}
+			for (int s1=5; s1<11; s1++) {
+				for(int s2=0; s2<s[s1].length; s2++) {
+					g.drawString(s[s1][s2]+"", 55+(30*s2), 52+(24*s1));
+				}
+			}
+			for (int s1=11; s1<16; s1++) {
+				for(int s2=0; s2<s[s1].length; s2++) {
+					g.drawString(s[s1][s2]+"", 70+(30*s2), 198+(25*(s1-11)));
+				}
+			}
+			g.drawString(s[16][0]+"", 52, 318);
+			g.drawString(s[16][1]+"", 52+32, 318);
+			g.drawString(s[16][2]+"", 52+64, 318);
+			g.drawString(s[17][0]+"", 52, 348);
+			g.drawString(s[17][1]+"", 52+32, 348);
+			g.drawString(s[17][2]+"", 52+64, 348);
+			g.drawString(s[18][0]+"", 52, 378);
+			g.drawString(s[18][1]+"", 52+32, 378);
+			g.drawString(s[18][2]+"", 52+64, 378);
+			return;
+		}
 		
 		
 		

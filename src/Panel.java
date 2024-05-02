@@ -32,7 +32,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	
 	boolean placed, aplaced, op3; // if player placed a tile or not
 	int[][] s = null;
-	int turnsLeft = 1, viewedPlayer;
+	int turnsLeft = 30, viewedPlayer;
 	static int offsetx, offsety;
 	
 	String customOvp; // used to find what animals will be replaced if a nature token
@@ -251,18 +251,20 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		g.drawString("Press 1-3 to see other player's boards.", 520, 35);
 		g.drawString("Use WASD to move your board around, and Space to center your board.", 520, 65);
 		if(spent=='o' && !customOvp.equals("")) g.drawString("Press the overpopulate button again to overpopulate", 520, 95);
-		//g.drawImage(acorn, (int)(width*0.83), (int)(height*0.84), 50, 50, null);
-		g.drawImage(acorn, (int)(1600*w), (int)(900*h), (int)(50*w), (int)(50*h), null);
-		g.setFont(new Font("SANS SERIF", 1, 25));
-		//g.drawString(game.currentPlayer().getTokens() + "", (int)(width*0.83), (int)(height*0.84));
-		g.drawString(game.currentPlayer().getTokens() + "", (int)(1600*w), (int)(900*h));
 		
 		}
+		
+		//g.drawImage(acorn, (int)(width*0.83), (int)(height*0.84), 50, 50, null);
+				g.drawImage(acorn, (int)(1600*w), (int)(900*h), (int)(50*w), (int)(50*h), null);
+				g.setFont(new Font("SANS SERIF", 1, 25));
+				//g.drawString(game.currentPlayer().getTokens() + "", (int)(width*0.83), (int)(height*0.84));
+				g.drawString(game.currentPlayer().getTokens() + "", (int)(1600*w), (int)(900*h));
 		
 		if(turnsLeft<=0) {
 			g.setFont(new Font("SERIF", 1, 20));
 			g.setColor(new Color(65, 65, 92));
 			g.drawString("Game is over! Continue to use 1-3 to see other boards and WASD to move the board around.", 520, 35);
+			g.drawString("Viewing Player #" + (viewedPlayer+1), 520, 75);
 		}
 		
 		if(spent!='n') { // buttons to be shown if a nature token is spend

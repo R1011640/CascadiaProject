@@ -322,7 +322,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			g.drawString(s[18][2]+"", 52+64, 378);
 			
 			g.setFont(new Font("SERIF", 1, 20));
-			g.setColor(new Color(65, 65, 92));
+			g.setColor(new Color(46, 19, 12));
 			
 			g.drawString("Winner = " + whoWon() , 480, 125);
 			return;

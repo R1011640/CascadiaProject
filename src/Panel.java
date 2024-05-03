@@ -574,7 +574,12 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		}
 	}
 	
-	public ArrayList<Player> whoWon(int[][] scores){
+	public String whoWon(int[][] scores){
+		String ret = "";
+		// row 18 is total, row 17 is nature tokens
+		int max = Math.max(scores[18][0], Math.max(scores[18][1], scores[18][2]));
+		int nmax = Math.max(scores[17][0], Math.max(scores[17][1], scores[17][2]));
+		
 		return null;
 	}
 	

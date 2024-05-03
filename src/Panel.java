@@ -32,7 +32,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 	
 	boolean placed, aplaced, op3; // if player placed a tile or not
 	int[][] s = null;
-	int turnsLeft = 3, viewedPlayer;
+	int turnsLeft = 60, viewedPlayer;
 	static int offsetx, offsety;
 	
 	String customOvp; // used to find what animals will be replaced if a nature token
@@ -66,7 +66,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			e.printStackTrace();
 		}
 		
-
+		
 		first4nodes.add(game.getNode()); first4nodes.add(game.getNode());
 		first4nodes.add(game.getNode()); first4nodes.add(game.getNode());
 		
@@ -274,7 +274,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		}
 		
 		
-		if(threeAnimals()!='n' && !op3) { // shows button to overpopulate if 3 animals are the same
+		if(threeAnimals()!='n' && !op3 && turnsLeft>0) { // shows button to overpopulate if 3 animals are the same
 			g.setColor(Color.yellow);
 			g.fillRect((int)(1400*w), (int)(825*h), (int)(200*w), (int)(80*h));
 			g.setFont(new Font("SANS SERIF", 1, (int)(30*w)));

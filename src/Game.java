@@ -739,10 +739,12 @@ public class Game {
 			int other = i+3>6?i-3:i+3;
 			if(n.getEdges().charAt(i-1)==t && 
 					n.getNearbyNode(i).getEdges().charAt(other-1)==t) {
+				System.out.println(n.getEdges() + " " + n.getNearbyNode(i).getEdges());
 				if(!countedNodes.contains(n.getNearbyNode(i)))countedNodes.add(n.getNearbyNode(i));
 				n.setEdges(n.getEdges().substring(0, i-1) + 'n' + n.getEdges().substring(i));
 				n.getNearbyNode(i).setEdges(n.getNearbyNode(i).getEdges().substring(0, other-1) 
 						+ 'n' + n.getNearbyNode(i).getEdges().substring(other));
+				System.out.println(n.getEdges() + " " + n.getNearbyNode(i).getEdges());
 			}
 			}
 			if(n.getEdges().charAt(i-1)==t) n.setEdges(n.getEdges().substring(0, i-1) + 'n' + n.getEdges().substring(i));

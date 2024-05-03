@@ -320,6 +320,11 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			g.drawString(s[18][0]+"", 52, 378);
 			g.drawString(s[18][1]+"", 52+32, 378);
 			g.drawString(s[18][2]+"", 52+64, 378);
+			
+			g.setFont(new Font("SERIF", 1, 20));
+			g.setColor(new Color(65, 65, 92));
+			
+			g.drawString("Winner = " + whoWon() , 480, 125);
 			return;
 		}
 		
@@ -574,13 +579,47 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		}
 	}
 	
-	public String whoWon(int[][] scores){
+	public String whoWon(){
 		String ret = "";
 		// row 18 is total, row 17 is nature tokens
-		int max = Math.max(scores[18][0], Math.max(scores[18][1], scores[18][2]));
-		int nmax = Math.max(scores[17][0], Math.max(scores[17][1], scores[17][2]));
+		int max = Math.max(s[18][0], Math.max(s[18][1], s[18][2]));
+		int nmax = Math.max(s[17][0], Math.max(s[17][1], s[17][2]));
 		
-		return null;
+		if(max==s[18][0] && max==s[18][1] && max==s[18][2]) { // all have same score 
+			if(nmax==s[17][0] && nmax==s[17][1] && nmax==s[17][2]) return "Tie between all players!";
+			else if (nmax==s[17][0] && nmax==s[17][1]) return "Player 1 & Player 2";
+			else if (nmax==s[17][1] && nmax==s[17][2]) return "Player 2 & Player 3";
+			else if (nmax==s[17][0] && nmax==s[17][2]) return "Player 1 & Player 3";
+			else if (nmax==s[17][0]) return "Player 1";
+			else if (nmax==s[17][1]) return "Player 2";
+			else return "Player 3";
+		}
+		
+		else if(max==s[18][0] && max==s[18][1]) { // p1 & p2 have same score
+			if(nmax==s[17][0] && nmax==s[17][1]) return "Player 1 & Player 2";
+			else if (nmax==s[17][0]) return "Player 1";
+			else return "Player 2";
+			
+		}
+		
+		else if(max==s[18][1] && max==s[18][2]) { // p2 & p3 have same score
+			if(nmax==s[17][1] && nmax==s[17][2]) return "Player 2 & Player 3";
+			else if (nmax==s[17][1]) return "Player 2";
+			else return "Player 3";
+			
+		}
+		
+		else if(max==s[18][0] && max==s[18][2]) { // p1 & p3 have same score
+			if(nmax==s[17][0] && nmax==s[17][2]) return "Player 1 & Player 3";
+			else if (nmax==s[17][0]) return "Player 1";
+			else return "Player 3";
+			
+		}
+		
+		else if(max==s[18][0]) return "Player 1";
+		else if(max==s[18][1]) return "Player 2";
+		else return "Player 3";
+		
 	}
 	
 	public void mousePressed(MouseEvent e) {}

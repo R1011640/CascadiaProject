@@ -250,7 +250,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 		g.setFont(new Font("SANS SERIF", 1, 15));
 		g.drawString("Press 1-3 to see other player's boards.", 520, 35);
 		g.drawString("Use WASD to move your board around, and Space to center your board.", 520, 65);
-		g.drawString("Press the acorn to spend a nature token.", 520, 95);
+		g.drawString("Press the acorn to spend a nature token. Press Q to see the scoring cards.", 520, 95);
 		
 		if(spent=='o' && !customOvp.equals("")) g.drawString("Press the overpopulate button again to overpopulate", 520, 125);
 		
@@ -559,22 +559,9 @@ public class Panel extends JPanel implements MouseListener, KeyListener{
 			offsetx = 0; 
 			offsety = 0;
 			break;
-			/*case 'q': // for testing purposes
-			int[][] s = game.scoring2();
-			for(int[] s1: s) {
-				for(int s2: s1) {
-					System.out.print(s2 + " ");
-				}
-				System.out.println("");
-			}
+			case 'q':
+			Runner.scoringCards();	
 			break;
-			case 'e': // for testing purposes
-				for(Node n: game.currentPlayer().getNodes()) {
-					System.out.println(n.getEdges());
-					System.out.println(game.terrainCount('w', n));
-					System.out.println(n.getEdges());
-				}
-			break;*/
 			}
 			repaint();
 			return;

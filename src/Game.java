@@ -540,6 +540,7 @@ public class Game {
 					s.setAnimal('n');
 				}
 				if (s.getNearbyAnimals().indexOf('s')!=s.getNearbyAnimals().lastIndexOf('s')) {
+					count = 0;
 					for(int s2=0; s2<6; s2++) {
 						if(s.getNearbyAnimals().charAt(s2)=='s') {
 							s.getNearbyNode(s2+1).setAnimal('n');
@@ -559,11 +560,13 @@ public class Game {
 			int bpairs = 0; // pairs of bears
 			while(p.findAnimal('b')!=null) {
 				Node b = p.findAnimal('b');
-				if(b.getNearbyAnimals().indexOf('b')==b.getNearbyAnimals().indexOf('b') && b.getNearbyAnimals().indexOf('b')!=-1) {
+				if(b.getNearbyAnimals().indexOf('b')==b.getNearbyAnimals().lastIndexOf('b') && b.getNearbyAnimals().indexOf('b')!=-1) {
 					if(b.getNearbyNode(b.getNearbyAnimals().indexOf('b')+1).getNearbyAnimals().indexOf('b')==
 					   b.getNearbyNode(b.getNearbyAnimals().indexOf('b')+1).getNearbyAnimals().lastIndexOf('b')) {
 						bpairs++;
-					}
+					} else removeAnimal('b', b.getNearbyNode(b.getNearbyAnimals().indexOf('b')+1));
+				} else if (b.getNearbyAnimals().indexOf('b')!=b.getNearbyAnimals().lastIndexOf('b')) {
+					removeAnimal('b', b);
 				}
 				b.setAnimal('n');
 			}
@@ -752,6 +755,10 @@ public class Game {
 		return countedNodes;
 	}
 	
+	public void removeAnimal(char a, Node n) {
+		n.setAnimal('n');
+		for(Node n2: n.getNearbyNodes()) if(n2!=null) if(n2.getAnimal()==a) removeAnimal(a, n2);
+	}
 	
 	public Player currentPlayer() {
 		return players[currentPlayer];

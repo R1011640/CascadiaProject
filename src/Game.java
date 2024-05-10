@@ -755,6 +755,10 @@ public class Game {
 		return countedNodes;
 	}
 	
+	public void removeEdge(char t, Node n, int index) {
+		// recursive function that removes the 2 edges next to it if they match the char t
+		// for scoring purposes
+	}
 	public void removeAnimal(char a, Node n) {
 		n.setAnimal('n');
 		for(Node n2: n.getNearbyNodes()) if(n2!=null) if(n2.getAnimal()==a) removeAnimal(a, n2);
